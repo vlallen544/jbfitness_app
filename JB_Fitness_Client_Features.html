@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JB Fitness — Practical Feature Examples</title>
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #182a2b; font-family: 'Noto Sans', Arial, sans-serif; font-size: 11pt; line-height: 1.6; }
+.page { width: 210mm; height: 297mm; padding: 18mm 19mm 17mm; position: relative; break-after: page; background: #fbfcf9; overflow: hidden; }
+.page:last-child { break-after: auto; }
+.brand { display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid #ccd8d1; padding-bottom: 5mm; margin-bottom: 10mm; }
+.logo { font-weight: 850; letter-spacing: -.8px; font-size: 21pt; }
+.logo span { color: #38745c; }
+.platform { font-size: 8pt; color:#5b7166; letter-spacing:1px; text-transform:uppercase; }
+.eyebrow { font-size: 8pt; letter-spacing: 2px; font-weight:700; color:#38745c; text-transform:uppercase; margin-bottom:3mm; }
+h1 { font-size: 29pt; line-height:1.18; letter-spacing:-1px; margin:0 0 5mm; max-width: 160mm; }
+.intro { color:#53645e; margin:0 0 8mm; font-size:11pt; max-width:160mm; }
+.feature { margin:0 0 4mm; padding:4.5mm 6mm; background:#fff; border:1px solid #dce4dd; border-radius:4mm; break-inside:avoid; }
+.title { display:flex; align-items:center; gap:3mm; margin-bottom:2mm; }
+.number { color:#38745c; font-size:9pt; font-weight:700; background:#eaf2e7; border-radius:2mm; padding:1mm 2mm; }
+h2 { font-size:14pt; line-height:1.3; margin:0; letter-spacing:-.3px; }
+p { margin:0 0 2mm; }
+.benefit { color:#225d45; margin:2.5mm 0 0; font-size:10.5pt; }
+.benefit strong { font-weight:750; }
+.note { font-size:9pt; color:#607269; padding-left:1mm; }
+.footer { position:absolute; bottom:12mm; left:19mm; right:19mm; border-top:1px solid #ccd8d1; padding-top:3mm; display:flex; justify-content:space-between; font-size:8pt; color:#64776b; }
+</style>
+</head>
+<body>
+<section class="page">
+  <div class="brand"><div class="logo">JB <span>FITNESS</span></div><div class="platform">iOS &amp; Android</div></div>
+  <div class="eyebrow">Proposed app · Practical examples</div>
+  <h1>Profile &amp; workouts</h1>
+  <article class="feature">
+    <div class="title"><span class="number">01</span><h2>Personal fitness profile</h2></div>
+    <p>A customer enters: “I’m a beginner, weigh 80 kg, want to lose weight, eat vegetarian food and have only dumbbells at home.” These details are saved in their profile for workout and meal recommendations.</p>
+  </article>
+  <article class="feature">
+    <div class="title"><span class="number">02</span><h2>AI-assisted workout planning</h2></div>
+    <p>A customer enters their current routine, available days and equipment. AI reviews the routine, creates a personalized workout and checks it against their recorded needs before presenting it. After a session, the customer reports “The final set felt too difficult,” giving AI context for its next review.</p>
+  </article>
+  <article class="feature">
+    <div class="title"><span class="number">03</span><h2>Exercise demonstrations</h2></div>
+    <p>A customer on the ₹3,000 plan sees “Dumbbell row” in today’s workout. They tap the exercise and watch its demonstration video from the app’s library. The video has already been generated and stored, so they can play it again whenever they need a reference during their active membership.</p>
+  </article>
+  <div class="footer"><span>JB FITNESS · Feature overview</span><span>01 / 04</span></div>
+</section>
+<section class="page">
+  <div class="brand"><div class="logo">JB <span>FITNESS</span></div><div class="platform">Daily consistency</div></div>
+  <div class="eyebrow">Practical examples</div>
+  <h1>Food &amp; daily habits</h1>
+  <article class="feature">
+    <div class="title"><span class="number">04</span><h2>Food &amp; nutrition tracking</h2></div>
+    <p>After lunch, a customer selects cooked rice and dal, enters 150 g of rice and 100 g of dal, and saves the meal. The app adds the estimated calories and nutrients to the day’s total. They check how much of their daily protein target remains before choosing dinner.</p>
+  </article>
+  <article class="feature">
+    <div class="title"><span class="number">05</span><h2>Daily habit tracker</h2></div>
+    <p>A customer creates “Log my meals” with a target of 25 days this month. Each evening, they tick the habit in Today. After 10 completed days, the monthly grid shows 10 checkmarks and “10 / 25 days.” They can also track walking, water or a bedtime routine.</p>
+  </article>
+  <article class="feature">
+    <div class="title"><span class="number">06</span><h2>Personal reminders &amp; notifications</h2></div>
+    <p>A customer sets a workout reminder for 6:30 pm and a meal-log reminder for 8:30 pm. On a coaching day, they also receive a notification before their booked call. Tapping it opens the session details.</p>
+  </article>
+  <div class="footer"><span>JB FITNESS · Feature overview</span><span>02 / 04</span></div>
+</section>
+<section class="page">
+  <div class="brand"><div class="logo">JB <span>FITNESS</span></div><div class="platform">Progress &amp; coaching</div></div>
+  <div class="eyebrow">Practical examples</div>
+  <h1>Progress &amp; coaching</h1>
+  <article class="feature">
+    <div class="title"><span class="number">07</span><h2>Body progress &amp; photo comparisons</h2></div>
+    <p>A customer records their weight, waist measurement and a progress photo on the first day of the month. Four weeks later, they add new records and compare the two dates. Their assigned trainer reviews the records the customer has agreed to share.</p>
+  </article>
+  <article class="feature">
+    <div class="title"><span class="number">08</span><h2>Personal trainer communication</h2></div>
+    <p>A customer writes in the app’s chat: “I’m travelling this week and won’t have gym equipment.” The AI coach suggests changes using their profile. If it cannot resolve the request, it passes the conversation to the trainer with a summary. Eligible customers can also join their included live video sessions.</p>
+  </article>
+  <article class="feature">
+    <div class="title"><span class="number">09</span><h2>AI fitness assistant &amp; weekly insights</h2></div>
+    <p>A vegetarian customer asks, “Suggest a protein-rich dinner using paneer and dal.” The AI assistant offers meal ideas. At the end of the week, it summarizes their actual logs: “You completed 3 of 4 planned workouts and logged meals on 5 days.”</p>
+  </article>
+  <div class="footer"><span>JB FITNESS · Feature overview</span><span>03 / 04</span></div>
+</section>
+<section class="page">
+  <div class="brand"><div class="logo">JB <span>FITNESS</span></div><div class="platform">Membership &amp; convenience</div></div>
+  <div class="eyebrow">Practical examples</div>
+  <h1>Membership &amp; shopping</h1>
+  <article class="feature">
+    <div class="title"><span class="number">10</span><h2>Memberships &amp; payments</h2></div>
+    <p>A customer chooses the ₹10,000 plan for one month and receives all ₹3,000-plan features plus 10 live video coaching sessions. A customer choosing the ₹20,000 plan receives all lower-plan features with 25 video sessions in total. After payment verification, the selected plan becomes active, and the customer receives a reminder before expiry.</p>
+  </article>
+  <article class="feature">
+    <div class="title"><span class="number">11</span><h2>Supplement store &amp; order tracking</h2></div>
+    <p>A customer opens a protein supplement listing, checks its ingredients and price, adds one pack to the cart and pays. They later open Orders to see the shipment update and tracking details added by the store team.</p>
+  </article>
+  <article class="feature">
+    <div class="title"><span class="number">12</span><h2>Private records &amp; coordinated service</h2></div>
+    <p>A customer allows their assigned trainer to review progress photos; another customer cannot access those photos. The owner assigns the trainer through the dashboard, and the store team updates a supplement order there. The customer can also request account deletion.</p>
+  </article>
+  <div class="footer"><span>JB FITNESS · Feature overview</span><span>04 / 04</span></div>
+</section>
+</body>
+</html>

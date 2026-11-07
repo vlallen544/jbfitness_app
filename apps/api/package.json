@@ -1,0 +1,36 @@
+{
+  "name": "@jbfitness/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env --import tsx --watch src/main.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node --env-file-if-exists=.env dist/main.js",
+    "test": "node --import tsx --test test/plans.test.ts test/membership-policy.test.ts test/workout-policy.test.ts",
+    "db:migrate": "node --env-file-if-exists=.env --import tsx scripts/migrate.ts",
+    "ai:reviews": "node --env-file-if-exists=.env --import tsx scripts/ai-review-queue.ts",
+    "staff:role": "node --env-file-if-exists=.env --import tsx scripts/staff-role.ts",
+    "test:dashboard": "node --env-file-if-exists=.env --import tsx --test test/dashboard.integration.ts",
+    "test:integration": "node --env-file-if-exists=.env --import tsx --test test/auth.integration.ts test/membership.integration.ts test/workout.integration.ts test/habits.integration.ts test/nutrition.integration.ts test/meal-estimates.integration.ts test/body-progress.integration.ts test/ai-planning.integration.ts test/coaching.integration.ts test/staff.integration.ts test/sessions.integration.ts",
+    "dev:membership": "node --env-file-if-exists=.env --import tsx scripts/grant-test-membership.ts",
+    "dev:workouts": "node --env-file-if-exists=.env --import tsx scripts/seed-test-workouts.ts",
+    "media:attach": "node --env-file-if-exists=.env --import tsx scripts/attach-exercise-video.ts",
+    "catalogue:import": "node --env-file-if-exists=.env --import tsx scripts/import-exercise.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^12.3.3",
+    "@nestjs/core": "^12.3.3",
+    "@nestjs/platform-express": "^12.3.3",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "sharp": "^0.35.5",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "@types/pg": "^8.15.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "jbfitness", "version": "0.1.0", "private": true,
+  "workspaces": ["apps/api", "apps/admin"],
+  "scripts": {
+    "dev:api": "npm run dev --workspace @jbfitness/api",
+    "dev:admin": "npm run dev --workspace @jbfitness/admin",
+    "dev:mobile": "node scripts/serve-mobile.mjs",
+    "setup:db": "node scripts/setup-db.mjs",
+    "db:up": "docker compose --env-file infra/.env -f infra/compose.yaml up -d --wait db",
+    "db:migrate": "npm run db:migrate --workspace @jbfitness/api",
+    "test:integration": "npm run test:integration --workspace @jbfitness/api",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspace @jbfitness/api"
+  }
+}
