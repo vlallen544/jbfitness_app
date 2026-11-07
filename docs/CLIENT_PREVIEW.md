@@ -1,5 +1,7 @@
 # Client preview build
 
+[Download the APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.0-preview.1/JB_Fitness_Client_Preview.apk), or open the [GitHub preview release](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.0-preview.1) and choose **JB_Fitness_Client_Preview.apk** under Assets. The published asset's SHA-256 digest matches the verified local APK. Install on an Android phone and open **JB Fitness**; no login is needed.
+
 The separate `lib/main_preview.dart` entry point opens directly into a sample customer account. The normal `lib/main.dart` app remains connected to the real API. A persistent banner identifies the offline demo on every route. Its HTTP adapter has no network delegate, backend URL, real account credentials or AI key.
 
 The client can review Today, habit checkmarks/monthly grids, workout schedules and details, exercise logging, membership comparison, profile fields, sample nutrition, progress charts, trainer feedback and session history. Habit checks, workout logging and profile edits are simulated in memory and reset when the process restarts. Nutrition/measurements are sample read-only records. Unsupported mutations return an explicit unavailable message. Video playback has no supplied client media. Payments, live AI, calls and uploads are not simulated as functioning services. Example historical session terms are illustrative, not confirmed client policy.

@@ -4,6 +4,8 @@ Mobile customer app for iOS and Android, with a separate trainer/admin dashboard
 
 ## Current milestone
 
+[Download the Android preview APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.0-preview.1/JB_Fitness_Client_Preview.apk) · [Release and installation files](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.0-preview.1)
+
 The Android client-preview APK is built and signature/checksum verified. This offline demo opens a sample customer account and labels sample data on every screen; it needs no API server or real credentials. Generate the local `artifacts/client-preview/` handover folder with `bash scripts/build-client-preview.sh`; it contains the APK, installation instructions, package details and SHA-256 checksums. Generated APKs and handover files are excluded from Git. Physical-phone testing remains pending. See [client preview instructions](docs/CLIENT_PREVIEW.md) and [phone screenshot](docs/previews/client-offline-today.png).
 
 Working email/password accounts, fitness-profile onboarding/editing, secure sessions and PostgreSQL persistence are now joined by membership tracking: current/next periods, expiry, history, inherited entitlements and session balances. Customer records are isolated; assigned trainers need customer sharing consent. Today now uses saved customer habits, with monthly targets, weekly/monthly grids and retained history. Checkout, real payment verification, live AI, video calls, store fulfilment, email verification and password recovery are not connected. Use test details in this local development environment.
