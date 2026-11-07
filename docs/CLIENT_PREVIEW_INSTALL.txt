@@ -1,5 +1,7 @@
 JB FITNESS — CLIENT PREVIEW
 
+If you downloaded JB_Fitness_Client_Preview.zip, extract it first.
+
 1. Copy JB_Fitness_Client_Preview.apk to an Android phone.
 2. Open the file and allow installation from that source if Android asks.
 3. Open JB Fitness. The sample account opens automatically; no login is needed.

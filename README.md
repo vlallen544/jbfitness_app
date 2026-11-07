@@ -4,7 +4,9 @@ Mobile customer app for iOS and Android, with a separate trainer/admin dashboard
 
 ## Current milestone
 
-[Download the Android preview APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.0-preview.1/JB_Fitness_Client_Preview.apk) · [Release and installation files](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.0-preview.1)
+[Download the smaller preview ZIP (78 MiB)](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.0-preview.1/JB_Fitness_Client_Preview.zip) · [Direct APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.0-preview.1/JB_Fitness_Client_Preview.apk) · [Release and installation files](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.0-preview.1)
+
+Extract the ZIP, then open `JB_Fitness_Client_Preview.apk` on an Android phone. The ZIP contains the same signature-verified APK with a smaller download size.
 
 The Android client-preview APK is built and signature/checksum verified. This offline demo opens a sample customer account and labels sample data on every screen; it needs no API server or real credentials. Generate the local `artifacts/client-preview/` handover folder with `bash scripts/build-client-preview.sh`; it contains the APK, installation instructions, package details and SHA-256 checksums. Generated APKs and handover files are excluded from Git. Physical-phone testing remains pending. See [client preview instructions](docs/CLIENT_PREVIEW.md) and [phone screenshot](docs/previews/client-offline-today.png).
 
