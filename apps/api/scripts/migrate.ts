@@ -1,17 +1,28 @@
 import { readdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { Pool } from "pg";
+import { Pool, type PoolClient } from "pg";
+import { migrationFailure } from "./migration-error";
 
+let stage = "configuration";
 async function migrate() {
-  if (!process.env.DATABASE_URL)
-    throw new Error("Set DATABASE_URL; run npm run setup:db first.");
+  if (!process.env.DATABASE_URL) {
+    console.error("Migration configuration error: DATABASE_URL is missing. Set it in the hosting service's private environment variables.");
+    process.exitCode = 1;
+    return;
+  }
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     connectionTimeoutMillis: 5000,
   });
-  const client = await pool.connect();
+  let client: PoolClient | undefined;
+  let locked = false;
   try {
+    stage = "database connection";
+    client = await pool.connect();
+    stage = "migration lock";
     await client.query("SELECT pg_advisory_lock(73121501)");
+    locked = true;
+    stage = "migration table setup";
     await client.query(
       "CREATE TABLE IF NOT EXISTS schema_migrations (version text PRIMARY KEY, applied_at timestamptz NOT NULL DEFAULT now())",
     );
@@ -19,6 +30,7 @@ async function migrate() {
     for (const file of (await readdir(folder))
       .filter((name) => /^\d+.*\.sql$/.test(name))
       .sort()) {
+      stage = `migration ${file}`;
       if (
         (
           await client.query(
@@ -44,14 +56,15 @@ async function migrate() {
     }
     console.log("Database migrations are up to date.");
   } finally {
-    await client.query("SELECT pg_advisory_unlock(73121501)");
-    client.release();
-    await pool.end();
+    try {
+      if (client && locked) await client.query("SELECT pg_advisory_unlock(73121501)");
+    } finally {
+      client?.release();
+      await pool.end();
+    }
   }
 }
-migrate().catch(() => {
-  console.error(
-    "Migration failed. Check database connectivity and migration state.",
-  );
+migrate().catch((error: unknown) => {
+  console.error(migrationFailure(error, stage));
   process.exitCode = 1;
 });

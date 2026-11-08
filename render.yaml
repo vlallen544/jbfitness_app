@@ -1,0 +1,53 @@
+# Free demo only. See docs/FREE_DEMO_DEPLOYMENT.md before creating resources.
+# Supabase supplies Postgres; no expiring Render database or paid disk is created.
+services:
+  - type: web
+    name: jbfitness-api-demo
+    runtime: node
+    region: singapore
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build --workspace @jbfitness/api
+    startCommand: npm run db:migrate --workspace @jbfitness/api && npm start --workspace @jbfitness/api
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: DATABASE_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: MEDIA_SIGNING_KEY
+        generateValue: true
+      - key: ENABLE_DEV_MEMBERSHIPS
+        value: "false"
+      - key: ENABLE_DEV_WORKOUTS
+        value: "false"
+      - key: ENABLE_MEAL_AI
+        value: "false"
+      - key: ENABLE_WORKOUT_AI
+        value: "false"
+      - key: ENABLE_COACHING_AI
+        value: "false"
+      - key: ENABLE_SESSION_BOOKING
+        value: "false"
+  - type: web
+    name: jbfitness-admin-demo
+    runtime: node
+    region: singapore
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build --workspace @jbfitness/admin
+    startCommand: node node_modules/next/dist/bin/next start apps/admin --hostname 0.0.0.0 --port "$PORT"
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NODE_ENV
+        value: production
+      - key: API_URL
+        sync: false
+      - key: DASHBOARD_ORIGIN
+        sync: false

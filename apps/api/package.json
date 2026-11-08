@@ -6,7 +6,7 @@
     "dev": "node --env-file-if-exists=.env --import tsx --watch src/main.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node --env-file-if-exists=.env dist/main.js",
-    "test": "node --import tsx --test test/plans.test.ts test/membership-policy.test.ts test/workout-policy.test.ts",
+    "test": "node --import tsx --test test/plans.test.ts test/membership-policy.test.ts test/workout-policy.test.ts test/migration-error.test.ts",
     "db:migrate": "node --env-file-if-exists=.env --import tsx scripts/migrate.ts",
     "ai:reviews": "node --env-file-if-exists=.env --import tsx scripts/ai-review-queue.ts",
     "staff:role": "node --env-file-if-exists=.env --import tsx scripts/staff-role.ts",

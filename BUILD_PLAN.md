@@ -153,4 +153,13 @@ Deliverable: approved iOS/Android releases and monitoring/support ownership.
 
 ## Remaining decisions
 
+Free hosted demo rollout (configuration: `render.yaml`, walkthrough: `docs/FREE_DEMO_DEPLOYMENT.md`):
+
+- [x] Prepare explicit free-plan API/dashboard deployment commands and private environment configuration.
+- [ ] Create/connect free Supabase and Render resources; apply migrations and verify HTTPS endpoints.
+- [ ] Provision hosted staff/customer accounts and verify dashboard/profile persistence.
+- [ ] Add hosted demo membership activation and workout content without enabling local fixtures in production.
+- [ ] Connect private object storage and choose an AI provider within the agreed free budget.
+- [ ] Build/test a connected APK against the hosted backend; preserve the labelled offline preview separately.
+
 Login method, exact month-expiry/renewal rules, session duration/cancellation, AI usage limits, trainer handoff policy, food/provider licensing, delivery/refunds, budget and launch date. These do not block the foundation milestone.

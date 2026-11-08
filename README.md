@@ -2,6 +2,8 @@
 
 Mobile customer app for iOS and Android, with a separate trainer/admin dashboard and API.
 
+Free hosted demo preparation: [setup guide](docs/FREE_DEMO_DEPLOYMENT.md) and [Render Blueprint](render.yaml). The API/dashboard use Render Free and the database uses Supabase Free. Hosting is not yet configured; the published APK below remains the offline sample preview. Live AI, private object storage and other providers need separate integration.
+
 ## Current milestone
 
 [Download the smaller preview ZIP (78 MiB)](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.1-preview.1/JB_Fitness_Client_Preview.zip) · [Direct APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.1-preview.1/JB_Fitness_Client_Preview.apk) · [Release and installation files](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.1-preview.1)
