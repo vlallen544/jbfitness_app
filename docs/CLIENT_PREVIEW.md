@@ -1,4 +1,6 @@
-# Client preview build
+# Earlier offline client preview
+
+The current connected build is documented in [CONNECTED_DEMO.md](CONNECTED_DEMO.md). The 0.1.2 download below is retained as an earlier offline demo with the superseded timed splash. Rebuilding the offline entry point from current source uses the new four-page feature walkthrough.
 
 [Download the smaller ZIP (about 78 MiB)](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.2-preview.1/JB_Fitness_Client_Preview.zip), extract it and open **JB_Fitness_Client_Preview.apk** on an Android phone. The ZIP contains the unchanged signature-verified APK, instructions and its checksum. The installed app size is unchanged. A separate ZIP checksum is published with the release.
 

@@ -2,17 +2,17 @@
 
 Mobile customer app for iOS and Android, with a separate trainer/admin dashboard and API.
 
-Free hosted demo: [dashboard](https://jbfitness-app-1.onrender.com), [API health](https://jbfitness-app.onrender.com/api/v1/health), [setup guide](docs/FREE_DEMO_DEPLOYMENT.md) and [Render Blueprint](render.yaml). The API/dashboard use Render Free and the database uses Supabase Free. The published APK below remains the offline sample preview. Live AI, private object storage and other providers need separate integration.
+Free hosted demo: [dashboard](https://jbfitness-app-1.onrender.com), [API health](https://jbfitness-app.onrender.com/api/v1/health), [setup guide](docs/FREE_DEMO_DEPLOYMENT.md) and [Render Blueprint](render.yaml). The API/dashboard use Render Free and the database uses Supabase Free. The current demo APK below connects to the hosted API and real login. Live AI, private object storage and other providers need separate integration.
 
 ## Current milestone
 
-New: [redesigned staff workspace](docs/previews/staff-trainer-inbox.png) and [animated mobile intro](docs/previews/fitness-intro.gif). The intro can be skipped and respects reduced-motion settings. Read the [feature and verification notes](docs/WORKSPACE_AND_INTRO.md).
+New: [redesigned staff workspace](docs/previews/staff-trainer-inbox.png) and [animated mobile intro](docs/previews/fitness-intro.gif). The four feature pages wait for the user, can be skipped, remember completion and respect reduced-motion settings. Read the [feature and verification notes](docs/WORKSPACE_AND_INTRO.md).
 
-[Download the smaller preview ZIP (78 MiB)](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.2-preview.1/JB_Fitness_Client_Preview.zip) · [Direct APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.2-preview.1/JB_Fitness_Client_Preview.apk) · [Release and installation files](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.2-preview.1)
+[Download the connected Android demo ZIP](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.3-demo.1/JB_Fitness_Connected_Demo.zip) · [Direct APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.3-demo.1/JB_Fitness_Connected_Demo.apk) · [Release files](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.3-demo.1)
 
-Extract the ZIP, then open `JB_Fitness_Client_Preview.apk` on an Android phone. The ZIP contains the same signature-verified APK with a smaller download size.
+Version 0.1.3 replaces the timed splash with four animated feature explanations and connects to the hosted backend. Pages wait for Next/Back/swipe; completion leads to real login or account creation and is remembered on the device. No sample customer is signed in automatically. Extract the ZIP and install its APK. Read the [connected demo instructions](docs/CONNECTED_DEMO.md).
 
-The Android client-preview APK is built and signature/checksum verified. This offline demo opens a sample customer account and labels sample data on every screen; it needs no API server or real credentials. Generate the local `artifacts/client-preview/` handover folder with `bash scripts/build-client-preview.sh`; it contains the APK, installation instructions, package details and SHA-256 checksums. Generated APKs and handover files are excluded from Git. Physical-phone testing remains pending. See [client preview instructions](docs/CLIENT_PREVIEW.md) and [phone screenshot](docs/previews/red-theme-today.png).
+The previous [offline 0.1.2 preview](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.2-preview.1) remains available for sample-data review. It contains the superseded short splash. The optional offline source entry point now uses the new walkthrough, still with a persistent sample-data banner. Use `bash scripts/build-client-preview.sh` to rebuild that separate variant.
 
 Working email/password accounts, fitness-profile onboarding/editing, secure sessions and PostgreSQL persistence are now joined by membership tracking: current/next periods, expiry, history, inherited entitlements and session balances. Customer records are isolated; assigned trainers need customer sharing consent. Today now uses saved customer habits, with monthly targets, weekly/monthly grids and retained history. Checkout, real payment verification, live AI, video calls, store fulfilment, email verification and password recovery are not connected. Use test details in this local development environment.
 
@@ -56,7 +56,7 @@ Meal estimate previews: [input](docs/previews/meal-estimate-input.png), [editabl
 
 Session reservations add **Today → Live coaching sessions** and a staff **Session calendar** at `/sessions`. The software handles trainer availability, held/used/available credits, booking confirmation, saved cancellation rules, staff withdrawal and audited manual attendance. Actual client rules and the video service are unconfigured, so new customer bookings remain disabled. See [docs/SESSIONS.md](docs/SESSIONS.md) and the [owner rules](docs/previews/sessions-owner-rules.png), [trainer calendar](docs/previews/sessions-trainer-calendar.png) and [phone layout](docs/previews/sessions-mobile-calendar.png) previews. Browser walkthrough rules are temporary technical fixtures.
 
-Current verification: 111 API integration checks, 9 dashboard boundary/provisioning checks and 66 Flutter tests pass, with clean Flutter analysis and successful API, admin-dashboard, Flutter web and offline Android debug APK builds. APK signature and checksum checks pass. Physical-device testing, iOS builds and live AI evaluation remain pending.
+Current verification: 111 API integration checks, 9 dashboard boundary/provisioning checks and 68 Flutter tests pass, with clean Flutter analysis and successful API, admin-dashboard and connected Android demo builds. APK signature and checksum checks pass. Physical-device testing, iOS builds and live AI evaluation remain pending.
 
 Saved habits: **Today → Add habit / View tracking**. An active membership enables writes; expired members can read their own history. New accounts start with an empty checklist. See [docs/HABITS.md](docs/HABITS.md) for date, target, archival and concurrency rules. Verification: 38 database integration checks and 24 Flutter tests pass; Flutter analysis and API compilation are clean.
 

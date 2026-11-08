@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:jbfitness/account.dart';
 import 'package:jbfitness/main.dart';
+import 'package:jbfitness/intro_store.dart';
 import 'package:jbfitness/workout_pages.dart';
 import 'package:jbfitness/app_theme.dart';
 
@@ -316,7 +317,9 @@ void main() {
           jsonResponse(r.url.path.endsWith(workoutId) ? detail() : week()),
     );
     addTearDown(account.dispose);
-    await tester.pumpWidget(JBFitnessApp(account: account));
+    await tester.pumpWidget(
+      JBFitnessApp(account: account, introStore: MemoryIntroStore(seen: true)),
+    );
     await tester.pumpAndSettle();
     await tapVisible(tester, find.text('Workouts'));
     await tapVisible(tester, find.text('Test session'));

@@ -1,6 +1,6 @@
 # Free hosted demo
 
-This is the deployment preparation for the connected demo, not a claim that services are already live. The current published APK is still an offline preview. No paid resources, live payments or AI calls are enabled by this configuration.
+This guide reproduces the free hosted demo setup. The current connected APK and its account flow are documented in [CONNECTED_DEMO.md](CONNECTED_DEMO.md); the earlier offline preview is retained separately. No paid resources, live payments or AI calls are enabled by this configuration.
 
 ## Services
 

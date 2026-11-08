@@ -16,7 +16,11 @@ The actual offline preview was inspected at phone size: [Today](previews/red-the
 
 The admin/trainer dashboard now shares the mobile red, white-background and black palette. Its global stylesheet defines the same red (`#D71920`), bright red on black (`#FF6268`), black (`#111111`), white and neutral gray roles. This covers staff sign-in, navigation, summary cards, customer assignments, review/publication controls, session calendar and membership catalogue. Focus indicators and form controls use red; badge states retain text labels. No account, permission or API behavior changed.
 
-## Workspace redesign and animated intro — version 0.1.2
+## Current feature walkthrough — version 0.1.3
+
+The timed splash is superseded by four user-controlled animated feature previews: workout planning, meal estimates, habits/progress and coaching. Next, Back, swipe and skip are available without a viewing timer. Completion is remembered, login is the next step for signed-out users, and the tour can be replayed from login. The current Android demo uses the hosted backend. See [walkthrough details](WORKSPACE_AND_INTRO.md) and [connected demo](CONNECTED_DEMO.md).
+
+## Earlier workspace redesign and splash — version 0.1.2
 
 The dashboard now has a dark navigation rail, an illustrated coaching overview, four record-based metrics, compact customer/review cards and a workload ring. The ring reflects the open/resolved items in view; no reviews show an empty state rather than an invented score. Original SVG artwork, clear navigation to the calendar/catalogue and reduced-motion-aware entry transitions complete the workspace.
 

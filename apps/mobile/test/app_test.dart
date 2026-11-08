@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jbfitness/main.dart';
+import 'package:jbfitness/intro_store.dart';
 import 'package:jbfitness/app_theme.dart';
 import 'package:jbfitness/today_page.dart';
 
@@ -53,7 +54,9 @@ void main() {
   ) async {
     final account = await signedInAccount();
     addTearDown(account.dispose);
-    await tester.pumpWidget(JBFitnessApp(account: account));
+    await tester.pumpWidget(
+      JBFitnessApp(account: account, introStore: MemoryIntroStore(seen: true)),
+    );
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
       find.text('0 / 3'),

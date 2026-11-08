@@ -4,7 +4,7 @@ If you downloaded JB_Fitness_Client_Preview.zip, extract it first.
 
 1. Copy JB_Fitness_Client_Preview.apk to an Android phone.
 2. Open the file and allow installation from that source if Android asks.
-3. Open JB Fitness. Watch the short fitness intro, or tap Skip intro/Let's move.
+3. Open JB Fitness. Explore the feature walkthrough using Next/Back/swipe, or tap Skip intro.
    The sample account then opens automatically; no login is needed.
 
 Explore Today, Workouts, Plans and Profile. Today also links to habit grids,

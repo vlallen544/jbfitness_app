@@ -10,6 +10,7 @@ import 'workout_pages.dart';
 import 'app_theme.dart';
 import 'today_page.dart' as dashboard;
 import 'fitness_intro.dart';
+import 'intro_store.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,13 @@ void main() {
 class JBFitnessApp extends StatefulWidget {
   final AccountController? account;
   final bool preview;
-  const JBFitnessApp({super.key, this.account, this.preview = false});
+  final IntroStore? introStore;
+  const JBFitnessApp({
+    super.key,
+    this.account,
+    this.preview = false,
+    this.introStore,
+  });
   @override
   State<JBFitnessApp> createState() => _JBFitnessAppState();
 }
@@ -29,6 +36,37 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
   String? _userId;
   bool _introFinished = false;
+  bool _introReady = false;
+  late final IntroStore _introStore;
+
+  Future<void> _restoreIntro() async {
+    var seen = false;
+    try {
+      seen = await _introStore.hasCompleted();
+    } catch (_) {
+      // An unavailable nonessential preference must not block account access.
+    }
+    if (mounted) {
+      setState(() {
+        _introFinished = seen;
+        _introReady = true;
+      });
+    }
+  }
+
+  void _finishIntro() {
+    setState(() => _introFinished = true);
+    unawaited(_rememberIntro());
+  }
+
+  Future<void> _rememberIntro() async {
+    try {
+      await _introStore.complete();
+    } catch (_) {
+      // Continue to login even if the device cannot persist this preference.
+    }
+  }
+
   void _identityChanged() {
     final next = account.user?['id'] as String?;
     if (next == _userId) {
@@ -45,6 +83,8 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
   @override
   void initState() {
     super.initState();
+    _introStore = widget.introStore ?? SecureIntroStore();
+    unawaited(_restoreIntro());
     account =
         widget.account ??
         AccountController(api: AccountApi(), store: SecureSessionStore());
@@ -105,10 +145,13 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
     home: ListenableBuilder(
       listenable: account,
       builder: (context, _) {
-        if (!_introFinished) {
-          return FitnessIntro(
-            onFinished: () => setState(() => _introFinished = true),
+        if (!_introReady) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
           );
+        }
+        if (!_introFinished) {
+          return FitnessIntro(onFinished: _finishIntro);
         }
         if (account.booting) {
           return const Scaffold(

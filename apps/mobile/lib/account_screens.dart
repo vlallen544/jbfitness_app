@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'fitness_intro.dart';
 
 class SignInPage extends StatefulWidget {
   final AccountController account;
@@ -250,6 +251,19 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
               const SizedBox(height: 22),
+              TextButton.icon(
+                onPressed: _busy
+                    ? null
+                    : () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (tourContext) => FitnessIntro(
+                            onFinished: () => Navigator.of(tourContext).pop(),
+                          ),
+                        ),
+                      ),
+                icon: const Icon(Icons.play_circle_outline_rounded, size: 18),
+                label: const Text('Explore app features'),
+              ),
               const Text(
                 'Development environment • use test details. Email verification and password recovery will be connected before public launch.',
                 style: TextStyle(

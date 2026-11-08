@@ -1,0 +1,34 @@
+JB FITNESS — CONNECTED ANDROID DEMO
+
+1. Extract JB_Fitness_Connected_Demo.zip.
+2. Install JB_Fitness_Connected_Demo.apk on your Android phone.
+3. On the first launch, explore the four feature previews using Next, Back
+   or a swipe. Nothing advances automatically. Skip intro goes to login.
+4. Sign in with a customer account, or select New here? Create an account.
+5. Complete your profile. Records are saved to the hosted demo database.
+
+An internet connection is required. This build connects to:
+https://jbfitness-app.onrender.com/api/v1
+
+The feature-preview scenes use labelled example data. Completing or skipping
+the tour remembers that choice on this device. Use Explore app features on
+the login page to replay it. A valid saved session opens your normal account.
+
+Use a separate CUSTOMER account for the mobile app. Administrator/trainer
+accounts sign in through https://jbfitness-app-1.onrender.com instead.
+
+Creating a customer account does not charge money or activate a membership.
+AI, checkout and live-call providers are not activated. Some app features
+require a membership and supplied content; account creation alone will not
+unlock them. Supplement fulfilment and notifications remain pending.
+
+Free hosting can sleep. If the first request times out, wait for the service
+to wake, then retry. Keep the database project active before a client demo.
+
+The APK can update the previous development preview because it uses the
+same package and signing key with a higher version code. Clear app data only
+if you intentionally want to remove local sessions and tour preferences.
+
+This development-signed Android build is for testing. Physical-device checks
+are still required. It does not install on iPhones; iOS needs macOS/Xcode
+and its own signing/distribution setup.

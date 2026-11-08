@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jbfitness/main.dart';
+import 'package:jbfitness/intro_store.dart';
 import 'package:jbfitness/preview/preview_account.dart';
 import 'package:jbfitness/nutrition_page.dart';
 import 'package:jbfitness/progress_page.dart';
@@ -52,7 +53,13 @@ void main() {
     (tester) async {
       final account = createPreviewAccount();
       addTearDown(account.dispose);
-      await tester.pumpWidget(JBFitnessApp(account: account, preview: true));
+      await tester.pumpWidget(
+        JBFitnessApp(
+          account: account,
+          preview: true,
+          introStore: MemoryIntroStore(seen: true),
+        ),
+      );
       await tester.pumpAndSettle();
       expect(
         find.text('OFFLINE DEMO · Sample data · Resets on restart'),
