@@ -2,6 +2,16 @@
 
 Flutter remains the customer app framework for iOS and Android. This is an original interface built around JB Fitness's existing account, workout and membership flows.
 
+## Current mobile palette — version 0.1.1
+
+The user requested red, white backgrounds and black. White (`#FFFFFF`) is the app canvas and form/card surface. Black (`#111111`) anchors headlines and summary panels. Red (`#D71920`) is used for primary actions, selection and active controls; a lighter red (`#FF6268`) keeps small labels and chart lines readable on black. Supporting borders and text use neutral grays. The app stays light when the phone uses dark mode, and the Android launcher uses the matching red/black JB mark.
+
+The shared palette covers Today, sign-in/profile, workouts/video controls, membership, habit grids, nutrition, meal estimates, progress charts, coaching, planning, trainer feedback and session history. Hard-coded green tints were replaced alongside the shared theme. White-on-red button contrast is 5.19:1; red labels on black are 6.47:1.
+
+All 63 Flutter tests pass, analysis is clean, and web plus Android debug preview builds pass. APK signature, package version 0.1.1/code 2, all three ABIs and ZIP checksums are verified. Physical Android and iOS checks remain pending.
+
+The actual offline preview was inspected at phone size: [Today](previews/red-theme-today.png), [workouts](previews/red-theme-workouts.png), [plans](previews/red-theme-plans.png), [profile](previews/red-theme-profile.png), [habits](previews/red-theme-habits.png), [nutrition](previews/red-theme-nutrition.png), [progress](previews/red-theme-progress.png). Earlier screenshot sets below retain the previous design for reference.
+
 ## Reference review — 6 November 2026
 
 | Public project | Material reviewed | Useful idea for JB Fitness |
@@ -15,7 +25,7 @@ Reference code, illustrations, photos and branding were not imported. The screen
 
 ## Visual system
 
-- Warm off-white page background, white surfaces, deep green ink and a lime accent.
+- White page backgrounds and surfaces, black ink/summary panels and red accents.
 - Large, compact headlines; small section labels; consistent 16–26 px corners.
 - One prominent workout action on Today; secondary information follows it.
 - Existing Today / Workouts / Plans / Profile navigation remains functional.

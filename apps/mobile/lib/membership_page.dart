@@ -111,7 +111,7 @@ class _MembershipPageState extends State<MembershipPage>
             style: TextStyle(
               fontSize: 11,
               letterSpacing: 1.5,
-              color: queued ? forest : lime,
+              color: queued ? brandRed : accentRed,
             ),
           ),
           const SizedBox(height: 10),
@@ -127,10 +127,7 @@ class _MembershipPageState extends State<MembershipPage>
           const SizedBox(height: 10),
           Text(
             '${_date(period['startsAt'])} – ${_date(period['endsAt'])}',
-            style: TextStyle(
-              color: queued ? muted : const Color(0xFFC6D6D0),
-              fontSize: 13,
-            ),
+            style: TextStyle(color: queued ? muted : onDarkMuted, fontSize: 13),
           ),
           const SizedBox(height: 16),
           Text(
@@ -152,10 +149,8 @@ class _MembershipPageState extends State<MembershipPage>
                         .clamp(0, 1)
                         .toDouble(),
                 minHeight: 6,
-                color: queued ? forest : lime,
-                backgroundColor: queued
-                    ? const Color(0xFFE3E9E3)
-                    : const Color(0xFF3D5350),
+                color: queued ? brandRed : accentRed,
+                backgroundColor: queued ? border : darkTrack,
                 semanticsLabel: 'Live video sessions remaining',
               ),
             ),
@@ -163,10 +158,7 @@ class _MembershipPageState extends State<MembershipPage>
           const SizedBox(height: 6),
           Text(
             '${period['videoSessionsReserved'] ?? 0} sessions reserved. Available balance excludes reservations and sessions already used.',
-            style: TextStyle(
-              fontSize: 12,
-              color: queued ? muted : const Color(0xFFC6D6D0),
-            ),
+            style: TextStyle(fontSize: 12, color: queued ? muted : onDarkMuted),
           ),
           if (period['environment'] == 'development') ...[
             const SizedBox(height: 14),
@@ -175,7 +167,7 @@ class _MembershipPageState extends State<MembershipPage>
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: queued ? forest : lime,
+                color: queued ? brandRed : accentRed,
               ),
             ),
           ],
@@ -205,12 +197,12 @@ class _MembershipPageState extends State<MembershipPage>
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEDF2E8),
+                  color: softRed,
                   borderRadius: BorderRadius.circular(13),
                 ),
                 child: const Icon(
                   Icons.workspace_premium_outlined,
-                  color: forest,
+                  color: brandRed,
                   size: 22,
                 ),
               ),
@@ -233,7 +225,10 @@ class _MembershipPageState extends State<MembershipPage>
           const Divider(height: 32),
           Text(
             '${plan['videoSessions']} live video sessions total',
-            style: const TextStyle(fontWeight: FontWeight.w700, color: forest),
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              color: brandRed,
+            ),
           ),
           const SizedBox(height: 14),
           ...(plan['features'] as List).map(
@@ -242,7 +237,7 @@ class _MembershipPageState extends State<MembershipPage>
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.check_rounded, size: 18, color: forest),
+                  const Icon(Icons.check_rounded, size: 18, color: brandRed),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
@@ -280,7 +275,7 @@ class _MembershipPageState extends State<MembershipPage>
               child: Text(
                 'JB FITNESS',
                 style: TextStyle(
-                  color: Color(0xFF245E48),
+                  color: Color(0xFFD71920),
                   fontWeight: FontWeight.w900,
                   fontSize: 20,
                 ),

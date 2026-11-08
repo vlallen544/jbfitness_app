@@ -230,7 +230,7 @@ class _SessionsPageState extends State<SessionsPage> {
               ),
               const SizedBox(height: 20),
               if (_error != null) ...[
-                Text(_error!, style: const TextStyle(color: Colors.red)),
+                Text(_error!, style: const TextStyle(color: brandRed)),
                 TextButton(
                   onPressed: _busy ? null : _load,
                   child: const Text('Retry sessions'),
@@ -251,7 +251,7 @@ class _SessionsPageState extends State<SessionsPage> {
                       const Text(
                         'YOUR SESSION ALLOWANCE',
                         style: TextStyle(
-                          color: lime,
+                          color: accentRed,
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                         ),
@@ -375,7 +375,7 @@ class _SessionsPageState extends State<SessionsPage> {
                                 ? 'Reserved · one session held'
                                 : '${(booking['status'] as String).replaceAll('_', ' ')} · ${booking['consumed'] == true ? 'one session used' : 'no session used'}',
                             style: const TextStyle(
-                              color: forest,
+                              color: brandRed,
                               fontWeight: FontWeight.w700,
                             ),
                           ),

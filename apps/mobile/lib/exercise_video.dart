@@ -91,7 +91,10 @@ class _ExerciseVideoState extends State<ExerciseVideo> {
             SizedBox(
               width: 26,
               height: 26,
-              child: CircularProgressIndicator(color: lime, strokeWidth: 2),
+              child: CircularProgressIndicator(
+                color: accentRed,
+                strokeWidth: 2,
+              ),
             ),
             SizedBox(height: 16),
             Text(
@@ -106,7 +109,11 @@ class _ExerciseVideoState extends State<ExerciseVideo> {
       return _videoPanel(
         Column(
           children: [
-            const Icon(Icons.ondemand_video_outlined, color: lime, size: 32),
+            const Icon(
+              Icons.ondemand_video_outlined,
+              color: accentRed,
+              size: 32,
+            ),
             const SizedBox(height: 12),
             Text(
               _message!,
@@ -119,7 +126,7 @@ class _ExerciseVideoState extends State<ExerciseVideo> {
             ),
             TextButton(
               onPressed: _load,
-              style: TextButton.styleFrom(foregroundColor: lime),
+              style: TextButton.styleFrom(foregroundColor: accentRed),
               child: const Text('Retry video'),
             ),
           ],
@@ -140,7 +147,7 @@ class _ExerciseVideoState extends State<ExerciseVideo> {
                 ),
                 TextButton(
                   onPressed: _load,
-                  style: TextButton.styleFrom(foregroundColor: lime),
+                  style: TextButton.styleFrom(foregroundColor: accentRed),
                   child: const Text('Retry video'),
                 ),
               ],
@@ -163,9 +170,9 @@ class _ExerciseVideoState extends State<ExerciseVideo> {
               _player!,
               allowScrubbing: true,
               colors: const VideoProgressColors(
-                playedColor: forest,
-                bufferedColor: Color(0xFFB5C6B8),
-                backgroundColor: Color(0xFFE3E9E3),
+                playedColor: brandRed,
+                bufferedColor: bufferedTrack,
+                backgroundColor: border,
               ),
             ),
             Row(

@@ -70,7 +70,7 @@ class _TrainerFeedbackPageState extends State<TrainerFeedbackPage> {
             ),
             const SizedBox(height: 22),
             if (_error != null) ...[
-              Text(_error!, style: const TextStyle(color: Colors.red)),
+              Text(_error!, style: const TextStyle(color: brandRed)),
               TextButton(onPressed: _load, child: const Text('Retry feedback')),
             ],
             if (_feedback == null && _error == null)
@@ -86,7 +86,7 @@ class _TrainerFeedbackPageState extends State<TrainerFeedbackPage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(22),
-                  border: Border.all(color: const Color(0xFFE0E7DF)),
+                  border: Border.all(color: border),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -119,7 +119,7 @@ class _TrainerFeedbackPageState extends State<TrainerFeedbackPage> {
                           ? 'Reviewed workout published'
                           : 'Review completed',
                       style: const TextStyle(
-                        color: forest,
+                        color: brandRed,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

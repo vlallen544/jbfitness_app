@@ -328,7 +328,7 @@ class _NutritionPageState extends State<NutritionPage>
             const Text(
               'DAILY ENERGY',
               style: TextStyle(
-                color: lime,
+                color: accentRed,
                 fontSize: 10,
                 letterSpacing: 1.3,
                 fontWeight: FontWeight.w800,
@@ -359,8 +359,8 @@ class _NutritionPageState extends State<NutritionPage>
                   value: (energy / (targets['calories'] as num))
                       .clamp(0, 1)
                       .toDouble(),
-                  color: lime,
-                  backgroundColor: const Color(0xFF3D5350),
+                  color: accentRed,
+                  backgroundColor: darkTrack,
                   minHeight: 6,
                 ),
               ),
@@ -377,7 +377,7 @@ class _NutritionPageState extends State<NutritionPage>
                 padding: EdgeInsets.only(top: 12),
                 child: Text(
                   'Includes AI estimates · totals are approximate',
-                  style: TextStyle(color: lime, fontSize: 12),
+                  style: TextStyle(color: accentRed, fontSize: 12),
                 ),
               ),
           ],
@@ -498,7 +498,7 @@ class _NutritionPageState extends State<NutritionPage>
                   onPressed: _canEdit ? () => _add(meal.key) : null,
                   icon: const Icon(
                     Icons.add_circle_outline_rounded,
-                    color: forest,
+                    color: brandRed,
                   ),
                 ),
               ],
@@ -1068,7 +1068,7 @@ class _PortionDialogState extends State<_PortionDialog> {
                   '${nutritionNumber((widget.food['nutrients']['calories'] as num) * grams / 100)} kcal for ${nutritionNumber(grams)} g',
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
-                    color: forest,
+                    color: brandRed,
                   ),
                 ),
             ],

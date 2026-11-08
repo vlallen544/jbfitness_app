@@ -177,7 +177,7 @@ class _AiPlanningPageState extends State<AiPlanningPage>
                     Text(
                       'REVIEW → PLAN → CHECK → PUBLISH',
                       style: TextStyle(
-                        color: lime,
+                        color: accentRed,
                         fontSize: 11,
                         fontWeight: FontWeight.w800,
                       ),
@@ -199,7 +199,7 @@ class _AiPlanningPageState extends State<AiPlanningPage>
               if (_status == null && _error == null)
                 const Center(child: CircularProgressIndicator()),
               if (_error != null) ...[
-                Text(_error!, style: const TextStyle(color: Colors.red)),
+                Text(_error!, style: const TextStyle(color: brandRed)),
                 TextButton(
                   onPressed: _busy ? null : _load,
                   child: const Text('Refresh status'),

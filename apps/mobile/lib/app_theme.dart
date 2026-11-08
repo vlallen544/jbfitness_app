@@ -1,19 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-const forest = Color(0xFF245E48);
-const ink = Color(0xFF172D2C);
-const canvas = Color(0xFFF7F8F5);
-const muted = Color(0xFF657571);
-const lime = Color(0xFFDDF59C);
+const brandRed = Color(0xFFD71920);
+const ink = Color(0xFF111111);
+const canvas = Color(0xFFFFFFFF);
+const muted = Color(0xFF636363);
+const accentRed = Color(0xFFFF6268);
+const softRed = Color(0xFFFFF1F2);
+const neutralSurface = Color(0xFFF5F5F5);
+const border = Color(0xFFE5E5E5);
+const onDarkMuted = Color(0xFFD3D3D3);
+const onDarkSubtle = Color(0xFFB3B3B3);
+const darkTrack = Color(0xFF373737);
+const bufferedTrack = Color(0xFFBDBDBD);
 
 ThemeData fitnessTheme() => ThemeData(
   useMaterial3: true,
-  colorScheme: ColorScheme.fromSeed(
-    seedColor: forest,
-    primary: forest,
+  colorScheme: const ColorScheme.light(
+    primary: brandRed,
     onPrimary: Colors.white,
+    primaryContainer: softRed,
+    onPrimaryContainer: brandRed,
+    secondary: ink,
+    onSecondary: Colors.white,
+    secondaryContainer: softRed,
+    onSecondaryContainer: brandRed,
+    tertiary: brandRed,
+    onTertiary: Colors.white,
+    tertiaryContainer: softRed,
+    onTertiaryContainer: brandRed,
+    error: Color(0xFFB91C1C),
+    onError: Colors.white,
+    errorContainer: softRed,
+    onErrorContainer: Color(0xFF991B1B),
     surface: Colors.white,
     onSurface: ink,
+    surfaceContainerLowest: Colors.white,
+    surfaceContainerLow: neutralSurface,
+    surfaceContainer: Colors.white,
+    surfaceContainerHigh: neutralSurface,
+    surfaceContainerHighest: neutralSurface,
+    onSurfaceVariant: muted,
+    outline: Color(0xFF949494),
+    outlineVariant: border,
+    surfaceTint: Colors.transparent,
+    inverseSurface: ink,
+    onInverseSurface: Colors.white,
+    inversePrimary: accentRed,
   ),
   scaffoldBackgroundColor: canvas,
   appBarTheme: const AppBarTheme(
@@ -21,6 +54,7 @@ ThemeData fitnessTheme() => ThemeData(
     foregroundColor: ink,
     surfaceTintColor: Colors.transparent,
     elevation: 0,
+    systemOverlayStyle: SystemUiOverlayStyle.dark,
     titleTextStyle: TextStyle(
       color: ink,
       fontSize: 17,
@@ -58,7 +92,7 @@ ThemeData fitnessTheme() => ThemeData(
     margin: const EdgeInsets.symmetric(vertical: 5),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(22),
-      side: const BorderSide(color: Color(0xFFE3E9E3)),
+      side: const BorderSide(color: Color(0xFFE5E5E5)),
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
@@ -67,11 +101,11 @@ ThemeData fitnessTheme() => ThemeData(
     contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
-      borderSide: const BorderSide(color: Color(0xFFDCE4DE)),
+      borderSide: const BorderSide(color: Color(0xFFE5E5E5)),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
-      borderSide: const BorderSide(color: forest, width: 2),
+      borderSide: const BorderSide(color: brandRed, width: 2),
     ),
   ),
   filledButtonTheme: FilledButtonThemeData(
@@ -84,8 +118,13 @@ ThemeData fitnessTheme() => ThemeData(
   navigationBarTheme: NavigationBarThemeData(
     backgroundColor: Colors.white,
     surfaceTintColor: Colors.transparent,
-    indicatorColor: lime,
+    indicatorColor: brandRed,
     height: 76,
+    iconTheme: WidgetStateProperty.resolveWith(
+      (states) => IconThemeData(
+        color: states.contains(WidgetState.selected) ? Colors.white : muted,
+      ),
+    ),
     labelTextStyle: WidgetStateProperty.resolveWith(
       (states) => TextStyle(
         fontSize: 11,
@@ -96,5 +135,22 @@ ThemeData fitnessTheme() => ThemeData(
       ),
     ),
   ),
-  dividerTheme: const DividerThemeData(color: Color(0xFFE3E9E3), thickness: 1),
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+    color: brandRed,
+    linearTrackColor: border,
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(foregroundColor: brandRed),
+  ),
+  snackBarTheme: const SnackBarThemeData(
+    backgroundColor: ink,
+    contentTextStyle: TextStyle(color: Colors.white),
+    actionTextColor: accentRed,
+  ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: brandRed,
+    selectionColor: Color(0xFFFFDADC),
+    selectionHandleColor: brandRed,
+  ),
+  dividerTheme: const DividerThemeData(color: Color(0xFFE5E5E5), thickness: 1),
 );

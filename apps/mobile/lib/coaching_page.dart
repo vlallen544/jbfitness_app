@@ -278,7 +278,7 @@ class _CoachingPageState extends State<CoachingPage>
             if (_state == null && _error == null)
               const Center(child: CircularProgressIndicator()),
             if (_error != null) ...[
-              Text(_error!, style: const TextStyle(color: Colors.red)),
+              Text(_error!, style: const TextStyle(color: brandRed)),
               TextButton(
                 onPressed: _busy ? null : _load,
                 child: const Text('Refresh conversation'),
@@ -386,7 +386,7 @@ class _CoachingPageState extends State<CoachingPage>
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFFE6EDDF),
+              color: const Color(0xFFF5F5F5),
               borderRadius: BorderRadius.circular(18),
             ),
             child: Text(
@@ -409,7 +409,7 @@ class _CoachingPageState extends State<CoachingPage>
               const Text(
                 'AI COACH',
                 style: TextStyle(
-                  color: lime,
+                  color: accentRed,
                   fontSize: 11,
                   fontWeight: FontWeight.w800,
                 ),
@@ -448,7 +448,10 @@ class _CoachingPageState extends State<CoachingPage>
                   const SizedBox(height: 16),
                   const Text(
                     'Trainer review needed',
-                    style: TextStyle(color: lime, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                      color: accentRed,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   Text(
@@ -485,7 +488,7 @@ class CoachingFacts extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: const Color(0xFFE0E7DF)),
+        border: Border.all(color: border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

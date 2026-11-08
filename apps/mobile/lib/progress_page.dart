@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'workout_pages.dart' show requestId;
 
 import 'account.dart';
@@ -112,7 +113,7 @@ class _ProgressPageState extends State<ProgressPage> {
               ),
               const SizedBox(height: 20),
               if (_error != null) ...[
-                Text(_error!, style: const TextStyle(color: Colors.red)),
+                Text(_error!, style: const TextStyle(color: brandRed)),
                 TextButton(
                   onPressed: _load,
                   child: const Text('Retry progress'),
@@ -179,7 +180,7 @@ class _ProgressPageState extends State<ProgressPage> {
                         if (points.length < 2)
                           const Text(
                             'Add another dated value to see a trend.',
-                            style: TextStyle(color: lime),
+                            style: TextStyle(color: accentRed),
                           )
                         else
                           Semantics(
@@ -418,12 +419,12 @@ class _ProgressChart extends CustomPainter {
     canvas.drawPath(
       path,
       Paint()
-        ..color = lime
+        ..color = accentRed
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.5,
     );
     for (final p in locations) {
-      canvas.drawCircle(p, 3.5, Paint()..color = lime);
+      canvas.drawCircle(p, 3.5, Paint()..color = accentRed);
     }
   }
 
@@ -860,7 +861,7 @@ class _ProgressEditorState extends State<ProgressEditor> {
                       padding: const EdgeInsets.only(bottom: 12),
                       child: Text(
                         _error!,
-                        style: const TextStyle(color: Colors.red),
+                        style: const TextStyle(color: brandRed),
                       ),
                     ),
                   if (widget.canEdit)

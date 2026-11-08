@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'account.dart';
 import 'account_screens.dart';
@@ -67,23 +68,30 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
     navigatorKey: _navigatorKey,
     debugShowCheckedModeBanner: false,
     theme: fitnessTheme(),
+    themeMode: ThemeMode.light,
     builder: widget.preview
         ? (context, child) => Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Material(
-                color: ink,
-                child: SafeArea(
-                  bottom: false,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    child: Text(
-                      'OFFLINE DEMO · Sample data · Resets on restart',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: lime, fontSize: 11),
+              AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.light.copyWith(
+                  systemNavigationBarColor: canvas,
+                  systemNavigationBarIconBrightness: Brightness.dark,
+                ),
+                child: Material(
+                  color: ink,
+                  child: SafeArea(
+                    bottom: false,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        'OFFLINE DEMO · Sample data · Resets on restart',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: accentRed, fontSize: 11),
+                      ),
                     ),
                   ),
                 ),

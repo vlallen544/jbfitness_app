@@ -18,8 +18,6 @@ String requestId() {
   return '${hex.substring(0, 8)}-${hex.substring(8, 12)}-${hex.substring(12, 16)}-${hex.substring(16, 20)}-${hex.substring(20)}';
 }
 
-const _green = Color(0xFF245E48);
-
 class WorkoutsPage extends StatefulWidget {
   final AccountController account;
   final String? initialFrom;
@@ -94,7 +92,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
             const Text(
               'JB FITNESS',
               style: TextStyle(
-                color: _green,
+                color: brandRed,
                 fontSize: 20,
                 fontWeight: FontWeight.w900,
               ),
@@ -252,15 +250,17 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                         height: 44,
                         decoration: BoxDecoration(
                           color: workout['status'] == 'completed'
-                              ? lime
-                              : const Color(0xFFEDF2E8),
+                              ? brandRed
+                              : softRed,
                           borderRadius: BorderRadius.circular(14),
                         ),
                         child: Icon(
                           workout['status'] == 'completed'
                               ? Icons.check_rounded
                               : Icons.fitness_center_rounded,
-                          color: forest,
+                          color: workout['status'] == 'completed'
+                              ? Colors.white
+                              : brandRed,
                           size: 20,
                         ),
                       ),
@@ -544,7 +544,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       const Text(
                         'YOUR SESSION',
                         style: TextStyle(
-                          color: lime,
+                          color: accentRed,
                           fontWeight: FontWeight.w800,
                           letterSpacing: 1.5,
                           fontSize: 10,
@@ -560,7 +560,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       Text(
                         '${workout['date']} • ${_status.replaceAll('_', ' ')}',
                         style: const TextStyle(
-                          color: Color(0xFFC6D6D0),
+                          color: onDarkMuted,
                           fontSize: 13,
                         ),
                       ),
@@ -570,8 +570,8 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                         child: LinearProgressIndicator(
                           value: items.isEmpty ? 0 : checked / items.length,
                           minHeight: 6,
-                          backgroundColor: const Color(0xFF3D5350),
-                          color: lime,
+                          backgroundColor: darkTrack,
+                          color: accentRed,
                           semanticsLabel: 'Exercises checked on this screen',
                         ),
                       ),
@@ -587,10 +587,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       const SizedBox(height: 4),
                       const Text(
                         'Save progress to keep your changes.',
-                        style: TextStyle(
-                          color: Color(0xFFACBEB8),
-                          fontSize: 11,
-                        ),
+                        style: TextStyle(color: onDarkSubtle, fontSize: 11),
                       ),
                     ],
                   ),
@@ -662,7 +659,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                           Text(
                             '${item['sets']} sets × ${item['repetitions']} reps • ${item['restSeconds']} sec rest',
                             style: const TextStyle(
-                              color: _green,
+                              color: brandRed,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -692,8 +689,8 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                                 horizontal: 12,
                                 vertical: 14,
                               ),
-                              backgroundColor: const Color(0xFFEDF2E8),
-                              foregroundColor: forest,
+                              backgroundColor: softRed,
+                              foregroundColor: brandRed,
                             ),
                             onPressed: () =>
                                 setState(() => _videos.add(itemId)),
@@ -861,13 +858,13 @@ class _SessionSavedNotice extends StatelessWidget {
   const _SessionSavedNotice();
   @override
   Widget build(BuildContext context) => Card(
-    color: const Color(0xFFEDF2E8),
+    color: softRed,
     child: const Padding(
       padding: EdgeInsets.all(18),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.check_circle_rounded, color: forest),
+          Icon(Icons.check_circle_rounded, color: brandRed),
           SizedBox(width: 12),
           Expanded(
             child: Column(

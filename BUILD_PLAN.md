@@ -36,6 +36,7 @@ Verified: Flutter 3.47.9 / Dart 3.13.7; API build/test and HTTP checks pass; Nex
 - [ ] Check APK installation and the sample flows on a physical Android phone.
 - [ ] Verify iOS builds and Keychain integration on macOS/Xcode.
 - [x] Prepare and build a separate offline client-preview entry point with a persistent sample-data banner, no network transport, sample screens and temporary habit/workout/profile edits.
+- [x] Apply the requested red/white-background/black mobile theme, replace hard-coded green tints, update the Android JB icon and build version 0.1.1/code 2 with verified APK/ZIP packaging. Validate all 63 Flutter tests, clean analysis and phone screenshots.
 
 Launch follow-up: email verification, password recovery, production authentication/rate-limit hardening, and account data-deletion flow. These are not implemented or presented as ready.
 

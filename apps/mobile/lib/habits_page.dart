@@ -290,7 +290,7 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
               Text(
                 '$done / ${active.length}',
                 style: const TextStyle(
-                  color: forest,
+                  color: brandRed,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -448,7 +448,7 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
               const Text(
                 'MONTHLY HABIT PROGRESS',
                 style: TextStyle(
-                  color: lime,
+                  color: accentRed,
                   fontSize: 10,
                   letterSpacing: 1,
                   fontWeight: FontWeight.w800,
@@ -473,8 +473,8 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
                 borderRadius: BorderRadius.circular(8),
                 child: LinearProgressIndicator(
                   value: (summary['progress'] as num).toDouble(),
-                  color: lime,
-                  backgroundColor: const Color(0xFF3D5350),
+                  color: accentRed,
+                  backgroundColor: darkTrack,
                   minHeight: 6,
                 ),
               ),
@@ -514,9 +514,7 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
                                     1,
                                   ),
                             child: ColoredBox(
-                              color: completed > 0
-                                  ? forest
-                                  : const Color(0xFFDCE4DE),
+                              color: completed > 0 ? brandRed : border,
                             ),
                           ),
                         ),

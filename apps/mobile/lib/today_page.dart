@@ -71,7 +71,7 @@ class _TodayPageState extends State<TodayPage> {
                     child: Text(
                       'JB',
                       style: TextStyle(
-                        color: lime,
+                        color: accentRed,
                         fontWeight: FontWeight.w900,
                         fontSize: 19,
                         fontStyle: FontStyle.italic,
@@ -145,9 +145,7 @@ class _TodayPageState extends State<TodayPage> {
                         decoration: BoxDecoration(
                           color: selected ? ink : Colors.white,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: selected ? ink : const Color(0xFFE3E9E3),
-                          ),
+                          border: Border.all(color: selected ? ink : border),
                         ),
                         child: Column(
                           children: [
@@ -172,7 +170,9 @@ class _TodayPageState extends State<TodayPage> {
                               width: 4,
                               height: 4,
                               decoration: BoxDecoration(
-                                color: selected ? lime : Colors.transparent,
+                                color: selected
+                                    ? accentRed
+                                    : Colors.transparent,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -203,7 +203,7 @@ class _TodayPageState extends State<TodayPage> {
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: lime,
+                            color: brandRed,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: const Text(
@@ -212,6 +212,7 @@ class _TodayPageState extends State<TodayPage> {
                               fontSize: 9,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 1,
+                              color: Colors.white,
                             ),
                           ),
                         ),
@@ -219,7 +220,7 @@ class _TodayPageState extends State<TodayPage> {
                       const SizedBox(width: 12),
                       const Icon(
                         Icons.fitness_center_rounded,
-                        color: lime,
+                        color: accentRed,
                         size: 25,
                       ),
                     ],
@@ -242,23 +243,20 @@ class _TodayPageState extends State<TodayPage> {
                       if (workoutDays != null)
                         '${workoutDays.length} days / week',
                     ].join('  ·  '),
-                    style: const TextStyle(
-                      color: Color(0xFFC6D6D0),
-                      fontSize: 12,
-                    ),
+                    style: const TextStyle(color: onDarkMuted, fontSize: 12),
                   ),
                   const SizedBox(height: 5),
                   const Text(
                     'Based on your profile preferences',
-                    style: TextStyle(color: Color(0xFFACBEB8), fontSize: 11),
+                    style: TextStyle(color: onDarkSubtle, fontSize: 11),
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
                     child: FilledButton(
                       style: FilledButton.styleFrom(
-                        backgroundColor: lime,
-                        foregroundColor: ink,
+                        backgroundColor: brandRed,
+                        foregroundColor: Colors.white,
                       ),
                       onPressed: widget.onOpenWorkouts,
                       child: const Row(
@@ -329,13 +327,13 @@ class _TodayPageState extends State<TodayPage> {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: const Color(0xFFECF1E5),
+                color: softRed,
                 borderRadius: BorderRadius.circular(22),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.auto_awesome_outlined, color: forest),
+                  const Icon(Icons.auto_awesome_outlined, color: brandRed),
                   const SizedBox(width: 14),
                   const Expanded(
                     child: Column(

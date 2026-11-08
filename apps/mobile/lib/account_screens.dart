@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'account.dart';
-import 'app_theme.dart' show ink, lime, muted;
-
-const _green = Color(0xFF245E48);
+import 'app_theme.dart';
 
 class SignInPage extends StatefulWidget {
   final AccountController account;
@@ -71,7 +69,7 @@ class _SignInPageState extends State<SignInPage> {
               const Text(
                 'JB FITNESS',
                 style: TextStyle(
-                  color: _green,
+                  color: brandRed,
                   fontSize: 23,
                   fontWeight: FontWeight.w900,
                 ),
@@ -90,14 +88,14 @@ class _SignInPageState extends State<SignInPage> {
                       children: [
                         Icon(
                           Icons.fitness_center_rounded,
-                          color: lime,
+                          color: accentRed,
                           size: 30,
                         ),
                         Spacer(),
                         Text(
                           'TRAIN. TRACK. TRANSFORM.',
                           style: TextStyle(
-                            color: lime,
+                            color: accentRed,
                             fontSize: 9,
                             letterSpacing: 1,
                             fontWeight: FontWeight.w800,
@@ -119,7 +117,7 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(height: 12),
                     Text(
                       'Your workouts. Your routine. Your pace.',
-                      style: TextStyle(color: Color(0xFFC6D6D0), fontSize: 12),
+                      style: TextStyle(color: onDarkMuted, fontSize: 12),
                     ),
                   ],
                 ),
@@ -461,7 +459,7 @@ class _FitnessProfilePageState extends State<FitnessProfilePage> {
                   child: Text(
                     'JB FITNESS',
                     style: TextStyle(
-                      color: _green,
+                      color: brandRed,
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
                     ),
@@ -504,7 +502,7 @@ class _FitnessProfilePageState extends State<FitnessProfilePage> {
                 children: [
                   const Icon(
                     Icons.person_outline_rounded,
-                    color: lime,
+                    color: accentRed,
                     size: 30,
                   ),
                   const SizedBox(height: 16),
@@ -521,16 +519,13 @@ class _FitnessProfilePageState extends State<FitnessProfilePage> {
                   const SizedBox(height: 6),
                   Text(
                     widget.account.user?['email'] as String? ?? '',
-                    style: const TextStyle(
-                      color: Color(0xFFC6D6D0),
-                      fontSize: 12,
-                    ),
+                    style: const TextStyle(color: onDarkMuted, fontSize: 12),
                   ),
                   const SizedBox(height: 16),
                   const Text(
                     'YOUR ROUTINE STARTS WITH YOU',
                     style: TextStyle(
-                      color: lime,
+                      color: accentRed,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1,
                       fontSize: 9,
@@ -792,7 +787,7 @@ class _ProfileSectionHeading extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: _green, size: 21),
+            Icon(icon, color: brandRed, size: 21),
             const SizedBox(width: 10),
             Expanded(
               child: Text(

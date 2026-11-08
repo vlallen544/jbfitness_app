@@ -455,7 +455,7 @@ class _MealEstimatePageState extends State<MealEstimatePage> {
                 const Text(
                   'AI ESTIMATE · REVIEW BEFORE SAVING',
                   style: TextStyle(
-                    color: lime,
+                    color: accentRed,
                     fontSize: 10,
                     fontWeight: FontWeight.w800,
                     letterSpacing: 1,
