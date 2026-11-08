@@ -12,6 +12,10 @@ All 63 Flutter tests pass, analysis is clean, and web plus Android debug preview
 
 The actual offline preview was inspected at phone size: [Today](previews/red-theme-today.png), [workouts](previews/red-theme-workouts.png), [plans](previews/red-theme-plans.png), [profile](previews/red-theme-profile.png), [habits](previews/red-theme-habits.png), [nutrition](previews/red-theme-nutrition.png), [progress](previews/red-theme-progress.png). Earlier screenshot sets below retain the previous design for reference.
 
+## Dashboard palette — 8 November 2026
+
+The admin/trainer dashboard now shares the mobile red, white-background and black palette. Its global stylesheet defines the same red (`#D71920`), bright red on black (`#FF6268`), black (`#111111`), white and neutral gray roles. This covers staff sign-in, navigation, summary cards, customer assignments, review/publication controls, session calendar and membership catalogue. Focus indicators and form controls use red; badge states retain text labels. No account, permission or API behavior changed.
+
 ## Reference review — 6 November 2026
 
 | Public project | Material reviewed | Useful idea for JB Fitness |
@@ -75,7 +79,7 @@ Phone-sized Flutter previews validate the shared UI; they do not replace native 
 
 Session reservation milestone: 111 API checks, 9 dashboard checks and 60 Flutter tests pass. `scripts/browser-sessions-preview.ts` verifies actual owner confirmation, trainer availability, IST conversion and withdrawal with temporary database fixtures. See [owner rules](previews/sessions-owner-rules.png), [trainer calendar](previews/sessions-trainer-calendar.png) and [phone layout](previews/sessions-mobile-calendar.png). The Flutter flow shows held/used/available credits, explicit confirmation, saved terms and retryable requests. Customer booking/video remain disabled pending real client rules and a video adapter.
 
-Staff operations milestone: 94 API checks, 8 dashboard checks and 54 Flutter tests pass, with clean analysis and successful API/admin/web builds. The dashboard retains the green/ink/lime palette with staff sign-in, assignment cards, a focused review inbox, profile context, customer-visible feedback and a normal workout editor. `scripts/browser-staff-preview.ts` tests actual local services in an isolated database schema. See [inbox](previews/staff-trainer-inbox.png), [assignment](previews/staff-assignments.png), [workout editor](previews/staff-workout-review.png) and [phone layout](previews/staff-mobile-inbox.png). Technical fixtures are removed after the walkthrough; native-device checks remain pending.
+Staff operations milestone: 94 API checks, 8 dashboard checks and 54 Flutter tests pass, with clean analysis and successful API/admin/web builds. At that milestone the dashboard used green/ink/lime; the current red/white/black palette above replaces it. Features include staff sign-in, assignment cards, a focused review inbox, profile context, customer-visible feedback and a normal workout editor. `scripts/browser-staff-preview.ts` tests actual local services in an isolated database schema. See [inbox](previews/staff-trainer-inbox.png), [assignment](previews/staff-assignments.png), [workout editor](previews/staff-workout-review.png) and [phone layout](previews/staff-mobile-inbox.png). Technical fixtures are removed after the walkthrough; native-device checks remain pending.
 
 Coaching milestone: 86 backend integration checks and 50 Flutter tests pass, with clean analysis and successful API/admin/web builds. `scripts/browser-coaching-preview.mjs` verifies explicit chat/summary requests, recorded facts, accessible AI reply text and confirmed history clearing. See [recorded week](previews/coaching-recorded-week.png), [chat](previews/coaching-chat.png) and [summary](previews/coaching-summary.png). These are fixture responses, not evidence of live model quality. Native and provider pilots remain pending.
 

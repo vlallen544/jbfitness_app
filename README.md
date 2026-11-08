@@ -2,7 +2,7 @@
 
 Mobile customer app for iOS and Android, with a separate trainer/admin dashboard and API.
 
-Free hosted demo preparation: [setup guide](docs/FREE_DEMO_DEPLOYMENT.md) and [Render Blueprint](render.yaml). The API/dashboard use Render Free and the database uses Supabase Free. Hosting is not yet configured; the published APK below remains the offline sample preview. Live AI, private object storage and other providers need separate integration.
+Free hosted demo: [dashboard](https://jbfitness-app-1.onrender.com), [API health](https://jbfitness-app.onrender.com/api/v1/health), [setup guide](docs/FREE_DEMO_DEPLOYMENT.md) and [Render Blueprint](render.yaml). The API/dashboard use Render Free and the database uses Supabase Free. The published APK below remains the offline sample preview. Live AI, private object storage and other providers need separate integration.
 
 ## Current milestone
 
@@ -40,7 +40,7 @@ AI coaching: **Today → Open AI coach**. Ask workout/nutrition questions, reque
 
 Staff operations: open the dashboard at `http://localhost:3000` with a provisioned trainer/admin account. Admins assign customers; trainers review shared AI escalations, save customer-visible feedback and explicitly publish a reviewed workout. Profile sharing and coaching-review sharing are separate opt-ins. Customers read notes under **Today → Trainer feedback**. Progress photos remain private. See [docs/STAFF_OPERATIONS.md](docs/STAFF_OPERATIONS.md) for setup, access rules and isolated dashboard tests. The public catalogue moved to `/plans`.
 
-Staff previews: [sign-in](docs/previews/staff-login.png), [assignments](docs/previews/staff-assignments.png), [trainer inbox](docs/previews/staff-trainer-inbox.png), [workout review](docs/previews/staff-workout-review.png), [phone layout](docs/previews/staff-mobile-inbox.png). The browser walkthrough uses actual local services with isolated technical fixtures, verifies feedback delivery and a single trainer-plan publication, then removes its temporary database schema.
+The staff dashboard now matches the mobile app's red, white-background and black theme, including sign-in, navigation, summary cards, forms, reviews, calendar and catalogue. Staff previews: [sign-in](docs/previews/staff-login.png), [assignments](docs/previews/staff-assignments.png), [trainer inbox](docs/previews/staff-trainer-inbox.png), [workout review](docs/previews/staff-workout-review.png), [phone layout](docs/previews/staff-mobile-inbox.png). The browser walkthrough uses actual local services with isolated technical fixtures, verifies feedback delivery and a single trainer-plan publication, then removes its temporary database schema.
 
 Coaching previews: [recorded week](docs/previews/coaching-recorded-week.png), [chat](docs/previews/coaching-chat.png), [summary](docs/previews/coaching-summary.png). Browser QA uses fixture responses and verifies explicit requests, accessible reply text, saved summary facts and confirmed clearing without deleting tracking records.
 
