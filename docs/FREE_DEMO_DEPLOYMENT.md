@@ -66,6 +66,14 @@ The dashboard requires a Node server for its staff cookie sessions and operation
 
 ## 4. Provision staff and check the connection
 
+For the first hosted admin, from the repository root run:
+
+```bash
+python3 scripts/setup-hosted-staff.py
+```
+
+Enter a new dedicated staff email/name and a 12–128 character password at the terminal prompts. Password entry is hidden. This registers an ordinary account using the hosted API, then writes a UUID-scoped provisioning SQL file to ignored `artifacts/staff-setup/`. It does not automatically grant a role or need your database password. Open the generated SQL file, paste it into **this app's Supabase SQL Editor**, and click **Run** as the database owner. Confirm its result shows your email and `role=admin`, then sign in at `https://jbfitness-app-1.onrender.com`. The SQL preserves the existing CLI's no-customer-membership guard, session revocation and audit entry. It is safe to rerun for the same role. Use `--role trainer` for a new dedicated trainer account. Never run the provisioning SQL against another project's database. If the email already exists, use the existing CLI below rather than creating a duplicate.
+
 Register a dedicated test staff account using the existing API/mobile registration flow, then promote it with the existing provisioning CLI. Render Free does not offer a service shell, so run the CLI locally against this demo database using a private ignored environment file. Do not overwrite the local development `.env`.
 
 From `apps/api`, with a private `.env.hosted-demo` containing **only** the demo database connection (and any required local CA path):
