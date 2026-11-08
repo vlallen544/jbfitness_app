@@ -54,6 +54,7 @@ void main() {
     final account = await signedInAccount();
     addTearDown(account.dispose);
     await tester.pumpWidget(JBFitnessApp(account: account));
+    await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
       find.text('0 / 3'),
       150,

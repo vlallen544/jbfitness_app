@@ -9,6 +9,7 @@ import 'membership_page.dart';
 import 'workout_pages.dart';
 import 'app_theme.dart';
 import 'today_page.dart' as dashboard;
+import 'fitness_intro.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
   late final AccountController account;
   final _navigatorKey = GlobalKey<NavigatorState>();
   String? _userId;
+  bool _introFinished = false;
   void _identityChanged() {
     final next = account.user?['id'] as String?;
     if (next == _userId) {
@@ -103,6 +105,11 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
     home: ListenableBuilder(
       listenable: account,
       builder: (context, _) {
+        if (!_introFinished) {
+          return FitnessIntro(
+            onFinished: () => setState(() => _introFinished = true),
+          );
+        }
         if (account.booting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),

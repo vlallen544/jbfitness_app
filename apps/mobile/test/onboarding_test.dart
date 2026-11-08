@@ -117,6 +117,7 @@ void main() {
     addTearDown(account.dispose);
     await account.restore();
     await tester.pumpWidget(JBFitnessApp(account: account));
+    await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('New here? Create an account'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('New here? Create an account'));
@@ -171,6 +172,7 @@ void main() {
     await tester.pumpWidget(
       JBFitnessApp(key: const ValueKey('restarted-app'), account: restored),
     );
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Profile'));
     await tester.pumpAndSettle();
     expect(tester.widget<TextField>(field('Age')).controller?.text, '28');

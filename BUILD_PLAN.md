@@ -153,6 +153,10 @@ Deliverable: approved iOS/Android releases and monitoring/support ownership.
 
 ## Remaining decisions
 
+- [x] Redesign the staff workspace with a dark navigation rail, red actions, customer cards and record-based review workload.
+- [x] Add the mobile animated fitness intro with immediate skip, reduced-motion support and background account restoration.
+
+
 Free hosted demo rollout (configuration: `render.yaml`, walkthrough: `docs/FREE_DEMO_DEPLOYMENT.md`):
 
 - [x] Prepare explicit free-plan API/dashboard deployment commands and private environment configuration.

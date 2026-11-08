@@ -16,6 +16,12 @@ The actual offline preview was inspected at phone size: [Today](previews/red-the
 
 The admin/trainer dashboard now shares the mobile red, white-background and black palette. Its global stylesheet defines the same red (`#D71920`), bright red on black (`#FF6268`), black (`#111111`), white and neutral gray roles. This covers staff sign-in, navigation, summary cards, customer assignments, review/publication controls, session calendar and membership catalogue. Focus indicators and form controls use red; badge states retain text labels. No account, permission or API behavior changed.
 
+## Workspace redesign and animated intro — version 0.1.2
+
+The dashboard now has a dark navigation rail, an illustrated coaching overview, four record-based metrics, compact customer/review cards and a workload ring. The ring reflects the open/resolved items in view; no reviews show an empty state rather than an invented score. Original SVG artwork, clear navigation to the calendar/catalogue and reduced-motion-aware entry transitions complete the workspace.
+
+The customer app adds a 2.8-second vector athlete intro with two controlled squat cycles, a skip action and automatic handoff to the existing account flow. Reduced-motion mode uses a still illustration and brief handoff. Account restoration starts underneath the intro; login, onboarding, recovery and secure sessions retain their existing behavior. Details and artifacts: [workspace and intro](WORKSPACE_AND_INTRO.md).
+
 ## Reference review — 6 November 2026
 
 | Public project | Material reviewed | Useful idea for JB Fitness |

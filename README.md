@@ -6,7 +6,9 @@ Free hosted demo: [dashboard](https://jbfitness-app-1.onrender.com), [API health
 
 ## Current milestone
 
-[Download the smaller preview ZIP (78 MiB)](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.1-preview.1/JB_Fitness_Client_Preview.zip) · [Direct APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.1-preview.1/JB_Fitness_Client_Preview.apk) · [Release and installation files](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.1-preview.1)
+New: [redesigned staff workspace](docs/previews/staff-trainer-inbox.png) and [animated mobile intro](docs/previews/fitness-intro.gif). The intro can be skipped and respects reduced-motion settings. Read the [feature and verification notes](docs/WORKSPACE_AND_INTRO.md).
+
+[Download the smaller preview ZIP (78 MiB)](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.2-preview.1/JB_Fitness_Client_Preview.zip) · [Direct APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.1.2-preview.1/JB_Fitness_Client_Preview.apk) · [Release and installation files](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.1.2-preview.1)
 
 Extract the ZIP, then open `JB_Fitness_Client_Preview.apk` on an Android phone. The ZIP contains the same signature-verified APK with a smaller download size.
 
@@ -40,7 +42,7 @@ AI coaching: **Today → Open AI coach**. Ask workout/nutrition questions, reque
 
 Staff operations: open the dashboard at `http://localhost:3000` with a provisioned trainer/admin account. Admins assign customers; trainers review shared AI escalations, save customer-visible feedback and explicitly publish a reviewed workout. Profile sharing and coaching-review sharing are separate opt-ins. Customers read notes under **Today → Trainer feedback**. Progress photos remain private. See [docs/STAFF_OPERATIONS.md](docs/STAFF_OPERATIONS.md) for setup, access rules and isolated dashboard tests. The public catalogue moved to `/plans`.
 
-The staff dashboard now matches the mobile app's red, white-background and black theme, including sign-in, navigation, summary cards, forms, reviews, calendar and catalogue. Staff previews: [sign-in](docs/previews/staff-login.png), [assignments](docs/previews/staff-assignments.png), [trainer inbox](docs/previews/staff-trainer-inbox.png), [workout review](docs/previews/staff-workout-review.png), [phone layout](docs/previews/staff-mobile-inbox.png). The browser walkthrough uses actual local services with isolated technical fixtures, verifies feedback delivery and a single trainer-plan publication, then removes its temporary database schema.
+The staff dashboard now uses a redesigned red/white/black coaching workspace: dark navigation rail, illustrated overview, four record-based metrics, customer cards and a review-workload panel. The mobile app adds a skippable animated fitness intro. See [workspace and intro notes](docs/WORKSPACE_AND_INTRO.md). Staff previews: [sign-in](docs/previews/staff-login.png), [assignments](docs/previews/staff-assignments.png), [trainer inbox](docs/previews/staff-trainer-inbox.png), [workout review](docs/previews/staff-workout-review.png), [phone layout](docs/previews/staff-mobile-inbox.png). The browser walkthrough uses actual local services with isolated technical fixtures, verifies feedback delivery and a single trainer-plan publication, then removes its temporary database schema.
 
 Coaching previews: [recorded week](docs/previews/coaching-recorded-week.png), [chat](docs/previews/coaching-chat.png), [summary](docs/previews/coaching-summary.png). Browser QA uses fixture responses and verifies explicit requests, accessible reply text, saved summary facts and confirmed clearing without deleting tracking records.
 
@@ -54,7 +56,7 @@ Meal estimate previews: [input](docs/previews/meal-estimate-input.png), [editabl
 
 Session reservations add **Today → Live coaching sessions** and a staff **Session calendar** at `/sessions`. The software handles trainer availability, held/used/available credits, booking confirmation, saved cancellation rules, staff withdrawal and audited manual attendance. Actual client rules and the video service are unconfigured, so new customer bookings remain disabled. See [docs/SESSIONS.md](docs/SESSIONS.md) and the [owner rules](docs/previews/sessions-owner-rules.png), [trainer calendar](docs/previews/sessions-trainer-calendar.png) and [phone layout](docs/previews/sessions-mobile-calendar.png) previews. Browser walkthrough rules are temporary technical fixtures.
 
-Current verification: 111 API integration checks, 9 dashboard boundary/provisioning checks and 63 Flutter tests pass, with clean Flutter analysis and successful API, admin-dashboard, Flutter web and offline Android debug APK builds. APK signature and checksum checks pass. Physical-device testing, iOS builds and live AI evaluation remain pending.
+Current verification: 111 API integration checks, 9 dashboard boundary/provisioning checks and 66 Flutter tests pass, with clean Flutter analysis and successful API, admin-dashboard, Flutter web and offline Android debug APK builds. APK signature and checksum checks pass. Physical-device testing, iOS builds and live AI evaluation remain pending.
 
 Saved habits: **Today → Add habit / View tracking**. An active membership enables writes; expired members can read their own history. New accounts start with an empty checklist. See [docs/HABITS.md](docs/HABITS.md) for date, target, archival and concurrency rules. Verification: 38 database integration checks and 24 Flutter tests pass; Flutter analysis and API compilation are clean.
 
