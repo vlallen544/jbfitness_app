@@ -155,7 +155,28 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
         }
         if (account.booting) {
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            body: Center(
+              child: Padding(
+                padding: EdgeInsets.all(28),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 20),
+                    Text(
+                      'Connecting to your account…',
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'The first connection may take up to a minute.',
+                      style: TextStyle(fontSize: 12, color: muted),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           );
         }
         if (account.bootError != null) {

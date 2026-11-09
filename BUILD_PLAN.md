@@ -153,6 +153,8 @@ Deliverable: approved iOS/Android releases and monitoring/support ownership.
 
 ## Remaining decisions
 
+- [x] Allow a bounded 75-second authentication/session wait for free-host wake-up, show connection status, preserve saved sessions and avoid automatic registration retries.
+
 - [x] Redesign the staff workspace with a dark navigation rail, red actions, customer cards and record-based review workload.
 - [x] Replace the timed splash with a user-controlled four-feature walkthrough, remembered completion, replay and reduced-motion support.
 - [x] Add a connected Android demo build using the hosted API and real login/account creation.

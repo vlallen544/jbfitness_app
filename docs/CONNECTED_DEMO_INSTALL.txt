@@ -22,8 +22,12 @@ AI, checkout and live-call providers are not activated. Some app features
 require a membership and supplied content; account creation alone will not
 unlock them. Supplement fulfilment and notifications remain pending.
 
-Free hosting can sleep. If the first request times out, wait for the service
-to wake, then retry. Keep the database project active before a client demo.
+Free hosting can sleep. Sign-in and session checks allow up to 75 seconds
+and show connection status. Keep the screen open while connecting. If the
+request still times out, open the API health page in the phone browser, wait
+for status ok, then retry. Keep the database project active before a demo.
+If account creation times out, try signing in with the same email before
+creating another account. The app does not automatically repeat registration.
 
 The APK can update the previous development preview because it uses the
 same package and signing key with a higher version code. Clear app data only

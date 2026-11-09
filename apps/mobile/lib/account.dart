@@ -137,6 +137,18 @@ class AccountApi {
     } on ApiFailure {
       rethrow;
     } on TimeoutException {
+      if (method == 'POST' && path == '/auth/register') {
+        throw const ApiFailure(
+          0,
+          'Could not confirm account creation in time. Wait a moment, then try signing in with the same email before creating another account.',
+        );
+      }
+      if (path == '/auth/me') {
+        throw const ApiFailure(
+          0,
+          'The connection timed out while checking your account. Your saved session has been kept. Retry the connection.',
+        );
+      }
       throw const ApiFailure(0, 'The connection timed out. Please try again.');
     } catch (_) {
       throw const ApiFailure(
@@ -194,6 +206,9 @@ class AccountApi {
 }
 
 class AccountController extends ChangeNotifier {
+  // The free demo host can take about a minute to resume after inactivity.
+  // Keep a bounded wait without automatically repeating credential requests.
+  static const _sessionConnectionTimeout = Duration(seconds: 75);
   final AccountApi api;
   final SessionStore store;
   AccountController({required this.api, required this.store});
@@ -210,7 +225,11 @@ class AccountController extends ChangeNotifier {
     try {
       final saved = await store.read();
       if (saved != null) {
-        final data = await api.request('/auth/me', token: saved);
+        final data = await api.request(
+          '/auth/me',
+          token: saved,
+          timeout: _sessionConnectionTimeout,
+        );
         token = saved;
         user = data['user'] as Map<String, dynamic>;
         profile = data['profile'] as Map<String, dynamic>?;
@@ -245,6 +264,7 @@ class AccountController extends ChangeNotifier {
         'password': password,
         if (displayName != null) 'displayName': displayName.trim(),
       },
+      timeout: _sessionConnectionTimeout,
     );
     final newToken = data['token'] as String;
     try {

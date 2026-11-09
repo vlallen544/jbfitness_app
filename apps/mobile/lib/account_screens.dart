@@ -224,7 +224,7 @@ class _SignInPageState extends State<SignInPage> {
                           padding: const EdgeInsets.all(14),
                           child: Text(
                             _busy
-                                ? 'Please wait…'
+                                ? 'Connecting…'
                                 : _register
                                 ? 'Create account'
                                 : 'Sign in',
@@ -232,6 +232,22 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                     ),
+                    if (_busy)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Semantics(
+                          liveRegion: true,
+                          child: const Text(
+                            'Connecting to your account. The first connection may take up to a minute. Please keep this screen open.',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: muted,
+                              height: 1.5,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
                     const SizedBox(height: 12),
                     TextButton(
                       onPressed: _busy
