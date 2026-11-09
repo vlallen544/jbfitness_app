@@ -6,7 +6,7 @@ abstract class IntroStore {
 }
 
 class SecureIntroStore implements IntroStore {
-  static const _key = 'jbfitness.feature_walkthrough.v1';
+  static const _key = 'jbfitness.feature_walkthrough.v2';
   final _storage = const FlutterSecureStorage();
   @override
   Future<bool> hasCompleted() async => await _storage.read(key: _key) == 'true';

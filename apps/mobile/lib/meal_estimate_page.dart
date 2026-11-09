@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 import 'nutrition_page.dart'
     show nutrientLabels, mealLabels, nutritionNumber, nutritionError;
 import 'workout_pages.dart' show requestId;
@@ -260,11 +261,11 @@ class _MealEstimatePageState extends State<MealEstimatePage> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 700),
         child: ListView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.all(16),
           children: [
-            Text(
-              'Photo or text.\nA useful estimate.',
-              style: Theme.of(context).textTheme.headlineLarge,
+            StitchPageHeading(
+              title: 'Photo or text.\nA useful estimate.',
+              eyebrow: 'Photo or text',
             ),
             const SizedBox(height: 12),
             const Text(
@@ -444,10 +445,18 @@ class _MealEstimatePageState extends State<MealEstimatePage> {
         children: [
           const SizedBox(height: 24),
           Container(
-            padding: const EdgeInsets.all(22),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: ink,
-              borderRadius: BorderRadius.circular(24),
+              color: Colors.white,
+              border: Border.all(color: border),
+              boxShadow: const [
+                BoxShadow(
+                  color: stitchShadow,
+                  blurRadius: 12,
+                  offset: Offset(0, 3),
+                ),
+              ],
+              borderRadius: BorderRadius.circular(18),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -455,9 +464,10 @@ class _MealEstimatePageState extends State<MealEstimatePage> {
                 const Text(
                   'AI ESTIMATE · REVIEW BEFORE SAVING',
                   style: TextStyle(
-                    color: accentRed,
+                    color: brandRed,
                     fontSize: 10,
-                    fontWeight: FontWeight.w800,
+                    fontFamily: 'SpaceGrotesk',
+                    fontWeight: FontWeight.w700,
                     letterSpacing: 1,
                   ),
                 ),
@@ -465,20 +475,21 @@ class _MealEstimatePageState extends State<MealEstimatePage> {
                 Text(
                   'Approx. ${_total('calories').round()} kcal',
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: ink,
                     fontSize: 30,
-                    fontWeight: FontWeight.w800,
+                    fontFamily: 'SpaceGrotesk',
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'Protein ${nutritionNumber(_total('protein'))} g · Carbs ${nutritionNumber(_total('carbs'))} g · Fat ${nutritionNumber(_total('fat'))} g',
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                  style: const TextStyle(color: muted, fontSize: 12),
                 ),
                 const SizedBox(height: 12),
                 Text(
                   'Uncertainty: ${_draft!['uncertainty']}. Portions and hidden ingredients can change these values.',
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                  style: const TextStyle(color: muted, fontSize: 12),
                 ),
               ],
             ),
@@ -486,7 +497,11 @@ class _MealEstimatePageState extends State<MealEstimatePage> {
           const SizedBox(height: 18),
           const Text(
             'Assumptions used',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              fontFamily: 'SpaceGrotesk',
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           ...(_draft!['assumptions'] as List).map(
             (text) => Padding(
@@ -500,7 +515,11 @@ class _MealEstimatePageState extends State<MealEstimatePage> {
           const SizedBox(height: 18),
           const Text(
             'Adjust foods and portions',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              fontFamily: 'SpaceGrotesk',
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: 8),
           Column(

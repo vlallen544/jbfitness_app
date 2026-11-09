@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 import 'fitness_intro.dart';
 
 class SignInPage extends StatefulWidget {
@@ -64,61 +65,44 @@ class _SignInPageState extends State<SignInPage> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 520),
           child: ListView(
-            padding: const EdgeInsets.all(28),
+            padding: const EdgeInsets.all(16),
             children: [
-              const SizedBox(height: 20),
-              const Text(
-                'JB FITNESS',
-                style: TextStyle(
-                  color: brandRed,
-                  fontSize: 23,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
+              const StitchIdentity('Your fitness companion'),
               const SizedBox(height: 24),
-              Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: ink,
-                  borderRadius: BorderRadius.circular(26),
-                ),
-                child: const Column(
+              StitchCard(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    const StitchPill(
+                      'YOUR DAILY FITNESS',
+                      icon: Icons.bolt_outlined,
+                    ),
+                    const SizedBox(height: 14),
+                    Text(
+                      'One place for\nyour better days.',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    const SizedBox(height: 14),
+                    const Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
                       children: [
-                        Icon(
-                          Icons.fitness_center_rounded,
-                          color: accentRed,
-                          size: 30,
+                        StitchPill(
+                          'Workouts',
+                          icon: Icons.fitness_center_outlined,
+                          red: false,
                         ),
-                        Spacer(),
-                        Text(
-                          'TRAIN. TRACK. TRANSFORM.',
-                          style: TextStyle(
-                            color: accentRed,
-                            fontSize: 9,
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.w800,
-                          ),
+                        StitchPill(
+                          'Nutrition',
+                          icon: Icons.restaurant_outlined,
+                          red: false,
+                        ),
+                        StitchPill(
+                          'Progress',
+                          icon: Icons.insights_outlined,
+                          red: false,
                         ),
                       ],
-                    ),
-                    SizedBox(height: 26),
-                    Text(
-                      'Built around\nyour better days.',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w800,
-                        height: 1.12,
-                        letterSpacing: -.8,
-                      ),
-                    ),
-                    SizedBox(height: 12),
-                    Text(
-                      'Your workouts. Your routine. Your pace.',
-                      style: TextStyle(color: onDarkMuted, fontSize: 12),
                     ),
                   ],
                 ),
@@ -126,14 +110,14 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(height: 30),
               Text(
                 _register ? 'Your next chapter\nstarts here.' : 'Welcome back.',
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 12),
               Text(
                 _register
                     ? 'Create your account, then tell us about your goals and routine.'
                     : 'Sign in to access your saved fitness profile.',
-                style: const TextStyle(color: Colors.black54, height: 1.6),
+                style: const TextStyle(color: muted, height: 1.6),
               ),
               const SizedBox(height: 30),
               Form(
@@ -282,11 +266,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               const Text(
                 'Development environment • use test details. Email verification and password recovery will be connected before public launch.',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.black54,
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 12, color: muted, height: 1.5),
               ),
             ],
           ),
@@ -485,16 +465,7 @@ class _FitnessProfilePageState extends State<FitnessProfilePage> {
           children: [
             Row(
               children: [
-                const Expanded(
-                  child: Text(
-                    'JB FITNESS',
-                    style: TextStyle(
-                      color: brandRed,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
+                const Expanded(child: StitchIdentity('Fitness profile')),
                 TextButton(
                   onPressed: _busy
                       ? null
@@ -518,21 +489,29 @@ class _FitnessProfilePageState extends State<FitnessProfilePage> {
               widget.onboarding
                   ? 'Let’s build\nyour fitness profile.'
                   : 'Your fitness profile',
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 10),
             Container(
-              padding: const EdgeInsets.all(22),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: ink,
-                borderRadius: BorderRadius.circular(24),
+                color: Colors.white,
+                border: Border.all(color: border),
+                boxShadow: const [
+                  BoxShadow(
+                    color: stitchShadow,
+                    blurRadius: 12,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(18),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Icon(
                     Icons.person_outline_rounded,
-                    color: accentRed,
+                    color: brandRed,
                     size: 30,
                   ),
                   const SizedBox(height: 16),
@@ -540,22 +519,23 @@ class _FitnessProfilePageState extends State<FitnessProfilePage> {
                     widget.account.user?['displayName'] as String? ??
                         'Your account',
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: ink,
                       fontSize: 24,
-                      fontWeight: FontWeight.w800,
+                      fontFamily: 'SpaceGrotesk',
+                      fontWeight: FontWeight.w700,
                       letterSpacing: -.5,
                     ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     widget.account.user?['email'] as String? ?? '',
-                    style: const TextStyle(color: onDarkMuted, fontSize: 12),
+                    style: const TextStyle(color: muted, fontSize: 12),
                   ),
                   const SizedBox(height: 16),
                   const Text(
                     'YOUR ROUTINE STARTS WITH YOU',
                     style: TextStyle(
-                      color: accentRed,
+                      color: brandRed,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1,
                       fontSize: 9,
@@ -567,7 +547,7 @@ class _FitnessProfilePageState extends State<FitnessProfilePage> {
             const SizedBox(height: 12),
             const Text(
               'Tell us about your routine. These details will be used for personalized coaching when AI features are connected.',
-              style: TextStyle(color: Colors.black54, height: 1.6),
+              style: TextStyle(color: muted, height: 1.6),
             ),
             const SizedBox(height: 26),
             Form(
@@ -823,6 +803,7 @@ class _ProfileSectionHeading extends StatelessWidget {
               child: Text(
                 title,
                 style: const TextStyle(
+                  fontFamily: 'SpaceGrotesk',
                   color: ink,
                   fontSize: 18,
                   fontWeight: FontWeight.w700,

@@ -724,9 +724,9 @@ class _FoodPickerPageState extends State<FoodPickerPage> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            Text(
-              'Find your food.',
-              style: Theme.of(context).textTheme.headlineLarge,
+            const StitchPageHeading(
+              title: 'Find your food.',
+              eyebrow: 'Food library',
             ),
             const SizedBox(height: 12),
             const Text(
@@ -787,7 +787,11 @@ class _FoodPickerPageState extends State<FoodPickerPage> {
               const SizedBox(height: 16),
               const Text(
                 'Your saved foods',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontFamily: 'SpaceGrotesk',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               if ((_data!['foods'] as List).isEmpty)
                 const Padding(
@@ -816,7 +820,11 @@ class _FoodPickerPageState extends State<FoodPickerPage> {
                 const SizedBox(height: 20),
                 const Text(
                   'USDA FoodData Central',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    fontFamily: 'SpaceGrotesk',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 ...(_data!['external'] as List).map(
                   (food) => Card(

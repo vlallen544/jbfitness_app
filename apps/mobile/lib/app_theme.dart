@@ -6,13 +6,9 @@ const brandRed = Color(0xFFD71920);
 const ink = Color(0xFF0B1C30);
 const canvas = Color(0xFFF8F9FF);
 const muted = Color(0xFF5F5E5E);
-const accentRed = Color(0xFFFF6268);
 const softRed = Color(0xFFFFF1F2);
 const neutralSurface = Color(0xFFEFF4FF);
 const border = Color(0xFFE7EBF2);
-const onDarkMuted = Color(0xFFD3D3D3);
-const onDarkSubtle = Color(0xFFB3B3B3);
-const darkTrack = Color(0xFF373737);
 const bufferedTrack = Color(0xFFBDBDBD);
 
 ThemeData fitnessTheme() => ThemeData(
@@ -46,9 +42,9 @@ ThemeData fitnessTheme() => ThemeData(
     outline: Color(0xFF949494),
     outlineVariant: border,
     surfaceTint: Colors.transparent,
-    inverseSurface: ink,
-    onInverseSurface: Colors.white,
-    inversePrimary: accentRed,
+    inverseSurface: Colors.white,
+    onInverseSurface: ink,
+    inversePrimary: brandRed,
   ),
   scaffoldBackgroundColor: canvas,
   appBarTheme: const AppBarTheme(
@@ -58,7 +54,7 @@ ThemeData fitnessTheme() => ThemeData(
     elevation: 0,
     systemOverlayStyle: SystemUiOverlayStyle.dark,
     titleTextStyle: TextStyle(
-      fontFamily: 'Inter',
+      fontFamily: 'SpaceGrotesk',
       color: ink,
       fontSize: 17,
       fontWeight: FontWeight.w700,
@@ -106,6 +102,22 @@ ThemeData fitnessTheme() => ThemeData(
     filled: true,
     fillColor: Colors.white,
     contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: const BorderSide(color: border),
+    ),
+    disabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: const BorderSide(color: border),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: const BorderSide(color: brandRed),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: const BorderSide(color: brandRed, width: 2),
+    ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
       borderSide: const BorderSide(color: Color(0xFFE7EBF2)),
@@ -152,12 +164,72 @@ ThemeData fitnessTheme() => ThemeData(
     linearTrackColor: border,
   ),
   textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(foregroundColor: brandRed),
+    style: TextButton.styleFrom(
+      foregroundColor: brandRed,
+      minimumSize: const Size(48, 48),
+      shape: const StadiumBorder(),
+      textStyle: const TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   ),
-  snackBarTheme: const SnackBarThemeData(
-    backgroundColor: ink,
-    contentTextStyle: TextStyle(fontFamily: 'Inter', color: Colors.white),
-    actionTextColor: accentRed,
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      minimumSize: const Size(48, 48),
+      shape: const StadiumBorder(),
+      side: const BorderSide(color: border),
+      foregroundColor: ink,
+      backgroundColor: Colors.white,
+      textStyle: const TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  ),
+  dialogTheme: DialogThemeData(
+    backgroundColor: Colors.white,
+    surfaceTintColor: Colors.transparent,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(18),
+      side: const BorderSide(color: border),
+    ),
+  ),
+  bottomSheetTheme: const BottomSheetThemeData(
+    backgroundColor: Colors.white,
+    surfaceTintColor: Colors.transparent,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+      side: BorderSide(color: border),
+    ),
+    showDragHandle: true,
+  ),
+  popupMenuTheme: PopupMenuThemeData(
+    color: Colors.white,
+    surfaceTintColor: Colors.transparent,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14),
+      side: const BorderSide(color: border),
+    ),
+  ),
+  datePickerTheme: DatePickerThemeData(
+    backgroundColor: Colors.white,
+    surfaceTintColor: Colors.transparent,
+    headerForegroundColor: ink,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+  ),
+  snackBarTheme: SnackBarThemeData(
+    backgroundColor: Colors.white,
+    behavior: SnackBarBehavior.floating,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14),
+      side: const BorderSide(color: border),
+    ),
+    contentTextStyle: const TextStyle(fontFamily: 'Inter', color: ink),
+    actionTextColor: brandRed,
+    closeIconColor: ink,
   ),
   textSelectionTheme: const TextSelectionThemeData(
     cursorColor: brandRed,

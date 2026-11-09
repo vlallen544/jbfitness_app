@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 import 'workout_pages.dart';
 
 class TrainerFeedbackPage extends StatefulWidget {
@@ -57,11 +58,11 @@ class _TrainerFeedbackPageState extends State<TrainerFeedbackPage> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 640),
         child: ListView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.all(16),
           children: [
-            Text(
-              'A personal\nnext step.',
-              style: Theme.of(context).textTheme.headlineLarge,
+            StitchPageHeading(
+              title: 'A personal\nnext step.',
+              eyebrow: 'From your trainer',
             ),
             const SizedBox(height: 12),
             const Text(
@@ -85,7 +86,7 @@ class _TrainerFeedbackPageState extends State<TrainerFeedbackPage> {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
+                  borderRadius: BorderRadius.circular(18),
                   border: Border.all(color: border),
                 ),
                 child: Column(
@@ -94,7 +95,8 @@ class _TrainerFeedbackPageState extends State<TrainerFeedbackPage> {
                     Text(
                       item['trainer'],
                       style: const TextStyle(
-                        fontWeight: FontWeight.w800,
+                        fontFamily: 'SpaceGrotesk',
+                        fontWeight: FontWeight.w700,
                         fontSize: 17,
                       ),
                     ),

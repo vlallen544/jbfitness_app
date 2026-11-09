@@ -92,10 +92,7 @@ class _MembershipPageState extends State<MembershipPage>
             style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 8),
-          Text(
-            description,
-            style: const TextStyle(color: Colors.black54, height: 1.5),
-          ),
+          Text(description, style: const TextStyle(color: muted, height: 1.5)),
         ],
       ),
     ),
@@ -130,6 +127,7 @@ class _MembershipPageState extends State<MembershipPage>
           Text(
             '${period['videoSessionsRemaining']} of ${period['videoSessionsTotal']} video sessions remaining',
             style: TextStyle(
+              fontFamily: 'SpaceGrotesk',
               fontSize: 18,
               fontWeight: FontWeight.w700,
               color: ink,
@@ -286,7 +284,7 @@ class _MembershipPageState extends State<MembershipPage>
         const SizedBox(height: 10),
         const Text(
           'View your plan, membership dates and video-session balance.',
-          style: TextStyle(color: Colors.black54, height: 1.5),
+          style: TextStyle(color: muted, height: 1.5),
         ),
         const SizedBox(height: 24),
         FutureBuilder<List<Map<String, dynamic>>>(
@@ -375,11 +373,7 @@ class _MembershipPageState extends State<MembershipPage>
                 const SizedBox(height: 18),
                 const Text(
                   'Development expiry and renewal rules are provisional. Checkout, automatic charging and call booking are not enabled. Audio calls are deferred.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black54,
-                    height: 1.6,
-                  ),
+                  style: TextStyle(fontSize: 12, color: muted, height: 1.6),
                 ),
               ],
             );

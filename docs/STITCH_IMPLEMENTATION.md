@@ -13,7 +13,10 @@ The linked Today, workout, nutrition and profile designs are implemented as nati
 | Nutrition | White calorie summary, red progress accents, macro cards, meal estimation actions and the existing dated meal diary. Food logging, photo/text estimation, portion review and explicit save retain the existing entitlement and provider checks. |
 | Profile | Account identity, membership expiry and remaining sessions, plan comparison, coaching links, fitness-profile editing, privacy switches, progress-photo link, walkthrough replay and sign-out. |
 | Plans | Matching compact header, white membership summary, session balance and confirmed monthly plan comparison: Normal ₹3,000; Premium ₹10,000 with 10 video sessions; Premium Plus ₹20,000 with 25 total. Checkout remains disabled until configured. |
-| Login, walkthrough and supporting screens | Shared font, colors, form controls and button styling carry through the existing real-login flow and user-controlled feature walkthrough. The supplied preview did not specify replacement login/walkthrough layouts. |
+| Login and profile setup | Shared temporary identity, white feature/profile cards, pale-blue feature chips, Space Grotesk headings and rounded white inputs. Real authentication, validation and profile persistence retain their existing behavior. |
+| Introduction | Four rebuilt native Flutter scenes: a weekly workout strip and assembling exercise cards; a food scan, calorie ring and macro bars; habit checks and a drawn weight trend; a coaching conversation and support card. Each animation settles on its page. Next/Back/swipe/Skip remain user-controlled, with reduced-motion support. |
+| Supporting screens | Habits and monthly grid, body charts/comparison/photo editors, photo/text meal review, food catalogue and nutrient dialogs, AI planner/replies/summaries, trainer feedback, session bookings and video loading/error states all use the shared light surfaces, typography and red/pale-blue accents. |
+| Shared controls | Rounded white forms, outlined actions, dialogs, bottom sheets, date pickers, menus, floating alerts and branded startup/reconnection cards. Android day/night startup and iOS launch background match the app canvas. |
 
 ## Visual system
 
@@ -31,9 +34,15 @@ Profile sharing must be enabled before coaching review sharing can be selected. 
 
 Store, notifications, data export/deletion, real payment checkout and unconfigured AI/video services are shown honestly as unavailable or pending. This design update does not activate those providers.
 
+## Complete mobile pass — 0.2.1+7
+
+The remaining legacy dark promotional panels were replaced across mobile screens. The four walkthrough scenes use the actual visual vocabulary of the Stitch interface. There is no new animation service or runtime dependency. Illustration motion uses Flutter animation controllers, staged opacity/translation/scale, ring/bar progress and custom chart painting. The walkthrough preference is versioned independently of authentication so updated clients see the new introduction once without losing their saved login.
+
+The player can still letterbox supplied video content in black; its loading, unavailable, error, retry and transport controls use the new app design. Final logo and imagery are still pending client assets.
+
 ## Review captures
 
-Native Flutter captures at a 390 × 844 logical phone viewport, using the bundled fonts and explicitly labelled offline sample account:
+Native Flutter captures at a 390 × 844 logical phone viewport using the bundled fonts. Offline/test fixtures are used solely for design review; displayed values are illustrative rather than live customer data:
 
 - [Today](previews/stitch-today.png)
 - [Workouts](previews/stitch-workouts.png)
@@ -42,8 +51,15 @@ Native Flutter captures at a 390 × 844 logical phone viewport, using the bundle
 - [Plans](previews/stitch-plans.png)
 - [Profile](previews/stitch-profile.png)
 
+- [Introduction: workouts](previews/stitch-intro-workouts.png), [nutrition](previews/stitch-intro-nutrition.png), [progress](previews/stitch-intro-progress.png), [coaching](previews/stitch-intro-coaching.png)
+- [Sign in](previews/stitch-sign-in.png), [create account](previews/stitch-register.png), [profile setup](previews/stitch-profile-setup.png)
+- [Habits](previews/stitch-habit-tracker.png), [body progress](previews/stitch-body-progress.png), [progress editor](previews/stitch-progress-editor.png)
+- [AI planning](previews/stitch-workout-planner.png), [AI coaching reply](previews/stitch-coach-reply.png), [trainer feedback](previews/stitch-trainer-feedback.png)
+- [Food library](previews/stitch-food-library.png), [food label dialog](previews/stitch-food-label-dialog.png), [connection status](previews/stitch-connection-status.png)
+- [Meal input](previews/stitch-meal-input.png), [estimate review](previews/stitch-meal-review.png), [session management](previews/stitch-coaching-sessions.png), [video status](previews/stitch-video-status.png)
+
 ## Validation
 
-Flutter analysis and the complete mobile test suite cover the existing account, login-timeout, onboarding, workouts, nutrition, meal estimates, progress, coaching, membership, sessions and walkthrough flows, plus new sharing-consent success/failure checks. The small-phone/enlarged-text Today check verifies the revised layout.
+Flutter analysis and the complete mobile test suite cover the existing account, login-timeout, onboarding, workouts, nutrition, meal estimates, progress, coaching, membership, sessions and walkthrough flows, plus new sharing-consent success/failure checks. Small-phone/enlarged-text and reduced-motion walkthrough checks verify that the new scenes preserve navigation and fit constrained layouts. Native review also checks supporting screens at 320 px with 1.6× text. Existing tests verify account/session, entitlement, consent and explicit-save boundaries.
 
 The connected Android package uses the hosted HTTPS backend, verifies APK signing and checks the APK embedded in the ZIP against its original SHA-256. iOS source uses the same Flutter widgets; an iOS build still requires macOS/Xcode and signing. Physical-device installation, fonts and runtime need client-device confirmation.

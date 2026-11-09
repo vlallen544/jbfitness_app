@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 import 'workout_pages.dart' show requestId;
 
 String habitDay(DateTime day) =>
@@ -246,7 +247,7 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
           appBar: AppBar(title: const Text('Habit tracking')),
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(22),
+              padding: const EdgeInsets.all(16),
               child: HabitsPanel(account: widget.account, compact: false),
             ),
           ),
@@ -291,7 +292,8 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
                 '$done / ${active.length}',
                 style: const TextStyle(
                   color: brandRed,
-                  fontWeight: FontWeight.w800,
+                  fontFamily: 'SpaceGrotesk',
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             IconButton(
@@ -428,7 +430,11 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
             child: Text(
               month,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+              style: const TextStyle(
+                fontSize: 20,
+                fontFamily: 'SpaceGrotesk',
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           IconButton(
@@ -439,7 +445,7 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
         ],
       ),
       Card(
-        color: ink,
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -448,33 +454,35 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
               const Text(
                 'MONTHLY HABIT PROGRESS',
                 style: TextStyle(
-                  color: accentRed,
+                  color: brandRed,
                   fontSize: 10,
                   letterSpacing: 1,
-                  fontWeight: FontWeight.w800,
+                  fontFamily: 'SpaceGrotesk',
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 12),
               Text(
                 '${summary['completed']} check-ins',
                 style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
+                  color: ink,
+                  fontFamily: 'SpaceGrotesk',
+                  fontWeight: FontWeight.w700,
                   fontSize: 28,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 '${((summary['progress'] as num) * 100).round()}% of habit targets · ${summary['goal']} target days combined',
-                style: const TextStyle(color: Colors.white70, fontSize: 12),
+                style: const TextStyle(color: muted, fontSize: 12),
               ),
               const SizedBox(height: 16),
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: LinearProgressIndicator(
                   value: (summary['progress'] as num).toDouble(),
-                  color: accentRed,
-                  backgroundColor: darkTrack,
+                  color: brandRed,
+                  backgroundColor: stitchBlue,
                   minHeight: 6,
                 ),
               ),
@@ -526,6 +534,9 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
                             )
                             ? (day['date'] as String).substring(8)
                             : '',
+                        maxLines: 1,
+                        overflow: TextOverflow.visible,
+                        softWrap: false,
                         style: const TextStyle(fontSize: 8, color: muted),
                       ),
                     ],
@@ -617,7 +628,8 @@ class _HabitsPanelState extends State<HabitsPanel> with WidgetsBindingObserver {
                     style: TextStyle(
                       fontSize: 10,
                       color: muted,
-                      fontWeight: FontWeight.w800,
+                      fontFamily: 'SpaceGrotesk',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),

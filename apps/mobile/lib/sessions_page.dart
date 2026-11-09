@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 import 'workout_pages.dart' show requestId;
 
 String sessionTime(String value) {
@@ -217,11 +218,11 @@ class _SessionsPageState extends State<SessionsPage> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 640),
           child: ListView(
-            padding: const EdgeInsets.all(22),
+            padding: const EdgeInsets.all(16),
             children: [
-              Text(
-                'Make time\nfor your coach.',
-                style: Theme.of(context).textTheme.headlineLarge,
+              StitchPageHeading(
+                title: 'Make time\nfor your coach.',
+                eyebrow: 'Coaching calendar',
               ),
               const SizedBox(height: 12),
               const Text(
@@ -242,8 +243,16 @@ class _SessionsPageState extends State<SessionsPage> {
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: ink,
-                    borderRadius: BorderRadius.circular(24),
+                    color: Colors.white,
+                    border: Border.all(color: border),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: stitchShadow,
+                        blurRadius: 12,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(18),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,9 +260,10 @@ class _SessionsPageState extends State<SessionsPage> {
                       const Text(
                         'YOUR SESSION ALLOWANCE',
                         style: TextStyle(
-                          color: accentRed,
+                          color: brandRed,
                           fontSize: 11,
-                          fontWeight: FontWeight.w800,
+                          fontFamily: 'SpaceGrotesk',
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -262,8 +272,9 @@ class _SessionsPageState extends State<SessionsPage> {
                             ? 'No active membership'
                             : '${membership['videoSessionsRemaining']} available · ${membership['videoSessionsReserved'] ?? 0} reserved',
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
+                          color: ink,
+                          fontFamily: 'SpaceGrotesk',
+                          fontWeight: FontWeight.w700,
                           fontSize: 23,
                         ),
                       ),
@@ -271,7 +282,7 @@ class _SessionsPageState extends State<SessionsPage> {
                       if (membership != null)
                         Text(
                           '${membership['videoSessionsUsed']} used of ${membership['videoSessionsTotal']} total',
-                          style: const TextStyle(color: Colors.white70),
+                          style: const TextStyle(color: muted),
                         ),
                     ],
                   ),
@@ -333,7 +344,10 @@ class _SessionsPageState extends State<SessionsPage> {
                         children: [
                           Text(
                             slot['trainerName'],
-                            style: const TextStyle(fontWeight: FontWeight.w800),
+                            style: const TextStyle(
+                              fontFamily: 'SpaceGrotesk',
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                           const SizedBox(height: 8),
                           Text(sessionTime(slot['startsAt'])),
@@ -365,7 +379,10 @@ class _SessionsPageState extends State<SessionsPage> {
                         children: [
                           Text(
                             booking['trainerName'],
-                            style: const TextStyle(fontWeight: FontWeight.w800),
+                            style: const TextStyle(
+                              fontFamily: 'SpaceGrotesk',
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                           const SizedBox(height: 8),
                           Text(sessionTime(booking['startsAt'])),

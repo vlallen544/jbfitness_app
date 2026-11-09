@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 import 'workout_pages.dart' show requestId;
 
 String coachNumber(num value) => value == value.roundToDouble()
@@ -261,11 +262,11 @@ class _CoachingPageState extends State<CoachingPage>
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 640),
         child: ListView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.all(16),
           children: [
-            Text(
-              'A little guidance.\nA clearer next step.',
-              style: Theme.of(context).textTheme.headlineLarge,
+            StitchPageHeading(
+              title: 'A little guidance.\nA clearer next step.',
+              eyebrow: 'Your support',
             ),
             const SizedBox(height: 12),
             const Text(
@@ -386,7 +387,7 @@ class _CoachingPageState extends State<CoachingPage>
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFFF5F5F5),
+              color: stitchBlue,
               borderRadius: BorderRadius.circular(18),
             ),
             child: Text(
@@ -400,8 +401,16 @@ class _CoachingPageState extends State<CoachingPage>
         Container(
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
-            color: ink,
-            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            border: Border.all(color: border),
+            boxShadow: const [
+              BoxShadow(
+                color: stitchShadow,
+                blurRadius: 12,
+                offset: Offset(0, 3),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(18),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -409,21 +418,22 @@ class _CoachingPageState extends State<CoachingPage>
               const Text(
                 'AI COACH',
                 style: TextStyle(
-                  color: accentRed,
+                  color: brandRed,
                   fontSize: 11,
-                  fontWeight: FontWeight.w800,
+                  fontFamily: 'SpaceGrotesk',
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 10),
               if (turn['status'] == 'pending')
                 const Text(
                   'Preparing your response. You can return later to check it.',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: ink),
                 )
               else if (turn['status'] == 'failed')
                 const Text(
                   'This request did not finish. No AI reply was saved. You can send a new request within your daily allowance.',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: ink),
                 )
               else if (response != null) ...[
                 Semantics(
@@ -432,7 +442,7 @@ class _CoachingPageState extends State<CoachingPage>
                   child: ExcludeSemantics(
                     child: SelectableText(
                       response['reply'],
-                      style: const TextStyle(color: Colors.white, height: 1.5),
+                      style: const TextStyle(color: ink, height: 1.5),
                     ),
                   ),
                 ),
@@ -441,7 +451,7 @@ class _CoachingPageState extends State<CoachingPage>
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
                       '• $suggestion',
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: ink),
                     ),
                   ),
                 if (response['needsTrainerReview'] == true) ...[
@@ -449,14 +459,14 @@ class _CoachingPageState extends State<CoachingPage>
                   const Text(
                     'Trainer review needed',
                     style: TextStyle(
-                      color: accentRed,
+                      color: brandRed,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     response['reviewReason'] ?? '',
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: ink),
                   ),
                 ],
               ],
@@ -487,7 +497,7 @@ class CoachingFacts extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(color: border),
       ),
       child: Column(

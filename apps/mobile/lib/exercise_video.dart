@@ -3,6 +3,7 @@ import 'package:video_player/video_player.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 
 class ExerciseVideo extends StatefulWidget {
   final AccountController account;
@@ -91,15 +92,12 @@ class _ExerciseVideoState extends State<ExerciseVideo> {
             SizedBox(
               width: 26,
               height: 26,
-              child: CircularProgressIndicator(
-                color: accentRed,
-                strokeWidth: 2,
-              ),
+              child: CircularProgressIndicator(color: brandRed, strokeWidth: 2),
             ),
             SizedBox(height: 16),
             Text(
               'Loading demonstration…',
-              style: TextStyle(color: Colors.white70, fontSize: 12),
+              style: TextStyle(color: muted, fontSize: 12),
             ),
           ],
         ),
@@ -111,22 +109,18 @@ class _ExerciseVideoState extends State<ExerciseVideo> {
           children: [
             const Icon(
               Icons.ondemand_video_outlined,
-              color: accentRed,
+              color: brandRed,
               size: 32,
             ),
             const SizedBox(height: 12),
             Text(
               _message!,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white70,
-                height: 1.5,
-                fontSize: 13,
-              ),
+              style: const TextStyle(color: muted, height: 1.5, fontSize: 13),
             ),
             TextButton(
               onPressed: _load,
-              style: TextButton.styleFrom(foregroundColor: accentRed),
+              style: TextButton.styleFrom(foregroundColor: brandRed),
               child: const Text('Retry video'),
             ),
           ],
@@ -143,11 +137,11 @@ class _ExerciseVideoState extends State<ExerciseVideo> {
                 const Text(
                   'Playback stopped. Refresh the link to retry.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white70),
+                  style: TextStyle(color: muted),
                 ),
                 TextButton(
                   onPressed: _load,
-                  style: TextButton.styleFrom(foregroundColor: accentRed),
+                  style: TextButton.styleFrom(foregroundColor: brandRed),
                   child: const Text('Retry video'),
                 ),
               ],
@@ -229,7 +223,11 @@ class _ExerciseVideoState extends State<ExerciseVideo> {
     margin: const EdgeInsets.symmetric(vertical: 12),
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
-      color: ink,
+      color: Colors.white,
+      border: Border.all(color: border),
+      boxShadow: const [
+        BoxShadow(color: stitchShadow, blurRadius: 12, offset: Offset(0, 3)),
+      ],
       borderRadius: BorderRadius.circular(18),
     ),
     child: Center(child: child),

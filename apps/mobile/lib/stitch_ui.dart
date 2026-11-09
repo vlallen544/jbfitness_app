@@ -403,3 +403,143 @@ class StitchFuelCard extends StatelessWidget {
     );
   }
 }
+
+/// The temporary identity used on entry screens until final artwork is supplied.
+class StitchIdentity extends StatelessWidget {
+  final String section;
+  const StitchIdentity(this.section, {super.key});
+  @override
+  Widget build(BuildContext context) => Row(
+    children: [
+      Container(
+        width: 36,
+        height: 36,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: brandRed,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: const Text(
+          'JB',
+          style: TextStyle(
+            fontFamily: 'SpaceGrotesk',
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontStyle: FontStyle.italic,
+            fontSize: 19,
+          ),
+        ),
+      ),
+      const SizedBox(width: 10),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'JB FITNESS',
+              style: TextStyle(
+                fontFamily: 'SpaceGrotesk',
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            Text(section, style: const TextStyle(color: muted, fontSize: 10)),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+class StitchPageHeading extends StatelessWidget {
+  final String title, eyebrow;
+  const StitchPageHeading({
+    super.key,
+    required this.title,
+    required this.eyebrow,
+  });
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      StitchPill(eyebrow.toUpperCase(), icon: Icons.bolt_outlined),
+      const SizedBox(height: 12),
+      Text(title, style: Theme.of(context).textTheme.headlineMedium),
+    ],
+  );
+}
+
+class StitchStatusPage extends StatelessWidget {
+  final String title, description;
+  final bool loading;
+  final List<Widget> actions;
+  const StitchStatusPage({
+    super.key,
+    required this.title,
+    required this.description,
+    this.loading = false,
+    this.actions = const [],
+  });
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    body: SafeArea(
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 440),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const StitchIdentity('Your fitness companion'),
+                const SizedBox(height: 24),
+                StitchCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          width: 52,
+                          height: 52,
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: softRed,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: loading
+                              ? const CircularProgressIndicator(strokeWidth: 2)
+                              : const Icon(
+                                  Icons.wifi_off_rounded,
+                                  color: brandRed,
+                                ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        description,
+                        style: const TextStyle(
+                          color: muted,
+                          fontSize: 12,
+                          height: 1.6,
+                        ),
+                      ),
+                      if (actions.isNotEmpty) const SizedBox(height: 20),
+                      ...actions,
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}

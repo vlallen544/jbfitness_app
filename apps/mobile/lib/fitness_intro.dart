@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 
 class FitnessIntro extends StatefulWidget {
   final VoidCallback onFinished;
@@ -120,49 +121,19 @@ class _FitnessIntroState extends State<FitnessIntro>
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(24, 8, 16, 4),
+              padding: const EdgeInsets.fromLTRB(16, 8, 8, 4),
               child: Row(
                 children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: brandRed,
-                      borderRadius: BorderRadius.circular(11),
-                    ),
-                    child: const FittedBox(
-                      child: Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          'JB',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 19,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  const Expanded(
-                    child: Text(
-                      'JB FITNESS',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: .5,
-                      ),
-                    ),
-                  ),
+                  const Expanded(child: StitchIdentity('Explore the app')),
                   Flexible(
-                    child: TextButton(
-                      onPressed: _finish,
-                      child: const Text(
-                        'Skip intro',
-                        style: TextStyle(fontSize: 12),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: _finish,
+                        child: const Text(
+                          'Skip intro',
+                          style: TextStyle(fontSize: 12),
+                        ),
                       ),
                     ),
                   ),
@@ -182,7 +153,7 @@ class _FitnessIntroState extends State<FitnessIntro>
                   return LayoutBuilder(
                     builder: (context, bounds) => SingleChildScrollView(
                       key: PageStorageKey('feature-$index'),
-                      padding: const EdgeInsets.fromLTRB(24, 8, 24, 12),
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -221,11 +192,12 @@ class _FitnessIntroState extends State<FitnessIntro>
                           Text(
                             feature.title,
                             style: const TextStyle(
-                              fontSize: 33,
+                              fontFamily: 'SpaceGrotesk',
+                              fontSize: 30,
                               height: 1.08,
-                              letterSpacing: -1.3,
+                              letterSpacing: -.7,
                               color: ink,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                           const SizedBox(height: 15),
@@ -245,7 +217,7 @@ class _FitnessIntroState extends State<FitnessIntro>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(24, 12, 24, 16),
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -347,61 +319,91 @@ class _FeatureScene extends StatelessWidget {
   final int index;
   final double progress;
   const _FeatureScene({required this.index, required this.progress});
-  double stage(double from, [double length = .22]) => Curves.easeOutCubic
-      .transform(((progress - from) / length).clamp(0.0, 1.0));
 
-  Widget reveal(double from, Widget child) {
-    final t = stage(from);
+  double stage(double start, [double duration = .28]) => Curves.easeOutCubic
+      .transform(((progress - start) / duration).clamp(0.0, 1.0));
+
+  Widget reveal(double start, Widget child) {
+    final value = stage(start);
     return Opacity(
-      opacity: t,
-      child: Transform.translate(offset: Offset(0, (1 - t) * 14), child: child),
+      opacity: value,
+      child: Transform.translate(
+        offset: Offset(0, (1 - value) * 18),
+        child: Transform.scale(scale: .96 + value * .04, child: child),
+      ),
     );
   }
+
+  Widget label(String text, {Color color = muted, double size = 9}) => Text(
+    text,
+    style: TextStyle(
+      fontFamily: 'Inter',
+      color: color,
+      fontSize: size,
+      fontWeight: FontWeight.w500,
+    ),
+  );
+  Widget title(String text, {double size = 14, Color color = ink}) => Text(
+    text,
+    maxLines: 2,
+    style: TextStyle(
+      fontFamily: 'SpaceGrotesk',
+      color: color,
+      fontSize: size,
+      fontWeight: FontWeight.w700,
+    ),
+  );
+  Widget card(Widget child, {Color color = Colors.white}) =>
+      StitchCard(color: color, padding: const EdgeInsets.all(14), child: child);
+  Widget icon(IconData data, {bool red = false}) => Container(
+    width: 30,
+    height: 32,
+    decoration: BoxDecoration(
+      color: red ? softRed : stitchBlue,
+      borderRadius: BorderRadius.circular(9),
+    ),
+    child: Icon(data, size: 17, color: red ? brandRed : ink),
+  );
 
   @override
   Widget build(BuildContext context) => Center(
     child: FittedBox(
       fit: BoxFit.contain,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints.tightFor(width: 340, height: 340),
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: softRed,
-            borderRadius: BorderRadius.circular(26),
-          ),
-          padding: const EdgeInsets.all(18),
-          child: MediaQuery.withClampedTextScaling(
-            minScaleFactor: 1,
-            maxScaleFactor: 1,
+      child: SizedBox(
+        width: 340,
+        height: 340,
+        child: MediaQuery.withClampedTextScaling(
+          minScaleFactor: 1,
+          maxScaleFactor: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Row(
+                Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.play_circle_outline_rounded,
                       size: 12,
                       color: brandRed,
                     ),
-                    SizedBox(width: 6),
-                    Text(
-                      'FEATURE PREVIEW · EXAMPLE DATA',
-                      style: TextStyle(
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: label(
+                        'FEATURE PREVIEW · EXAMPLE DATA',
                         color: brandRed,
-                        fontSize: 8,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: .8,
+                        size: 8,
                       ),
                     ),
+                    label('0${index + 1}', color: brandRed),
                   ],
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 12),
                 Expanded(
                   child: switch (index) {
                     0 => _workout(),
                     1 => _nutrition(),
-                    2 => _progress(),
+                    2 => _habits(),
                     _ => _coaching(),
                   },
                 ),
@@ -413,129 +415,106 @@ class _FeatureScene extends StatelessWidget {
     ),
   );
 
-  Widget card(
-    Widget child, {
-    bool dark = false,
-    EdgeInsets padding = const EdgeInsets.all(14),
-  }) => Container(
-    decoration: BoxDecoration(
-      color: dark ? ink : Colors.white,
-      borderRadius: BorderRadius.circular(15),
-      border: Border.all(color: dark ? ink : border),
-    ),
-    padding: padding,
-    child: child,
-  );
-
-  Widget label(String value, {Color color = muted}) => Text(
-    value,
-    maxLines: 1,
-    overflow: TextOverflow.ellipsis,
-    style: TextStyle(
-      color: color,
-      fontSize: 8,
-      fontWeight: FontWeight.w700,
-      letterSpacing: .8,
-    ),
-  );
-  Widget caption(String value, {Color color = ink, double size = 12}) => Text(
-    value,
-    maxLines: 1,
-    overflow: TextOverflow.ellipsis,
-    style: TextStyle(color: color, fontSize: size, fontWeight: FontWeight.w700),
-  );
-
   Widget _workout() => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       reveal(
         0,
         card(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              label('YOUR GOAL → YOUR ROUTINE', color: accentRed),
-              const SizedBox(height: 7),
-              caption(
-                'Build strength. Three days a week.',
-                color: Colors.white,
-                size: 12,
+          Row(
+            children: List.generate(
+              7,
+              (i) => Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(right: i == 6 ? 0 : 4),
+                  padding: const EdgeInsets.symmetric(vertical: 7),
+                  decoration: BoxDecoration(
+                    color: i == 0 ? brandRed : neutralSurface,
+                    borderRadius: BorderRadius.circular(9),
+                  ),
+                  child: Column(
+                    children: [
+                      label(
+                        ['M', 'T', 'W', 'T', 'F', 'S', 'S'][i],
+                        color: i == 0 ? Colors.white : muted,
+                        size: 8,
+                      ),
+                      const SizedBox(height: 3),
+                      title(
+                        '${12 + i}',
+                        size: 12,
+                        color: i == 0 ? Colors.white : ink,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ],
+            ),
           ),
-          dark: true,
         ),
       ),
       const SizedBox(height: 10),
       Expanded(
-        child: card(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Expanded(child: caption('Monday · Full body')),
-                  label('30 MIN'),
-                ],
-              ),
-              const SizedBox(height: 10),
-              for (final row in [
-                (Icons.fitness_center, 'Bodyweight squat', '3 sets × 12 reps'),
-                (Icons.sports_gymnastics, 'Incline push-up', '3 sets × 8 reps'),
-                (
-                  Icons.directions_walk,
-                  'March in place',
-                  '3 sets × 30 seconds',
+        child: reveal(
+          .12,
+          card(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    icon(Icons.fitness_center_rounded, red: true),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          title('Your full-body routine'),
+                          label('3 days / week · 30 min'),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ])
-                Expanded(
-                  child: reveal(
-                    .14 +
-                        [
-                              'Bodyweight squat',
-                              'Incline push-up',
-                              'March in place',
-                            ].indexOf(row.$2) *
-                            .18,
-                    Row(
-                      children: [
-                        Container(
-                          width: 29,
-                          height: 29,
-                          decoration: BoxDecoration(
-                            color: softRed,
-                            borderRadius: BorderRadius.circular(8),
+                const SizedBox(height: 9),
+                for (final row in [
+                  ('Bodyweight squat', '3 × 12'),
+                  ('Incline push-up', '3 × 8'),
+                  ('March in place', '3 × 30 sec'),
+                ].indexed)
+                  Expanded(
+                    child: reveal(
+                      .25 + row.$1 * .15,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.check_circle_rounded,
+                            size: 14,
+                            color: stage(.25 + row.$1 * .15) > .8
+                                ? brandRed
+                                : border,
                           ),
-                          child: Icon(row.$1, size: 15, color: brandRed),
-                        ),
-                        const SizedBox(width: 9),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              caption(row.$2, size: 10),
-                              const SizedBox(height: 3),
-                              Text(
-                                row.$3,
-                                style: const TextStyle(
-                                  fontSize: 9,
-                                  color: muted,
-                                ),
-                              ),
-                            ],
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: label(row.$2.$1, color: ink, size: 10),
                           ),
-                        ),
-                        const Icon(
-                          Icons.check_circle_rounded,
-                          size: 15,
-                          color: brandRed,
-                        ),
-                      ],
+                          label(row.$2.$2),
+                        ],
+                      ),
                     ),
                   ),
+                const SizedBox(height: 7),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: LinearProgressIndicator(
+                    value: stage(.5, .4),
+                    color: brandRed,
+                    backgroundColor: stitchBlue,
+                    minHeight: 4,
+                  ),
                 ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -545,55 +524,50 @@ class _FeatureScene extends StatelessWidget {
   Widget _nutrition() => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      Expanded(
-        child: card(
+      reveal(
+        0,
+        card(
           Row(
             children: [
-              Expanded(
+              SizedBox(
+                width: 78,
+                height: 78,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     Container(
-                      width: 86,
-                      height: 86,
-                      decoration: BoxDecoration(
-                        color: softRed,
+                      width: 70,
+                      height: 70,
+                      decoration: const BoxDecoration(
+                        color: stitchBlue,
                         shape: BoxShape.circle,
-                        border: Border.all(color: border, width: 5),
                       ),
                       child: const Icon(
-                        Icons.rice_bowl_rounded,
-                        size: 46,
-                        color: brandRed,
+                        Icons.rice_bowl_outlined,
+                        color: ink,
+                        size: 35,
                       ),
                     ),
                     if (progress < .45)
                       Positioned(
-                        top: 10 + stage(0, .45) * 74,
+                        top: 8 + stage(0, .45) * 60,
                         left: 0,
                         right: 0,
-                        child: Container(
-                          height: 2,
-                          color: brandRed.withValues(alpha: .6),
-                        ),
+                        child: Container(height: 2, color: brandRed),
                       ),
                   ],
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    label('PHOTO OR TEXT'),
+                    const StitchPill('PHOTO OR TEXT'),
                     const SizedBox(height: 8),
-                    caption('Rice & dal', size: 16),
-                    const SizedBox(height: 6),
-                    const Text(
-                      '250 g · example portion',
-                      style: TextStyle(fontSize: 9, color: muted),
-                    ),
+                    title('Rice & dal', size: 18),
+                    const SizedBox(height: 4),
+                    label('250 g · example portion'),
                   ],
                 ),
               ),
@@ -602,150 +576,179 @@ class _FeatureScene extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 10),
+      Expanded(
+        child: reveal(
+          .3,
+          card(
+            Row(
+              children: [
+                SizedBox(
+                  width: 83,
+                  height: 83,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox.expand(
+                        child: CircularProgressIndicator(
+                          value: stage(.3, .45) * .7,
+                          color: brandRed,
+                          backgroundColor: stitchBlue,
+                          strokeWidth: 6,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: FittedBox(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              title(
+                                '≈ ${(stage(.3, .4) * 420 / 10).round() * 10}',
+                                size: 23,
+                              ),
+                              label('KCAL · ESTIMATE', size: 7),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 18),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (final macro in [
+                        ('Protein', '14 g'),
+                        ('Carbs', '68 g'),
+                        ('Fats', '10 g'),
+                      ])
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(child: label(macro.$1, color: ink)),
+                                  label(macro.$2),
+                                ],
+                              ),
+                              const SizedBox(height: 4),
+                              LinearProgressIndicator(
+                                value: stage(.4, .4) * .55,
+                                color: brandRed,
+                                backgroundColor: stitchBlue,
+                                minHeight: 3,
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(height: 10),
       reveal(
-        .32,
+        .72,
+        Center(
+          child: label(
+            'Review portions and ingredients before saving',
+            color: brandRed,
+            size: 9,
+          ),
+        ),
+      ),
+    ],
+  );
+
+  Widget _habits() => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      reveal(
+        0,
         card(
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Row(
                 children: [
-                  Expanded(
-                    child: label('ESTIMATED NUTRITION', color: accentRed),
-                  ),
-                  caption(
-                    '≈ ${((stage(.32, .35) * 420) / 10).round() * 10} kcal',
-                    color: Colors.white,
-                    size: 20,
+                  Expanded(child: title('Small wins, every day')),
+                  label(
+                    '${(stage(.15, .55) * 5).round()} / 7',
+                    color: brandRed,
                   ),
                 ],
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 12),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  for (final macro in [
-                    ('PROTEIN', '14 g'),
-                    ('CARBS', '68 g'),
-                    ('FAT', '10 g'),
-                  ])
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(7, (i) {
+                  final checked = i < 5 && stage(.12 + i * .08, .15) > .5;
+                  return Expanded(
+                    child: Column(
                       children: [
-                        label(macro.$1, color: onDarkSubtle),
-                        const SizedBox(height: 6),
-                        caption(macro.$2, color: Colors.white),
+                        label(['M', 'T', 'W', 'T', 'F', 'S', 'S'][i], size: 8),
+                        const SizedBox(height: 5),
+                        AnimatedContainer(
+                          duration: Duration.zero,
+                          width: 27,
+                          height: 27,
+                          decoration: BoxDecoration(
+                            color: checked ? brandRed : stitchBlue,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: checked
+                              ? const Icon(
+                                  Icons.check_rounded,
+                                  color: Colors.white,
+                                  size: 17,
+                                )
+                              : null,
+                        ),
                       ],
                     ),
-                ],
+                  );
+                }),
               ),
             ],
           ),
-          dark: true,
-        ),
-      ),
-      const SizedBox(height: 10),
-      reveal(
-        .7,
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.tune_rounded, color: brandRed, size: 13),
-            SizedBox(width: 6),
-            Flexible(
-              child: Text(
-                'Review portions before saving',
-                style: TextStyle(
-                  color: brandRed,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
-
-  Widget _progress() => Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      card(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                Expanded(child: caption('Small wins, every day.')),
-                label('${(stage(.1, .65) * 5).round()} / 7'),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(7, (i) {
-                final checked = stage(.12 + i * .075, .12) > .5 && i < 5;
-                return Column(
-                  children: [
-                    Text(
-                      ['M', 'T', 'W', 'T', 'F', 'S', 'S'][i],
-                      style: const TextStyle(fontSize: 8, color: muted),
-                    ),
-                    const SizedBox(height: 5),
-                    Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: checked ? brandRed : neutralSurface,
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      child: checked
-                          ? const Icon(
-                              Icons.check_rounded,
-                              color: Colors.white,
-                              size: 15,
-                            )
-                          : null,
-                    ),
-                  ],
-                );
-              }),
-            ),
-          ],
         ),
       ),
       const SizedBox(height: 10),
       Expanded(
-        child: card(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: label('WEIGHT TREND · EXAMPLE', color: onDarkSubtle),
-                  ),
-                  caption('74.8 kg', color: Colors.white),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Expanded(
-                child: CustomPaint(
-                  painter: _TrendPainter(progress: stage(.32, .65)),
+        child: reveal(
+          .28,
+          card(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: label('WEIGHT TREND · EXAMPLE', size: 8)),
+                    title('74.8 kg', size: 18),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  label('WEEK 1', color: onDarkSubtle),
-                  label('WEEK 6', color: onDarkSubtle),
-                ],
-              ),
-            ],
+                const SizedBox(height: 12),
+                Expanded(
+                  child: CustomPaint(
+                    painter: _TrendPainter(progress: stage(.35, .6)),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    label('WEEK 1', size: 8),
+                    label('WEEK 6', size: 8),
+                  ],
+                ),
+              ],
+            ),
           ),
-          dark: true,
         ),
       ),
     ],
@@ -755,118 +758,106 @@ class _FeatureScene extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       Expanded(
-        child: card(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 25,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: softRed,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.auto_awesome_outlined,
-                      size: 14,
-                      color: brandRed,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  caption('Your coaching space'),
-                ],
-              ),
-              const SizedBox(height: 14),
-              reveal(
-                .06,
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: brandRed,
-                      borderRadius: BorderRadius.circular(11),
-                    ),
-                    child: const Text(
-                      'Can I train at home?',
-                      style: TextStyle(color: Colors.white, fontSize: 11),
+        child: reveal(
+          0,
+          card(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    icon(Icons.auto_awesome_outlined, red: true),
+                    const SizedBox(width: 9),
+                    Expanded(child: title('Your coaching space')),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                reveal(
+                  .12,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      padding: const EdgeInsets.all(11),
+                      decoration: BoxDecoration(
+                        color: stitchBlue,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: label(
+                        'Can I train at home?',
+                        color: ink,
+                        size: 11,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: reveal(
-                  .28,
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: neutralSurface,
-                      borderRadius: BorderRadius.circular(11),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        label('FITNESS ASSISTANT'),
-                        const SizedBox(height: 6),
-                        const Text(
-                          'Let’s work with your space, available equipment and training days.',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 11, height: 1.5),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: reveal(
+                    .35,
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: neutralSurface,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: SizedBox(
+                          width: 250,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              label(
+                                'FITNESS ASSISTANT',
+                                color: brandRed,
+                                size: 8,
+                              ),
+                              const SizedBox(height: 6),
+                              const Text(
+                                'Let’s work with your space, equipment and training days.',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 11, height: 1.5),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
       const SizedBox(height: 10),
       reveal(
-        .62,
+        .68,
         card(
           Row(
             children: [
-              const Icon(
-                Icons.support_agent_rounded,
-                size: 23,
-                color: accentRed,
-              ),
+              icon(Icons.support_agent_rounded),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    caption(
-                      'Trainer feedback & memberships',
-                      color: Colors.white,
-                      size: 10,
-                    ),
+                    title('Trainer feedback & memberships', size: 11),
                     const SizedBox(height: 4),
-                    const Text(
-                      'Live sessions depend on your plan',
-                      style: TextStyle(fontSize: 9, color: onDarkMuted),
-                    ),
+                    label('Live sessions depend on your plan', size: 9),
                   ],
                 ),
               ),
               const Icon(
-                Icons.arrow_forward_rounded,
-                color: Colors.white,
-                size: 16,
+                Icons.chevron_right_rounded,
+                size: 19,
+                color: brandRed,
               ),
             ],
           ),
-          dark: true,
         ),
       ),
     ],
@@ -878,18 +869,17 @@ class _TrendPainter extends CustomPainter {
   const _TrendPainter({required this.progress});
   @override
   void paint(Canvas canvas, Size size) {
-    final grid = Paint()
-      ..color = Colors.white.withValues(alpha: .12)
-      ..strokeWidth = 1;
     for (var i = 1; i < 4; i++) {
       canvas.drawLine(
         Offset(0, size.height * i / 4),
         Offset(size.width, size.height * i / 4),
-        grid,
+        Paint()
+          ..color = border
+          ..strokeWidth = 1,
       );
     }
     final points = [
-      Offset(0, size.height * .12),
+      Offset(0, size.height * .15),
       Offset(size.width * .2, size.height * .3),
       Offset(size.width * .4, size.height * .23),
       Offset(size.width * .6, size.height * .55),
@@ -897,26 +887,30 @@ class _TrendPainter extends CustomPainter {
       Offset(size.width, size.height * .85),
     ];
     final path = Path()..moveTo(points.first.dx, points.first.dy);
-    for (var i = 1; i < points.length; i++) {
-      path.lineTo(points[i].dx, points[i].dy);
+    for (final point in points.skip(1)) {
+      path.lineTo(point.dx, point.dy);
     }
     final metric = path.computeMetrics().first;
-    canvas.drawPath(
-      metric.extractPath(0, metric.length * progress),
-      Paint()
-        ..color = accentRed
-        ..strokeWidth = 3
-        ..strokeCap = StrokeCap.round
-        ..strokeJoin = StrokeJoin.round
-        ..style = PaintingStyle.stroke,
-    );
+    final visible = metric.extractPath(0, metric.length * progress);
     if (progress > 0) {
-      final position = metric
-          .getTangentForOffset(metric.length * progress)
-          ?.position;
-      if (position != null) {
-        canvas.drawCircle(position, 4, Paint()..color = Colors.white);
-      }
+      final last = metric
+          .getTangentForOffset(metric.length * progress)!
+          .position;
+      final area = Path.from(visible)
+        ..lineTo(last.dx, size.height)
+        ..lineTo(0, size.height)
+        ..close();
+      canvas.drawPath(area, Paint()..color = softRed);
+      canvas.drawPath(
+        visible,
+        Paint()
+          ..color = brandRed
+          ..strokeWidth = 3
+          ..strokeCap = StrokeCap.round
+          ..strokeJoin = StrokeJoin.round
+          ..style = PaintingStyle.stroke,
+      );
+      canvas.drawCircle(last, 4, Paint()..color = brandRed);
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 import 'workout_pages.dart' show requestId;
 
 class AiPlanningPage extends StatefulWidget {
@@ -153,11 +154,11 @@ class _AiPlanningPageState extends State<AiPlanningPage>
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 640),
           child: ListView(
-            padding: const EdgeInsets.all(22),
+            padding: const EdgeInsets.all(16),
             children: [
-              Text(
-                'A routine built\naround you.',
-                style: Theme.of(context).textTheme.headlineLarge,
+              StitchPageHeading(
+                title: 'A routine built\naround you.',
+                eyebrow: 'Personalized training',
               ),
               const SizedBox(height: 12),
               const Text(
@@ -168,8 +169,16 @@ class _AiPlanningPageState extends State<AiPlanningPage>
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: ink,
-                  borderRadius: BorderRadius.circular(24),
+                  color: Colors.white,
+                  border: Border.all(color: border),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: stitchShadow,
+                      blurRadius: 12,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(18),
                 ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,15 +186,16 @@ class _AiPlanningPageState extends State<AiPlanningPage>
                     Text(
                       'REVIEW → PLAN → CHECK → PUBLISH',
                       style: TextStyle(
-                        color: accentRed,
+                        color: brandRed,
                         fontSize: 11,
-                        fontWeight: FontWeight.w800,
+                        fontFamily: 'SpaceGrotesk',
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     SizedBox(height: 12),
                     Text(
                       'AI reviews your routine, drafts your workouts and reviews the result. The app checks the dates, exercises and session limits. A draft can be revised once before a trainer review is needed.',
-                      style: TextStyle(color: Colors.white, height: 1.5),
+                      style: TextStyle(color: ink, height: 1.5),
                     ),
                   ],
                 ),

@@ -12,6 +12,7 @@ import 'today_page.dart' as dashboard;
 import 'fitness_intro.dart';
 import 'intro_store.dart';
 import 'profile_overview.dart';
+import 'stitch_ui.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -118,12 +119,12 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               AnnotatedRegion<SystemUiOverlayStyle>(
-                value: SystemUiOverlayStyle.light.copyWith(
+                value: SystemUiOverlayStyle.dark.copyWith(
                   systemNavigationBarColor: canvas,
                   systemNavigationBarIconBrightness: Brightness.dark,
                 ),
                 child: Material(
-                  color: ink,
+                  color: softRed,
                   child: SafeArea(
                     bottom: false,
                     child: Padding(
@@ -134,7 +135,7 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
                       child: Text(
                         'OFFLINE DEMO · Sample data · Resets on restart',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(color: accentRed, fontSize: 11),
+                        style: const TextStyle(color: brandRed, fontSize: 11),
                       ),
                     ),
                   ),
@@ -148,63 +149,36 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
       listenable: account,
       builder: (context, _) {
         if (!_introReady) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+          return const StitchStatusPage(
+            title: 'Loading your fitness space…',
+            description: 'Getting the app ready.',
+            loading: true,
           );
         }
         if (!_introFinished) {
           return FitnessIntro(onFinished: _finishIntro);
         }
         if (account.booting) {
-          return const Scaffold(
-            body: Center(
-              child: Padding(
-                padding: EdgeInsets.all(28),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 20),
-                    Text(
-                      'Connecting to your account…',
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'The first connection may take up to a minute.',
-                      style: TextStyle(fontSize: 12, color: muted),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          return const StitchStatusPage(
+            title: 'Connecting to your account…',
+            description: 'The first connection may take up to a minute.',
+            loading: true,
           );
         }
         if (account.bootError != null) {
-          return Scaffold(
-            body: SafeArea(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(account.bootError!),
-                      const SizedBox(height: 20),
-                      FilledButton(
-                        onPressed: account.restore,
-                        child: const Text('Retry connection'),
-                      ),
-                      TextButton(
-                        onPressed: () => account.signOut(localOnly: true),
-                        child: const Text('Sign out on this device'),
-                      ),
-                    ],
-                  ),
-                ),
+          return StitchStatusPage(
+            title: 'Let’s reconnect.',
+            description: account.bootError!,
+            actions: [
+              FilledButton(
+                onPressed: account.restore,
+                child: const Text('Retry connection'),
               ),
-            ),
+              TextButton(
+                onPressed: () => account.signOut(localOnly: true),
+                child: const Text('Sign out on this device'),
+              ),
+            ],
           );
         }
         if (account.user == null) {

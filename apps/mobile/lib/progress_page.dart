@@ -8,6 +8,7 @@ import 'workout_pages.dart' show requestId;
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 
 const progressMetrics = {
   'weight': 'Weight (kg)',
@@ -100,11 +101,11 @@ class _ProgressPageState extends State<ProgressPage> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 640),
           child: ListView(
-            padding: const EdgeInsets.all(22),
+            padding: const EdgeInsets.all(16),
             children: [
-              Text(
-                'Your progress,\nat your pace.',
-                style: Theme.of(context).textTheme.headlineLarge,
+              StitchPageHeading(
+                title: 'Your progress,\nat your pace.',
+                eyebrow: 'Your transformation',
               ),
               const SizedBox(height: 10),
               const Text(
@@ -158,8 +159,16 @@ class _ProgressPageState extends State<ProgressPage> {
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: ink,
-                      borderRadius: BorderRadius.circular(24),
+                      color: Colors.white,
+                      border: Border.all(color: border),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: stitchShadow,
+                          blurRadius: 12,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(18),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,19 +177,20 @@ class _ProgressPageState extends State<ProgressPage> {
                           '${progressNumber(points.last['measurements'][_metric])} ${_metric == 'weight' ? 'kg' : 'cm'}',
                           style: const TextStyle(
                             fontSize: 30,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
+                            color: ink,
+                            fontFamily: 'SpaceGrotesk',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         Text(
                           'Latest recorded · ${points.last['date']}',
-                          style: const TextStyle(color: Colors.white70),
+                          style: const TextStyle(color: muted),
                         ),
                         const SizedBox(height: 16),
                         if (points.length < 2)
                           const Text(
                             'Add another dated value to see a trend.',
-                            style: TextStyle(color: accentRed),
+                            style: TextStyle(color: brandRed),
                           )
                         else
                           Semantics(
@@ -202,11 +212,11 @@ class _ProgressPageState extends State<ProgressPage> {
                               children: [
                                 Text(
                                   points.first['date'],
-                                  style: const TextStyle(color: Colors.white70),
+                                  style: const TextStyle(color: muted),
                                 ),
                                 Text(
                                   points.last['date'],
-                                  style: const TextStyle(color: Colors.white70),
+                                  style: const TextStyle(color: muted),
                                 ),
                               ],
                             ),
@@ -387,7 +397,7 @@ class _ProgressChart extends CustomPainter {
     final path = Path();
     final locations = <Offset>[];
     final grid = Paint()
-      ..color = Colors.white24
+      ..color = border
       ..strokeWidth = 1;
     for (var i = 0; i < 3; i++) {
       final y = 10 + (size.height - 20) * i / 2;
@@ -395,7 +405,11 @@ class _ProgressChart extends CustomPainter {
       final label = TextPainter(
         text: TextSpan(
           text: progressNumber(maxY - (maxY - minY) * i / 2),
-          style: const TextStyle(color: Colors.white70, fontSize: 10),
+          style: const TextStyle(
+            fontFamily: 'Inter',
+            color: muted,
+            fontSize: 10,
+          ),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
@@ -419,12 +433,12 @@ class _ProgressChart extends CustomPainter {
     canvas.drawPath(
       path,
       Paint()
-        ..color = accentRed
+        ..color = brandRed
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.5,
     );
     for (final p in locations) {
-      canvas.drawCircle(p, 3.5, Paint()..color = accentRed);
+      canvas.drawCircle(p, 3.5, Paint()..color = brandRed);
     }
   }
 
@@ -786,7 +800,7 @@ class _ProgressEditorState extends State<ProgressEditor> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 640),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(22),
+            padding: const EdgeInsets.all(16),
             child: Form(
               key: _form,
               child: Column(

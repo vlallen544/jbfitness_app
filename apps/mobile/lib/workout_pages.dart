@@ -219,7 +219,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                     padding: EdgeInsets.symmetric(vertical: 12),
                     child: Text(
                       'Development sample • awaiting trainer-reviewed content.',
-                      style: TextStyle(color: Colors.black54, fontSize: 12),
+                      style: TextStyle(color: muted, fontSize: 12),
                     ),
                   ),
                 if (plan['source'] == 'ai')
@@ -311,10 +311,14 @@ Widget _notice(String title, String body, {Widget? action}) => Card(
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          style: const TextStyle(
+            fontFamily: 'SpaceGrotesk',
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         const SizedBox(height: 10),
-        Text(body, style: const TextStyle(color: Colors.black54, height: 1.5)),
+        Text(body, style: const TextStyle(color: muted, height: 1.5)),
         ?action,
       ],
     ),
@@ -949,7 +953,7 @@ class _WorkoutHistoryPageState extends State<WorkoutHistoryPage> {
           children: [
             const Text(
               'Your most recent 50 saved sessions',
-              style: TextStyle(color: Colors.black54),
+              style: TextStyle(color: muted),
             ),
             ...rows.map(
               (row) => Card(

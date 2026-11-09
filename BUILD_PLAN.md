@@ -153,6 +153,8 @@ Deliverable: approved iOS/Android releases and monitoring/support ownership.
 
 ## Remaining decisions
 
+- [x] Extend the Stitch design across every mobile supporting flow, shared overlays and native launch backgrounds; rebuild all four explanatory animation scenes with reduced-motion support.
+
 - [x] Implement the selected Stitch mobile layouts in Flutter, bundle typography, connect real data and retain temporary branding pending supplied assets.
 - [x] Add the Profile overview with persisted, separate trainer-sharing choices and failed-save protection.
 
