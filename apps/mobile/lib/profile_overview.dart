@@ -8,6 +8,8 @@ import 'fitness_intro.dart';
 import 'sessions_page.dart';
 import 'trainer_feedback_page.dart';
 import 'progress_page.dart';
+import 'notification_settings_page.dart';
+import 'device_services.dart';
 
 class ProfileOverview extends StatefulWidget {
   final AccountController account;
@@ -402,8 +404,12 @@ class _ProfileOverviewState extends State<ProfileOverview> {
                 _tile(
                   Icons.notifications_active_outlined,
                   'Notifications & reminders',
-                  'Coming soon',
-                  () => _unavailable('Notifications'),
+                  'Device updates and optional crash reports',
+                  () => _open(
+                    NotificationSettingsPage(
+                      services: DeviceServicesScope.of(context),
+                    ),
+                  ),
                 ),
                 _tile(
                   Icons.play_circle_outline_rounded,

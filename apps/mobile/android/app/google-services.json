@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "936024798791",
+    "project_id": "jb-fitness-a2dc4",
+    "storage_bucket": "jb-fitness-a2dc4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936024798791:android:767712455a775eba4da362",
+        "android_client_info": {
+          "package_name": "com.jbfitness.jbfitness"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh32KcwP9HZEy1eJqi4J9H7z8UdpkIO2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

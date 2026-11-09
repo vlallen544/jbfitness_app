@@ -32,13 +32,13 @@ Prototype names, calories, targets, ratings, coach identity, call recordings and
 
 Profile sharing must be enabled before coaching review sharing can be selected. Coaching sharing requires its own explicit action. Revoking profile sharing also revokes coaching review sharing. A failed save leaves the existing consent unchanged. Progress photos remain private under the existing access controls.
 
-Store, notifications, data export/deletion, real payment checkout and unconfigured AI/video services are shown honestly as unavailable or pending. This design update does not activate those providers.
+Store, automated notifications/reminder schedules, data export/deletion, real payment checkout and unconfigured AI/video services are shown honestly as unavailable or pending. This design update does not activate those providers.
 
 ## Complete mobile pass — 0.2.1+7
 
 The remaining legacy dark promotional panels were replaced across mobile screens. The four walkthrough scenes use the actual visual vocabulary of the Stitch interface. There is no new animation service or runtime dependency. Illustration motion uses Flutter animation controllers, staged opacity/translation/scale, ring/bar progress and custom chart painting. The walkthrough preference is versioned independently of authentication so updated clients see the new introduction once without losing their saved login.
 
-The player can still letterbox supplied video content in black; its loading, unavailable, error, retry and transport controls use the new app design. Final logo and imagery are still pending client assets.
+The player can still letterbox supplied video content in black; its loading, unavailable, error, retry and transport controls use the new app design. Final logo and imagery are still pending client assets. The subsequent Android Firebase milestone activates device-notification preferences and opt-in diagnostic controls; see [Firebase setup](FIREBASE_SETUP.md).
 
 ## Review captures
 

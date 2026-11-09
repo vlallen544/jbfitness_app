@@ -13,21 +13,39 @@ import 'fitness_intro.dart';
 import 'intro_store.dart';
 import 'profile_overview.dart';
 import 'stitch_ui.dart';
+import 'device_services.dart';
+import 'firebase_device_gateway.dart';
+import 'notification_settings_page.dart';
+import 'nutrition_page.dart';
+import 'progress_page.dart';
+import 'coaching_page.dart';
+import 'trainer_feedback_page.dart';
+import 'sessions_page.dart';
+import 'habits_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const JBFitnessApp());
+  runApp(
+    JBFitnessApp(
+      deviceServices: DeviceServices(
+        gateway: FirebaseDeviceGateway(),
+        preferences: SecurePushPreferenceStore(),
+      ),
+    ),
+  );
 }
 
 class JBFitnessApp extends StatefulWidget {
   final AccountController? account;
   final bool preview;
   final IntroStore? introStore;
+  final DeviceServices? deviceServices;
   const JBFitnessApp({
     super.key,
     this.account,
     this.preview = false,
     this.introStore,
+    this.deviceServices,
   });
   @override
   State<JBFitnessApp> createState() => _JBFitnessAppState();
@@ -40,6 +58,9 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
   bool _introFinished = false;
   bool _introReady = false;
   late final IntroStore _introStore;
+  late final DeviceServices devices;
+  StreamSubscription<DeviceNotice>? _deviceEvents;
+  String? _pendingDestination;
 
   Future<void> _restoreIntro() async {
     var seen = false;
@@ -53,11 +74,13 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
         _introFinished = seen;
         _introReady = true;
       });
+      _flushNotification();
     }
   }
 
   void _finishIntro() {
     setState(() => _introFinished = true);
+    _flushNotification();
     unawaited(_rememberIntro());
   }
 
@@ -69,12 +92,88 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
     }
   }
 
+  void _openDeviceSettings() {
+    _navigatorKey.currentState?.push(
+      MaterialPageRoute<void>(
+        builder: (_) => NotificationSettingsPage(services: devices),
+      ),
+    );
+  }
+
+  void _onDeviceNotice(DeviceNotice notice) {
+    if (!mounted || account.user == null) return;
+    if (notice.opened) {
+      _pendingDestination = notice.destination;
+      _flushNotification();
+      return;
+    }
+    final context = _navigatorKey.currentContext;
+    if (context != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('You have a new JB Fitness update.'),
+          action: SnackBarAction(
+            label: 'View',
+            onPressed: () {
+              _pendingDestination = notice.destination;
+              _flushNotification();
+            },
+          ),
+        ),
+      );
+    }
+  }
+
+  void _flushNotification() {
+    if (!mounted ||
+        !_introFinished ||
+        account.user == null ||
+        account.profile == null ||
+        _pendingDestination == null) {
+      return;
+    }
+    final destination = _pendingDestination!;
+    final owner = _userId;
+    _pendingDestination = null;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || account.user == null || account.user?['id'] != owner) {
+        return;
+      }
+      final page = switch (destination) {
+        'workouts' => WorkoutsPage(account: account),
+        'nutrition' => NutritionPage(account: account),
+        'progress' => ProgressPage(account: account),
+        'coaching' => CoachingPage(account: account),
+        'feedback' => TrainerFeedbackPage(account: account),
+        'sessions' => SessionsPage(account: account),
+        'plans' => Scaffold(
+          appBar: AppBar(title: const Text('Membership')),
+          body: MembershipPage(account: account),
+        ),
+        'habits' => Scaffold(
+          appBar: AppBar(title: const Text('Habits')),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: HabitsPanel(account: account, compact: false),
+          ),
+        ),
+        _ => NotificationSettingsPage(services: devices),
+      };
+      _navigatorKey.currentState?.push(
+        MaterialPageRoute<void>(builder: (_) => page),
+      );
+    });
+  }
+
   void _identityChanged() {
     final next = account.user?['id'] as String?;
     if (next == _userId) {
+      _flushNotification();
       return;
     }
     _userId = next;
+    _pendingDestination = null;
+    unawaited(devices.bindAccount(next));
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && account.user?['id'] == next) {
         _navigatorKey.currentState?.popUntil((route) => route.isFirst);
@@ -91,6 +190,10 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
     account =
         widget.account ??
         AccountController(api: AccountApi(), store: SecureSessionStore());
+    devices = widget.deviceServices ?? DeviceServices.unavailable;
+    _deviceEvents = devices.events.listen(_onDeviceNotice);
+    unawaited(devices.bindAccount(account.user?['id'] as String?));
+    if (widget.deviceServices != null) unawaited(devices.start());
     _userId = account.user?['id'] as String?;
     account.addListener(_identityChanged);
     if (widget.account == null) {
@@ -100,6 +203,8 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
 
   @override
   void dispose() {
+    _deviceEvents?.cancel();
+    if (widget.deviceServices != null) devices.dispose();
     account.removeListener(_identityChanged);
     if (widget.account == null) {
       account.dispose();
@@ -108,87 +213,91 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
   }
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    title: 'JB Fitness',
-    navigatorKey: _navigatorKey,
-    debugShowCheckedModeBanner: false,
-    theme: fitnessTheme(),
-    themeMode: ThemeMode.light,
-    builder: widget.preview
-        ? (context, child) => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              AnnotatedRegion<SystemUiOverlayStyle>(
-                value: SystemUiOverlayStyle.dark.copyWith(
-                  systemNavigationBarColor: canvas,
-                  systemNavigationBarIconBrightness: Brightness.dark,
-                ),
-                child: Material(
-                  color: softRed,
-                  child: SafeArea(
-                    bottom: false,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      child: Text(
-                        'OFFLINE DEMO · Sample data · Resets on restart',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: brandRed, fontSize: 11),
+  Widget build(BuildContext context) => DeviceServicesScope(
+    services: devices,
+    onOpenSettings: _openDeviceSettings,
+    child: MaterialApp(
+      title: 'JB Fitness',
+      navigatorKey: _navigatorKey,
+      debugShowCheckedModeBanner: false,
+      theme: fitnessTheme(),
+      themeMode: ThemeMode.light,
+      builder: widget.preview
+          ? (context, child) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: SystemUiOverlayStyle.dark.copyWith(
+                    systemNavigationBarColor: canvas,
+                    systemNavigationBarIconBrightness: Brightness.dark,
+                  ),
+                  child: Material(
+                    color: softRed,
+                    child: SafeArea(
+                      bottom: false,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        child: Text(
+                          'OFFLINE DEMO · Sample data · Resets on restart',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: brandRed, fontSize: 11),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(child: child!),
-            ],
-          )
-        : null,
-    home: ListenableBuilder(
-      listenable: account,
-      builder: (context, _) {
-        if (!_introReady) {
-          return const StitchStatusPage(
-            title: 'Loading your fitness space…',
-            description: 'Getting the app ready.',
-            loading: true,
-          );
-        }
-        if (!_introFinished) {
-          return FitnessIntro(onFinished: _finishIntro);
-        }
-        if (account.booting) {
-          return const StitchStatusPage(
-            title: 'Connecting to your account…',
-            description: 'The first connection may take up to a minute.',
-            loading: true,
-          );
-        }
-        if (account.bootError != null) {
-          return StitchStatusPage(
-            title: 'Let’s reconnect.',
-            description: account.bootError!,
-            actions: [
-              FilledButton(
-                onPressed: account.restore,
-                child: const Text('Retry connection'),
-              ),
-              TextButton(
-                onPressed: () => account.signOut(localOnly: true),
-                child: const Text('Sign out on this device'),
-              ),
-            ],
-          );
-        }
-        if (account.user == null) {
-          return SignInPage(account: account);
-        }
-        if (account.profile == null) {
-          return FitnessProfilePage(account: account, onboarding: true);
-        }
-        return AppShell(key: ValueKey(account.user!['id']), account: account);
-      },
+                Expanded(child: child!),
+              ],
+            )
+          : null,
+      home: ListenableBuilder(
+        listenable: account,
+        builder: (context, _) {
+          if (!_introReady) {
+            return const StitchStatusPage(
+              title: 'Loading your fitness space…',
+              description: 'Getting the app ready.',
+              loading: true,
+            );
+          }
+          if (!_introFinished) {
+            return FitnessIntro(onFinished: _finishIntro);
+          }
+          if (account.booting) {
+            return const StitchStatusPage(
+              title: 'Connecting to your account…',
+              description: 'The first connection may take up to a minute.',
+              loading: true,
+            );
+          }
+          if (account.bootError != null) {
+            return StitchStatusPage(
+              title: 'Let’s reconnect.',
+              description: account.bootError!,
+              actions: [
+                FilledButton(
+                  onPressed: account.restore,
+                  child: const Text('Retry connection'),
+                ),
+                TextButton(
+                  onPressed: () => account.signOut(localOnly: true),
+                  child: const Text('Sign out on this device'),
+                ),
+              ],
+            );
+          }
+          if (account.user == null) {
+            return SignInPage(account: account);
+          }
+          if (account.profile == null) {
+            return FitnessProfilePage(account: account, onboarding: true);
+          }
+          return AppShell(key: ValueKey(account.user!['id']), account: account);
+        },
+      ),
     ),
   );
 }

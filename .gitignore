@@ -21,3 +21,8 @@ core
 core.*
 private-media/
 artifacts/
+
+# Private backend and Apple push credentials (not Firebase client app configs).
+**/*firebase-adminsdk*.json
+**/service-account*.json
+*.p8

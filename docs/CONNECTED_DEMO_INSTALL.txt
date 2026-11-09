@@ -37,3 +37,11 @@ if you intentionally want to remove local sessions and tour preferences.
 This development-signed Android build is for testing. Physical-device checks
 are still required. It does not install on iPhones; iOS needs macOS/Xcode
 and its own signing/distribution setup.
+
+FIREBASE TESTING (ANDROID 0.3.0+)
+Open the bell or Profile > Notifications & reminders. Enable push notifications,
+allow the Android prompt, then use Demo test tools > Show device token > Copy
+device token for Firebase Console > Messaging > Send test message. Put the app
+in the background before testing the OS notification. Crash reports are a
+separate opt-in; Record diagnostic test sends a synthetic non-fatal report.
+Automated account alerts and scheduled reminders are not connected yet.

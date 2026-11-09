@@ -153,6 +153,10 @@ Deliverable: approved iOS/Android releases and monitoring/support ownership.
 
 ## Remaining decisions
 
+- [x] Connect Android Firebase Core/Messaging/Crashlytics, opt-in notification/diagnostic settings, console test tools and safe notification destinations.
+- [ ] Correct the iOS Firebase bundle-ID registration, add matching configuration, APNs and native crash symbol upload.
+- [ ] Add the backend device registry/event sender and scheduled reminder delivery; Firebase console test transport is separate.
+
 - [x] Extend the Stitch design across every mobile supporting flow, shared overlays and native launch backgrounds; rebuild all four explanatory animation scenes with reduced-motion support.
 
 - [x] Implement the selected Stitch mobile layouts in Flutter, bundle typography, connect real data and retain temporary branding pending supplied assets.

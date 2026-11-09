@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_theme.dart';
+import 'device_services.dart';
 
 const stitchBlue = Color(0xFFE5EEFF);
 const stitchShadow = Color(0x0C0B1C30);
@@ -76,11 +77,7 @@ class StitchBrandHeader extends StatelessWidget {
           ),
         IconButton(
           tooltip: 'Notifications',
-          onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Notifications are not available yet.'),
-            ),
-          ),
+          onPressed: () => DeviceServicesScope.openSettings(context),
           icon: const Icon(Icons.notifications_none_rounded, size: 23),
         ),
         if (onProfile != null)
