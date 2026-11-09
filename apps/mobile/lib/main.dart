@@ -11,6 +11,7 @@ import 'app_theme.dart';
 import 'today_page.dart' as dashboard;
 import 'fitness_intro.dart';
 import 'intro_store.dart';
+import 'profile_overview.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -83,6 +84,7 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
   @override
   void initState() {
     super.initState();
+    registerFitnessFontLicenses();
     _introStore = widget.introStore ?? SecureIntroStore();
     unawaited(_restoreIntro());
     account =
@@ -211,7 +213,7 @@ class _JBFitnessAppState extends State<JBFitnessApp> {
         if (account.profile == null) {
           return FitnessProfilePage(account: account, onboarding: true);
         }
-        return AppShell(account: account);
+        return AppShell(key: ValueKey(account.user!['id']), account: account);
       },
     ),
   );
@@ -243,6 +245,8 @@ class _AppShellState extends State<AppShell> {
           dashboard.TodayPage(
             account: widget.account,
             onOpenWorkouts: () => _select(1),
+            onOpenProfile: () => _select(3),
+            onOpenPlans: () => _select(2),
           ),
           if (visited.contains(1))
             WorkoutsPage(account: widget.account)
@@ -253,7 +257,10 @@ class _AppShellState extends State<AppShell> {
           else
             const SizedBox.shrink(),
           if (visited.contains(3))
-            FitnessProfilePage(account: widget.account)
+            ProfileOverview(
+              account: widget.account,
+              onOpenPlans: () => _select(2),
+            )
           else
             const SizedBox.shrink(),
         ],
@@ -264,8 +271,8 @@ class _AppShellState extends State<AppShell> {
       onDestinationSelected: _select,
       destinations: const [
         NavigationDestination(
-          icon: Icon(Icons.check_circle_outline),
-          selectedIcon: Icon(Icons.check_circle),
+          icon: Icon(Icons.calendar_today_outlined),
+          selectedIcon: Icon(Icons.calendar_today_rounded),
           label: 'Today',
         ),
         NavigationDestination(
@@ -273,8 +280,8 @@ class _AppShellState extends State<AppShell> {
           label: 'Workouts',
         ),
         NavigationDestination(
-          icon: Icon(Icons.workspace_premium_outlined),
-          selectedIcon: Icon(Icons.workspace_premium),
+          icon: Icon(Icons.assignment_outlined),
+          selectedIcon: Icon(Icons.assignment_rounded),
           label: 'Plans',
         ),
         NavigationDestination(

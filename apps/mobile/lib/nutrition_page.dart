@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 import 'meal_estimate_page.dart';
 import 'workout_pages.dart' show requestId;
 
@@ -267,10 +268,10 @@ class _NutritionPageState extends State<NutritionPage>
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 700),
         child: ListView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.all(16),
           children: [
             Text(
-              'Make every meal count.',
+              'Daily nutrition',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(height: 10),
@@ -319,16 +320,16 @@ class _NutritionPageState extends State<NutritionPage>
       Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: ink,
-          borderRadius: BorderRadius.circular(26),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'DAILY ENERGY',
+              'Energy Intake',
               style: TextStyle(
-                color: accentRed,
+                color: brandRed,
                 fontSize: 10,
                 letterSpacing: 1.3,
                 fontWeight: FontWeight.w800,
@@ -338,8 +339,9 @@ class _NutritionPageState extends State<NutritionPage>
             Text(
               '${nutritionNumber(energy)} kcal',
               style: const TextStyle(
-                color: Colors.white,
-                fontSize: 34,
+                color: ink,
+                fontFamily: 'SpaceGrotesk',
+                fontSize: 40,
                 fontWeight: FontWeight.w800,
                 letterSpacing: -.8,
               ),
@@ -349,7 +351,7 @@ class _NutritionPageState extends State<NutritionPage>
               targets == null
                   ? 'No daily targets set'
                   : '${nutritionNumber(targets['calories'] as num)} kcal daily target',
-              style: const TextStyle(color: Colors.white70, fontSize: 13),
+              style: const TextStyle(color: muted, fontSize: 13),
             ),
             if (targets != null) ...[
               const SizedBox(height: 16),
@@ -359,9 +361,9 @@ class _NutritionPageState extends State<NutritionPage>
                   value: (energy / (targets['calories'] as num))
                       .clamp(0, 1)
                       .toDouble(),
-                  color: accentRed,
-                  backgroundColor: darkTrack,
-                  minHeight: 6,
+                  color: brandRed,
+                  backgroundColor: stitchBlue,
+                  minHeight: 8,
                 ),
               ),
               const SizedBox(height: 8),
@@ -369,7 +371,7 @@ class _NutritionPageState extends State<NutritionPage>
                 energy > (targets['calories'] as num)
                     ? '${nutritionNumber(energy - (targets['calories'] as num))} kcal above your target'
                     : '${nutritionNumber((targets['calories'] as num) - energy)} kcal below your target',
-                style: const TextStyle(color: Colors.white70, fontSize: 12),
+                style: const TextStyle(color: muted, fontSize: 12),
               ),
             ],
             if ((data['estimatedEntryCount'] as num? ?? 0) > 0)
@@ -377,22 +379,52 @@ class _NutritionPageState extends State<NutritionPage>
                 padding: EdgeInsets.only(top: 12),
                 child: Text(
                   'Includes AI estimates · totals are approximate',
-                  style: TextStyle(color: accentRed, fontSize: 12),
+                  style: TextStyle(color: brandRed, fontSize: 12),
                 ),
               ),
           ],
         ),
       ),
       const SizedBox(height: 14),
-      FilledButton.icon(
-        onPressed: _canEdit ? () => _add('breakfast') : null,
-        icon: const Icon(Icons.add_rounded),
-        label: const Text('Log a food'),
-      ),
-      OutlinedButton.icon(
-        onPressed: _canEdit ? _estimateMeal : null,
-        icon: const Icon(Icons.auto_awesome_outlined),
-        label: const Text('Estimate from photo or text'),
+      StitchCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Row(
+              children: [
+                Icon(Icons.auto_awesome_outlined, color: brandRed, size: 20),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Instant Meal Estimation',
+                    style: TextStyle(
+                      fontFamily: 'SpaceGrotesk',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 7),
+            const Text(
+              'Share a food photo or describe your meal. Review estimates before saving.',
+              style: TextStyle(color: muted, fontSize: 12, height: 1.6),
+            ),
+            const SizedBox(height: 14),
+            FilledButton.icon(
+              onPressed: _canEdit ? () => _add('breakfast') : null,
+              icon: const Icon(Icons.add_rounded, size: 18),
+              label: const Text('Log a food'),
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              onPressed: _canEdit ? _estimateMeal : null,
+              icon: const Icon(Icons.photo_camera_outlined, size: 18),
+              label: const Text('Estimate from photo or text'),
+            ),
+          ],
+        ),
       ),
       if (data['canEdit'] != true)
         const Text(
@@ -412,7 +444,7 @@ class _NutritionPageState extends State<NutritionPage>
       const SizedBox(height: 12),
       LayoutBuilder(
         builder: (context, constraints) => Wrap(
-          spacing: 12,
+          spacing: 8,
           runSpacing: 8,
           children: nutrientLabels.entries.where((entry) => entry.key != 'calories').map((
             entry,
@@ -421,22 +453,22 @@ class _NutritionPageState extends State<NutritionPage>
             final value = total['known'] as num;
             final complete = total['complete'] == true;
             final target = targets?[entry.key] as num?;
-            final width =
-                constraints.maxWidth < 340 ||
-                    MediaQuery.textScalerOf(context).scale(14) > 19
-                ? constraints.maxWidth
-                : (constraints.maxWidth - 12) / 2;
+            final large = MediaQuery.textScalerOf(context).scale(14) > 19;
+            final columns = large
+                ? (constraints.maxWidth < 340 ? 1 : 2)
+                : (constraints.maxWidth < 300 ? 2 : 4);
+            final width = (constraints.maxWidth - 8 * (columns - 1)) / columns;
             return SizedBox(
               width: width,
               child: Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        entry.value,
-                        style: const TextStyle(color: muted, fontSize: 12),
+                        entry.key == 'carbs' ? 'Carbs (g)' : entry.value,
+                        style: const TextStyle(color: muted, fontSize: 11),
                       ),
                       const SizedBox(height: 8),
                       Text(
@@ -454,7 +486,7 @@ class _NutritionPageState extends State<NutritionPage>
                         ),
                       if (!complete)
                         Text(
-                          '${total['missingEntries']} food entries have no value for this nutrient.',
+                          '${total['missingEntries']} entries missing data',
                           style: const TextStyle(color: muted, fontSize: 11),
                         ),
                       if (complete && target != null)
@@ -474,7 +506,7 @@ class _NutritionPageState extends State<NutritionPage>
       ),
       const SizedBox(height: 18),
       const Text(
-        'Your meals',
+        'Today’s Meals',
         style: TextStyle(fontSize: 21, fontWeight: FontWeight.w700),
       ),
       ...mealLabels.entries.map(
@@ -690,7 +722,7 @@ class _FoodPickerPageState extends State<FoodPickerPage> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 650),
         child: ListView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.all(16),
           children: [
             Text(
               'Find your food.',

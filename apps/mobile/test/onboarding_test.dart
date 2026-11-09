@@ -166,7 +166,7 @@ void main() {
     expect(savedProfile?['age'], 28);
     expect(savedProfile?['workoutDays'], [0]);
     expect(savedProfile?['shareWithTrainer'], isFalse);
-    expect(find.text('Today'), findsOneWidget);
+    expect(find.widgetWithText(NavigationDestination, 'Today'), findsOneWidget);
     expect(store.value, 'new-session');
     final restored = createAccount();
     addTearDown(restored.dispose);
@@ -182,6 +182,20 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Profile'));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.text('Your fitness profile'),
+      180,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.text('Your fitness profile'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Your fitness profile'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      field('Age'),
+      120,
+      scrollable: find.byType(Scrollable).last,
+    );
     expect(tester.widget<TextField>(field('Age')).controller?.text, '28');
     await fill('Weight (kg)', '79');
     await tester.ensureVisible(find.text('Save profile'));

@@ -72,7 +72,7 @@ void main() {
     expect(find.text('1 / 3'), findsOneWidget);
     await tester.tap(find.text('Profile'));
     await tester.pumpAndSettle(const Duration(milliseconds: 100));
-    expect(find.text('Your fitness profile'), findsOneWidget);
+    expect(find.text('Test Customer'), findsOneWidget);
     await tester.tap(find.text('Today'));
     await tester.pumpAndSettle();
     expect(find.text('1 / 3'), findsOneWidget);

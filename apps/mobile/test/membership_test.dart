@@ -163,7 +163,7 @@ void main() {
         findsOneWidget,
       );
       remaining = 6;
-      await tester.tap(find.byTooltip('Refresh membership'));
+      await tester.tap(find.byTooltip('Refresh Plans'));
       await tester.pumpAndSettle();
       expect(find.text('6 of 10 video sessions remaining'), findsOneWidget);
       remaining = 5;

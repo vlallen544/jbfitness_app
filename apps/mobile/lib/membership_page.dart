@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'account.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 
 class MembershipPage extends StatefulWidget {
   final AccountController account;
@@ -100,7 +101,7 @@ class _MembershipPageState extends State<MembershipPage>
     ),
   );
   Widget _period(Map<String, dynamic> period, {bool queued = false}) => Card(
-    color: queued ? Colors.white : ink,
+    color: Colors.white,
     child: Padding(
       padding: const EdgeInsets.all(22),
       child: Column(
@@ -108,11 +109,7 @@ class _MembershipPageState extends State<MembershipPage>
         children: [
           Text(
             queued ? 'NEXT MEMBERSHIP' : 'ACTIVE MEMBERSHIP',
-            style: TextStyle(
-              fontSize: 11,
-              letterSpacing: 1.5,
-              color: queued ? brandRed : accentRed,
-            ),
+            style: TextStyle(fontSize: 11, letterSpacing: 1.5, color: brandRed),
           ),
           const SizedBox(height: 10),
           Text(
@@ -120,14 +117,14 @@ class _MembershipPageState extends State<MembershipPage>
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w800,
-              color: queued ? ink : Colors.white,
+              color: ink,
               letterSpacing: -.6,
             ),
           ),
           const SizedBox(height: 10),
           Text(
             '${_date(period['startsAt'])} – ${_date(period['endsAt'])}',
-            style: TextStyle(color: queued ? muted : onDarkMuted, fontSize: 13),
+            style: TextStyle(color: muted, fontSize: 13),
           ),
           const SizedBox(height: 16),
           Text(
@@ -135,7 +132,7 @@ class _MembershipPageState extends State<MembershipPage>
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
-              color: queued ? ink : Colors.white,
+              color: ink,
             ),
           ),
           if ((period['videoSessionsTotal'] as num) > 0) ...[
@@ -149,8 +146,8 @@ class _MembershipPageState extends State<MembershipPage>
                         .clamp(0, 1)
                         .toDouble(),
                 minHeight: 6,
-                color: queued ? brandRed : accentRed,
-                backgroundColor: queued ? border : darkTrack,
+                color: brandRed,
+                backgroundColor: stitchBlue,
                 semanticsLabel: 'Live video sessions remaining',
               ),
             ),
@@ -158,7 +155,7 @@ class _MembershipPageState extends State<MembershipPage>
           const SizedBox(height: 6),
           Text(
             '${period['videoSessionsReserved'] ?? 0} sessions reserved. Available balance excludes reservations and sessions already used.',
-            style: TextStyle(fontSize: 12, color: queued ? muted : onDarkMuted),
+            style: TextStyle(fontSize: 12, color: muted),
           ),
           if (period['environment'] == 'development') ...[
             const SizedBox(height: 14),
@@ -167,7 +164,7 @@ class _MembershipPageState extends State<MembershipPage>
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: queued ? brandRed : accentRed,
+                color: brandRed,
               ),
             ),
           ],
@@ -212,6 +209,7 @@ class _MembershipPageState extends State<MembershipPage>
           Text(
             _price(plan['priceInPaise']),
             style: const TextStyle(
+              fontFamily: 'SpaceGrotesk',
               fontSize: 34,
               letterSpacing: -1,
               fontWeight: FontWeight.w800,
@@ -267,27 +265,9 @@ class _MembershipPageState extends State<MembershipPage>
     onRefresh: _refresh,
     child: ListView(
       physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
       children: [
-        Row(
-          children: [
-            const Expanded(
-              child: Text(
-                'JB FITNESS',
-                style: TextStyle(
-                  color: Color(0xFFD71920),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            IconButton(
-              tooltip: 'Refresh membership',
-              onPressed: _refresh,
-              icon: const Icon(Icons.refresh),
-            ),
-          ],
-        ),
+        StitchBrandHeader('Plans', onRefresh: _refresh),
         const SizedBox(height: 24),
         const Text(
           'SUPPORT THAT FITS YOUR ROUTINE',

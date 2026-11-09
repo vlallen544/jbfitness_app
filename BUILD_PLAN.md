@@ -153,6 +153,9 @@ Deliverable: approved iOS/Android releases and monitoring/support ownership.
 
 ## Remaining decisions
 
+- [x] Implement the selected Stitch mobile layouts in Flutter, bundle typography, connect real data and retain temporary branding pending supplied assets.
+- [x] Add the Profile overview with persisted, separate trainer-sharing choices and failed-save protection.
+
 - [x] Allow a bounded 75-second authentication/session wait for free-host wake-up, show connection status, preserve saved sessions and avoid automatic registration retries.
 
 - [x] Redesign the staff workspace with a dark navigation rail, red actions, customer cards and record-based review workload.

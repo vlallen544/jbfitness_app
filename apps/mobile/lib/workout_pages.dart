@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'account.dart';
 import 'exercise_video.dart';
 import 'app_theme.dart';
+import 'stitch_ui.dart';
 import 'ai_planning_page.dart';
 
 String dayString(DateTime day) =>
@@ -85,51 +86,60 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
     onRefresh: _refresh,
     child: ListView(
       physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
       children: [
-        Row(
+        StitchBrandHeader('Workouts'),
+        const SizedBox(height: 16),
+        StitchCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const StitchPill(
+                'LIVE TRAINING BLOCK',
+                icon: Icons.fitness_center_rounded,
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Your workouts',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(height: 6),
+              const Text(
+                'Your routine, exercise guidance and saved performance.',
+                style: TextStyle(color: muted, fontSize: 12, height: 1.6),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
           children: [
-            const Text(
-              'JB FITNESS',
-              style: TextStyle(
+            const Chip(
+              label: Text('Schedule'),
+              backgroundColor: softRed,
+              side: BorderSide.none,
+              labelStyle: TextStyle(
                 color: brandRed,
-                fontSize: 20,
-                fontWeight: FontWeight.w900,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            const Spacer(),
-            TextButton(
+            ActionChip(
+              label: const Text('History'),
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute<void>(
                   builder: (_) => WorkoutHistoryPage(account: widget.account),
                 ),
               ),
-              child: const Text('History'),
+            ),
+            ActionChip(
+              label: const Text('Plan with AI'),
+              avatar: const Icon(Icons.auto_awesome_outlined, size: 16),
+              onPressed: _planning,
             ),
           ],
-        ),
-        const SizedBox(height: 24),
-        const Text(
-          'TRAIN WITH INTENTION',
-          style: TextStyle(
-            fontSize: 10,
-            letterSpacing: 1.5,
-            fontWeight: FontWeight.w800,
-            color: muted,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text('Your workouts', style: Theme.of(context).textTheme.headlineLarge),
-        const SizedBox(height: 10),
-        const Text(
-          'Follow your schedule, review demonstrations and record how each session went.',
-          style: TextStyle(color: Colors.black54, height: 1.5),
-        ),
-        const SizedBox(height: 18),
-        OutlinedButton.icon(
-          onPressed: _planning,
-          icon: const Icon(Icons.auto_awesome_outlined),
-          label: const Text('Plan with AI'),
         ),
         const SizedBox(height: 12),
         Row(
@@ -535,8 +545,9 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    color: ink,
-                    borderRadius: BorderRadius.circular(26),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: border),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -544,7 +555,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       const Text(
                         'YOUR SESSION',
                         style: TextStyle(
-                          color: accentRed,
+                          color: brandRed,
                           fontWeight: FontWeight.w800,
                           letterSpacing: 1.5,
                           fontSize: 10,
@@ -554,15 +565,12 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       Text(
                         workout!['title'] as String,
                         style: Theme.of(context).textTheme.headlineLarge
-                            ?.copyWith(color: Colors.white),
+                            ?.copyWith(color: ink),
                       ),
                       const SizedBox(height: 12),
                       Text(
                         '${workout['date']} • ${_status.replaceAll('_', ' ')}',
-                        style: const TextStyle(
-                          color: onDarkMuted,
-                          fontSize: 13,
-                        ),
+                        style: const TextStyle(color: muted, fontSize: 13),
                       ),
                       const SizedBox(height: 22),
                       ClipRRect(
@@ -570,8 +578,8 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                         child: LinearProgressIndicator(
                           value: items.isEmpty ? 0 : checked / items.length,
                           minHeight: 6,
-                          backgroundColor: darkTrack,
-                          color: accentRed,
+                          backgroundColor: stitchBlue,
+                          color: brandRed,
                           semanticsLabel: 'Exercises checked on this screen',
                         ),
                       ),
@@ -579,7 +587,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       Text(
                         '$checked / ${items.length} exercises checked',
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: ink,
                           fontSize: 13,
                           fontWeight: FontWeight.w700,
                         ),
@@ -587,7 +595,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       const SizedBox(height: 4),
                       const Text(
                         'Save progress to keep your changes.',
-                        style: TextStyle(color: onDarkSubtle, fontSize: 11),
+                        style: TextStyle(color: muted, fontSize: 11),
                       ),
                     ],
                   ),
@@ -629,7 +637,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'EXERCISE ${(entry.$1 + 1).toString().padLeft(2, '0')}',
+                            'EXERCISE ${(entry.$1 + 1).toString().padLeft(2, '0')} · PROTOCOL',
                             style: const TextStyle(
                               color: muted,
                               fontSize: 10,
