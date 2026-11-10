@@ -9,6 +9,7 @@ export const plans = [
     features: [
       "Stored exercise demonstrations",
       "AI coaching chat",
+      "Text messaging with your assigned trainer",
       "Personalized workout planning",
       "Nutrition, habits and progress tracking",
     ],

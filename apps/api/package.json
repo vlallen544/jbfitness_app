@@ -11,7 +11,7 @@
     "ai:reviews": "node --env-file-if-exists=.env --import tsx scripts/ai-review-queue.ts",
     "staff:role": "node --env-file-if-exists=.env --import tsx scripts/staff-role.ts",
     "test:dashboard": "node --env-file-if-exists=.env --import tsx --test test/dashboard.integration.ts",
-    "test:integration": "node --env-file-if-exists=.env --import tsx --test test/auth.integration.ts test/membership.integration.ts test/workout.integration.ts test/habits.integration.ts test/nutrition.integration.ts test/meal-estimates.integration.ts test/body-progress.integration.ts test/ai-planning.integration.ts test/coaching.integration.ts test/staff.integration.ts test/sessions.integration.ts",
+    "test:integration": "node --env-file-if-exists=.env --import tsx --test test/auth.integration.ts test/membership.integration.ts test/workout.integration.ts test/habits.integration.ts test/nutrition.integration.ts test/meal-estimates.integration.ts test/body-progress.integration.ts test/ai-planning.integration.ts test/coaching.integration.ts test/staff.integration.ts test/sessions.integration.ts test/trainer-messages.integration.ts test/store.integration.ts",
     "dev:membership": "node --env-file-if-exists=.env --import tsx scripts/grant-test-membership.ts",
     "dev:workouts": "node --env-file-if-exists=.env --import tsx scripts/seed-test-workouts.ts",
     "media:attach": "node --env-file-if-exists=.env --import tsx scripts/attach-exercise-video.ts",

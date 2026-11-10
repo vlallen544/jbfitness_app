@@ -11,6 +11,7 @@ import 'coaching_page.dart';
 import 'trainer_feedback_page.dart';
 import 'sessions_page.dart';
 import 'workout_pages.dart';
+import 'store_page.dart';
 
 class TodayPage extends StatefulWidget {
   final AccountController account;
@@ -263,6 +264,13 @@ class _TodayPageState extends State<TodayPage> {
               ),
               const SizedBox(height: 22),
               _workoutCard(workout, minutes, days),
+              const SizedBox(height: 16),
+              StitchActionTile(
+                icon: Icons.shopping_bag_outlined,
+                title: 'Supplement store',
+                subtitle: 'Explore products & saved cart',
+                onTap: () => _open(StorePage(account: widget.account)),
+              ),
               const SizedBox(height: 22),
               LayoutBuilder(
                 builder: (context, bounds) {

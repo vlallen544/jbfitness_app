@@ -7,6 +7,8 @@ import 'stitch_ui.dart';
 import 'fitness_intro.dart';
 import 'sessions_page.dart';
 import 'trainer_feedback_page.dart';
+import 'trainer_messages_page.dart';
+import 'store_page.dart';
 import 'progress_page.dart';
 import 'notification_settings_page.dart';
 import 'device_services.dart';
@@ -305,6 +307,20 @@ class _ProfileOverviewState extends State<ProfileOverview> {
                   'Trainer feedback',
                   'Read feedback shared with your account',
                   () => _open(TrainerFeedbackPage(account: widget.account)),
+                ),
+                const Divider(height: 16),
+                _tile(
+                  Icons.chat_bubble_outline_rounded,
+                  'Message your trainer',
+                  'Questions and replies with your assigned trainer',
+                  () => _open(TrainerMessagesPage(account: widget.account)),
+                ),
+                const Divider(height: 16),
+                _tile(
+                  Icons.shopping_bag_outlined,
+                  'Supplement store',
+                  'Browse products and manage your saved cart',
+                  () => _open(StorePage(account: widget.account)),
                 ),
                 const Divider(height: 16),
                 _tile(

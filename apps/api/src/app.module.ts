@@ -1,5 +1,7 @@
 import { Controller, Get, Module } from "@nestjs/common";
 import { plans } from "./plans";
+import { StoreService, StoreController, CartController, StoreAdminController, CustomerStoreOrdersController } from './store';
+import { TrainerMessageController, TrainerMessageService } from './trainer-messages';
 import { Database } from "./database";
 import { HabitController, HabitService } from './habits';
 import { NutritionController, NutritionService } from './nutrition';
@@ -50,6 +52,8 @@ class AppController {
 }
 @Module({
   controllers: [
+    StoreController, CartController, StoreAdminController, CustomerStoreOrdersController,
+    TrainerMessageController,
     AppController,
     HabitController,
     NutritionController,
@@ -71,6 +75,8 @@ class AppController {
     MediaController,
   ],
   providers: [
+    StoreService,
+    TrainerMessageService,
     Database,
     HabitService,
     NutritionService,

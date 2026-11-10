@@ -42,7 +42,7 @@ The current Flutter Messaging SDK also exposes a newer installation-ID registrat
 4. Allow the device to sync; inspect the non-fatal `JB Fitness diagnostic test` report. This button records locally and does not claim that the server has received it immediately.
 5. Turn sharing off to disable SDK collection and request deletion of unsent reports.
 
-Native errors and physical notification delivery still need a phone test. Do not treat a successful APK build or simulated gateway test as actual Firebase delivery verification.
+The user confirmed receipt of a Firebase Console notification on their Android phone on 9 November 2026. Notification-tap routing and a real Crashlytics report still need separate device verification. The user deferred the Crashlytics check while app feature work takes priority.
 
 ## iOS registration correction
 
@@ -52,7 +52,7 @@ Register a new iOS application under the same Firebase project with the exact co
 
 After the matching file is supplied, add matching iOS Dart options and project resource membership, configure APNs authentication in Firebase, enable the Xcode Push Notifications capability and verify signing/background delivery on macOS and a physical iPhone. Configure Crashlytics dSYM upload for the project's Swift Package Manager setup before claiming useful iOS crash reports. The current iOS device gateway remains unavailable until that setup is complete; login and other app features still run independently.
 
-## Backend delivery — next milestone
+## Backend delivery — deferred integration milestone
 
 Use an authenticated, owner-scoped device registry, token rotation/logout unlinking and a retry-safe event outbox. Configure a server-side Firebase service identity privately on Render, then connect trainer feedback, bookings and membership events. Keep push text generic and fetch protected details only after the user opens the app. Sending credentials never belong in the APK or public repository.
 

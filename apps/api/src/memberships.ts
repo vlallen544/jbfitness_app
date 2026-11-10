@@ -12,6 +12,7 @@ import {
 } from "@nestjs/common";
 import { createHash, randomUUID } from "node:crypto";
 import { z } from "zod";
+import type { PoolClient } from 'pg';
 import { Database } from "./database";
 import { AuthGuard, User } from "./auth";
 import { plans } from "./plans";
@@ -195,9 +196,9 @@ export class MembershipService {
     }
   }
 
-  async summary(customerId: string) {
+  async summary(customerId: string, connection: Pick<PoolClient, 'query'> = this.db.pool) {
     const rows = (
-      await this.db.pool.query<MembershipRow>(
+      await connection.query<MembershipRow>(
         `SELECT m.*,r.environment,count(l.id)::int AS used,(SELECT count(*)::int FROM coaching_bookings b WHERE b.membership_id=m.id AND b.status='booked') AS reserved FROM memberships m JOIN membership_receipts r ON r.id=m.receipt_id LEFT JOIN membership_session_ledger l ON l.membership_id=m.id WHERE m.customer_id=$1 AND (r.environment<>'development' OR $2=false) GROUP BY m.id,r.environment ORDER BY m.starts_at DESC,m.id`,
         [customerId, process.env.NODE_ENV === "production"],
       )

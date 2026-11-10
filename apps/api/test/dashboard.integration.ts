@@ -30,6 +30,28 @@ test('dashboard server boundary and cookie sessions',async t=>{
       assert.equal((await request('?resource=session-calendar',undefined,trainerCookie)).data.slots[0].id,created.data.id);
       assert.equal((await request('',{action:'withdraw-slot',id:created.data.id,revision:1,requestId:randomUUID(),cancelExistingBooking:false,reason:'schedule_change'},trainerCookie)).status,200);
     });
+    await t.test('private trainer messages cross the cookie proxy without owner or foreign-origin access',async()=>{
+      assert.equal((await request('?resource=messages',undefined,adminCookie)).status,403);
+      const sent=await fetch(`${f.apiBase}/me/trainer-messages/${f.trainer.id}`,{method:'POST',headers:{Authorization:`Bearer ${f.customer.token}`,'Content-Type':'application/json'},body:JSON.stringify({text:'Can we review my next session?',requestId:randomUUID(),shareWithTrainer:true})});assert.equal(sent.status,201);
+      assert.equal((await request('?resource=messages',undefined,trainerCookie)).data.conversations[0].id,f.customer.id);
+      assert.equal((await request(`?resource=conversation&id=${f.customer.id}`,undefined,trainerCookie)).data.messages.length,1);
+      assert.equal((await request(`?resource=conversation&id=${f.customer.id}&before=bad`,undefined,trainerCookie)).status,400);
+      const body={action:'trainer-message',id:f.customer.id,text:'Yes, let us review it together.',requestId:randomUUID(),shareWithTrainer:true};
+      assert.equal((await request('',body,trainerCookie,'https://foreign.example')).status,403);
+      assert.equal((await request('',body,trainerCookie)).status,200);
+      const history=await fetch(`${f.apiBase}/me/trainer-messages/${f.trainer.id}`,{headers:{Authorization:`Bearer ${f.customer.token}`}});assert.equal((await history.json()).messages[1].text,body.text);
+    });
+    await t.test('owner catalogue management stays behind cookie, role and Origin checks',async()=>{
+      assert.equal((await request('?resource=store',undefined,trainerCookie)).status,403);
+      const id=randomUUID(),product={sku:'JB-DASHBOARD-FIXTURE',name:'Dashboard test supplement',brand:'Fixture brand',category:'protein',description:'Catalogue verification fixture.',ingredients:'Label ingredients.',allergenNotes:'',packSize:'1 kg',servingSize:'30 g',imageUrl:null,pricePaise:129900,stock:4,status:'published',revision:0,requestId:randomUUID()},body={action:'store-product',id,product};
+      assert.equal((await request('',body,adminCookie,'https://foreign.example')).status,403);
+      assert.equal((await request('',body,trainerCookie)).status,403);
+      assert.equal((await request('',body,adminCookie)).status,200);
+      const saved=await request('?resource=store&q=Dashboard',undefined,adminCookie);assert.equal(saved.data.products[0].id,id);assert.equal(saved.data.checkoutEnabled,false);
+      const visible=await fetch(`${f.apiBase}/store/products/${id}`,{headers:{Authorization:`Bearer ${f.customer.token}`}});assert.equal((await visible.json()).product.pricePaise,129900);
+      assert.equal((await request('',{...body,product:{...product,revision:1,requestId:randomUUID(),stock:0}},adminCookie)).status,200);
+      assert.equal((await request('?resource=store',undefined,adminCookie)).data.products[0].stock,0);
+    });
     await t.test('logout revokes the backend token and invalid sessions clear the cookie',async()=>{const token=adminCookie.slice(adminCookie.indexOf('=')+1);await f.auth.authenticate(token);assert.equal((await request('',{action:'logout'},adminCookie)).status,200);await assert.rejects(()=>f.auth.authenticate(token));const expired=await request('',undefined,adminCookie);assert.equal(expired.status,401);assert.match(expired.headers.get('set-cookie')!,/Max-Age=0/);await f.db.pool.query("UPDATE users SET role='customer' WHERE id=$1",[f.trainer.id]);const removed=await request('',undefined,trainerCookie);assert.equal(removed.status,401);assert.match(removed.headers.get('set-cookie')!,/Max-Age=0/);});
   }finally{await f.cleanup();}
 });

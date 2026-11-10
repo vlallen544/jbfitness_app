@@ -345,7 +345,7 @@ class _MembershipPageState extends State<MembershipPage>
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Saved habits and food-label logging are available. AI coaching and live call booking are still being built.',
+                  'Trainer messaging requires an assigned trainer and an active membership. AI coaching and live calls need their services configured before use.',
                   style: TextStyle(fontSize: 12, color: muted),
                 ),
                 const SizedBox(height: 12),

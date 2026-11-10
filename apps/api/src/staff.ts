@@ -30,7 +30,14 @@ export class StaffService{
     const customers=(await this.db.pool.query(`SELECT u.id,u.display_name AS name,u.email,coalesce(p.share_with_trainer,false) AS "profileSharing",coalesce(p.data->>'shareCoachingWithTrainer','false')='true' AS "coachingSharing",coalesce((SELECT jsonb_agg(jsonb_build_object('id',t.id,'name',t.display_name) ORDER BY t.display_name) FROM trainer_assignments a JOIN users t ON t.id=a.trainer_id WHERE a.customer_id=u.id AND t.role='trainer'),'[]') AS trainers FROM users u LEFT JOIN fitness_profiles p ON p.user_id=u.id WHERE u.role='customer' AND ($1=true OR EXISTS(SELECT 1 FROM trainer_assignments a WHERE a.customer_id=u.id AND a.trainer_id=$2)) ORDER BY u.created_at DESC,u.id LIMIT 201`,[user.role==='admin',user.id])).rows;
     const trainers=user.role==='admin'?(await this.db.pool.query("SELECT id,display_name AS name,email FROM users WHERE role='trainer' ORDER BY display_name,id LIMIT 200")).rows:[];
     const reviews=(await this.db.pool.query(`SELECT q.kind,q.id,q.customer_id AS "customerId",u.display_name AS "customerName",q.created_at AS "createdAt",coalesce(s.status,'open') AS status,coalesce(s.revision,0) AS revision FROM (${sources}) q JOIN users u ON u.id=q.customer_id LEFT JOIN fitness_profiles p ON p.user_id=u.id LEFT JOIN staff_review_state s ON s.kind=q.kind AND s.source_id=q.id WHERE u.role='customer' AND ($1=true OR (p.share_with_trainer=true AND p.data->>'shareCoachingWithTrainer'='true' AND EXISTS(SELECT 1 FROM trainer_assignments a WHERE a.customer_id=u.id AND a.trainer_id=$2))) ORDER BY q.created_at DESC,q.id LIMIT 201`,[user.role==='admin',user.id])).rows;
-    return{user,customers:customers.slice(0,200),trainers,reviews:reviews.slice(0,200),customersTruncated:customers.length>200,reviewsTruncated:reviews.length>200};
+    const business=user.role==='admin'?(await this.db.pool.query(`SELECT
+      (SELECT count(*)::int FROM memberships m WHERE m.revoked_at IS NULL AND m.starts_at<=now() AND m.ends_at>now()) AS "activeMemberships",
+      (SELECT count(*)::int FROM membership_receipts WHERE environment='production') AS "verifiedPayments",
+      (SELECT coalesce(sum(amount_paise),0)::text FROM membership_receipts WHERE environment='production') AS "verifiedRevenuePaise",
+      (SELECT count(*)::int FROM membership_receipts WHERE environment='production' AND created_at>=now()-interval '30 days') AS "paymentsLast30Days",
+      (SELECT count(*)::int FROM store_order_requests WHERE status='requested') AS "openStoreRequests",
+      (SELECT count(*)::int FROM store_products WHERE status='published') AS "publishedProducts"`)).rows[0]:null;
+    return{user,customers:customers.slice(0,200),trainers,reviews:reviews.slice(0,200),customersTruncated:customers.length>200,reviewsTruncated:reviews.length>200,business};
   }
   async assignment(user:User,idValue:string,input:unknown){
     admin(user);const customerId=parse(z.uuid(),idValue),body=parse(z.object({trainerId:z.uuid(),assigned:z.boolean()}).strict(),input),c=await this.db.pool.connect();

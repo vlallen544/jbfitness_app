@@ -131,7 +131,8 @@ Deliverable: representative profiles yield valid versioned plans; repeated failu
 - [x] Add mobile session history/confirmation and verify concurrency, retries, access boundaries and narrow layouts.
 - [ ] Confirm call duration, booking lead time, cancellation/no-show and carry-forward rules.
 - [ ] Choose/configure the video provider; implement real rooms/tokens, mobile call UI and trusted completion reconciliation. Booking remains disabled until provider and actual rules are configured.
-- [ ] Add live trainer messaging and notifications; verify on physical devices and complete production staff/security setup.
+- [x] Add saved direct trainer messaging in the mobile app and dashboard: customer initiation, explicit conversation sharing, assignment checks, membership-bound sends, older history, duplicate-safe retries and customer clearing. See [docs/TRAINER_MESSAGES.md](docs/TRAINER_MESSAGES.md).
+- [ ] Add real-time message delivery and notifications; verify on physical devices and complete production staff/security setup.
 
 See [docs/STAFF_OPERATIONS.md](docs/STAFF_OPERATIONS.md) for access rules, local provisioning and verification.
 
@@ -141,7 +142,18 @@ Deliverable: eligible members complete calls against the correct monthly allowan
 
 ## 8. Store and business operations
 
-Confirm delivery areas, shipping fees, stock responsibility and return policies. Build products/cart/checkout/orders/inventory, reminders, admin reports and operational controls.
+Backend push delivery, scheduled reminders and Crashlytics device verification are deferred while app feature work takes priority.
+
+- [x] Build the mobile supplement catalogue, product/brand search, category filters, product details, ingredients and optional public Cloudinary product images.
+- [x] Build saved customer carts with quantity changes/removal, current server prices, stock/visibility checks, revision conflicts, duplicate-safe retries and disabled checkout.
+- [x] Add owner product creation/editing, prices, stock, draft/published/archived visibility and SKU uniqueness to the existing dashboard. See [docs/STORE.md](docs/STORE.md).
+- [x] Add customer order requests and saved request history, with owner review/close controls and immutable price/product snapshots. This is a non-payment request: it does not reserve stock or arrange delivery.
+- [x] Add an owner business snapshot for active memberships, production-verified membership receipts/revenue, published products and open store requests. Store requests are not counted as sales.
+- [ ] Supply the client's real product content, images, prices and stock; verify the store on physical devices after deploying and rebuilding the app.
+- [ ] Confirm addresses, delivery areas, shipping fees, taxes, stock reservation, fulfilment and return/refund rules.
+- [ ] Build fulfilment and provider-verified checkout after delivery, payment and refund policies are confirmed.
+
+Next: production integrations and client device/content validation. Actual store sales reports, fulfilment and checkout depend on provider-verified payments. Reminders and automatic alerts remain integration work.
 
 Deliverable: owner fulfils paid test orders and manages memberships/coaching from the dashboard.
 
