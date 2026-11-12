@@ -10,13 +10,13 @@ url = urlsplit(sys.argv[1])
 if url.scheme != 'https' or not url.hostname or url.username or url.password or url.query or url.fragment or url.path.rstrip('/') != '/api/v1':
     raise SystemExit('JB_API_URL must be an HTTPS backend URL ending in /api/v1, without credentials or query parameters.')
 PY
-bash scripts/mobile.sh build apk --debug --target lib/main.dart "--dart-define=API_BASE_URL=$JB_API_URL" "$@"
+bash scripts/mobile.sh build apk --debug --split-per-abi --target-platform android-arm64 --target lib/main.dart --build-name 0.4.0 --build-number 9 "--dart-define=API_BASE_URL=$JB_API_URL" "$@"
 JB_TOOLS_DIR="${JB_TOOLS_DIR:-/home/allen/.local/share/jbfitness-tools}"
 JB_ANDROID_DIR="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$JB_TOOLS_DIR/android-sdk}}"
 if [[ -x "$JB_TOOLS_DIR/jdk21/bin/java" ]]; then
   export JAVA_HOME="$JB_TOOLS_DIR/jdk21"
 fi
-JB_APK_FILE="apps/mobile/build/app/outputs/flutter-apk/app-debug.apk"
+JB_APK_FILE="apps/mobile/build/app/outputs/flutter-apk/app-arm64-v8a-debug.apk"
 "$JB_ANDROID_DIR/build-tools/36.0.0/apksigner" verify --verbose "$JB_APK_FILE"
 mkdir -p artifacts/connected-demo
 cp "$JB_APK_FILE" artifacts/connected-demo/JB_Fitness_Connected_Demo.apk
@@ -49,5 +49,5 @@ with zipfile.ZipFile(target) as archive:
 with target.open('rb') as stream:
     digest = checksum(stream)
 (folder / (target.name + '.sha256')).write_text(f'{digest}  {target.name}\n')
-print(f'Connected demo packaged: {target} ({target.stat().st_size} bytes). Signature and embedded APK verified.')
+print(f'Connected arm64 demo packaged: {target} ({target.stat().st_size} bytes). Signature and embedded APK verified.')
 PY

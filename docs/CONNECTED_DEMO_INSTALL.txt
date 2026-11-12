@@ -1,7 +1,9 @@
-JB FITNESS — CONNECTED ANDROID DEMO
+JB FITNESS — CONNECTED ANDROID DEMO 0.4.0 (ARM64)
 
 1. Extract JB_Fitness_Connected_Demo.zip.
-2. Install JB_Fitness_Connected_Demo.apk on your Android phone.
+2. Install JB_Fitness_Connected_Demo.apk on your Android phone. This smaller
+   APK is built for 64-bit ARM Android devices (arm64-v8a), which covers most
+   recent Android phones. It will not install on 32-bit-only or x86 devices.
 3. On the first launch after installing this update, explore the redesigned
    four feature previews using Next, Back or a swipe. Nothing advances automatically. Skip intro continues to login
    or your saved account when its session is still valid.

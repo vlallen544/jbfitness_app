@@ -1,8 +1,8 @@
-# Connected Android demo — 0.3.0+8
+# Connected Android demo — 0.4.0+9 (arm64-v8a)
 
 This build connects the real Flutter account flow to `https://jbfitness-app.onrender.com/api/v1`. It replaces the previous offline sample-account shortcut for client login testing.
 
-[Download the connected demo ZIP](https://github.com/vlallen544/jbfitness_app/releases/download/v0.3.0-demo.1/JB_Fitness_Connected_Demo.zip), extract it, then install `JB_Fitness_Connected_Demo.apk`. A [direct APK](https://github.com/vlallen544/jbfitness_app/releases/download/v0.3.0-demo.1/JB_Fitness_Connected_Demo.apk) and checksums are attached to the [release](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.3.0-demo.1).
+The previous 0.3.0 universal APK remains in the [GitHub release](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.3.0-demo.1). The current source builds a smaller 0.4.0+9 arm64 APK and ZIP with `bash scripts/build-connected-demo.sh --no-pub`; the files are written to ignored `artifacts/connected-demo/`. GitHub release assets need to be uploaded from this fresh build before their download links can replace the older ones.
 
 The selected Stitch design now covers the entire mobile interface: entry/profile setup, feature animations, main tabs, tracking, AI screens, meal review, sessions and shared controls. See [the screen mapping and captures](STITCH_IMPLEMENTATION.md). Logos and final imagery are pending client assets.
 
@@ -38,7 +38,7 @@ bash scripts/build-connected-demo.sh --no-pub
 
 The script builds `lib/main.dart` with the hosted HTTPS `API_BASE_URL`, verifies its APK signature and exports APK/ZIP, package metadata, install instructions and SHA-256 checksums to ignored `artifacts/connected-demo/`. The APK inside the ZIP is checked against the original checksum. `JB_API_URL` can select another HTTPS API ending in `/api/v1`; never put a credential in that URL.
 
-Package: `com.jbfitness.jbfitness`, version `0.3.0`, version code `8`, same development signing key as previous preview builds. It can update the previous Android preview. This is a development-signed testing build, not a store release. Android installation/runtime behavior still needs a physical-device check. iOS needs macOS/Xcode and separate signing.
+Package: `com.jbfitness.jbfitness`, version `0.4.0`, version code `9`, same development signing key as previous preview builds. This smaller APK targets arm64-v8a (64-bit ARM Android phones) and can update the previous Android preview. It does not support 32-bit-only or x86 phones. This is a development-signed testing build, not a store release. Android installation/runtime behavior still needs a physical-device check. iOS needs macOS/Xcode and separate signing.
 
 Current checks: all 84 Flutter tests pass and analysis is clean, including simulated 45-second authentication responses, bounded session timeouts, token preservation and single-submit registration recovery.
 
