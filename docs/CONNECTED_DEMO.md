@@ -2,7 +2,7 @@
 
 This build connects the real Flutter account flow to `https://jbfitness-app.onrender.com/api/v1`. It replaces the previous offline sample-account shortcut for client login testing.
 
-The previous 0.3.0 universal APK remains in the [GitHub release](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.3.0-demo.1). The current source builds a smaller 0.4.0+9 arm64 APK and ZIP with `bash scripts/build-connected-demo.sh --no-pub`; the files are written to ignored `artifacts/connected-demo/`. GitHub release assets need to be uploaded from this fresh build before their download links can replace the older ones.
+[Download the latest connected 0.4.0 arm64 APK directly](https://github.com/vlallen544/jbfitness_app/releases/download/v0.4.0-demo.1/JB_Fitness_Connected_Demo.apk), or [download the ZIP](https://github.com/vlallen544/jbfitness_app/releases/download/v0.4.0-demo.1/JB_Fitness_Connected_Demo.zip) and extract it. The [release page](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.4.0-demo.1) includes checksums, package details and install instructions. The previous 0.3.0 universal APK remains in the [older release](https://github.com/vlallen544/jbfitness_app/releases/tag/v0.3.0-demo.1).
 
 The selected Stitch design now covers the entire mobile interface: entry/profile setup, feature animations, main tabs, tracking, AI screens, meal review, sessions and shared controls. See [the screen mapping and captures](STITCH_IMPLEMENTATION.md). Logos and final imagery are pending client assets.
 
