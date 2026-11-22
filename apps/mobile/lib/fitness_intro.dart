@@ -21,28 +21,28 @@ class _Feature {
 
 const _features = [
   _Feature(
-    'TRAIN WITH A PLAN',
-    'A routine that\nfits your life.',
-    'Start with your goals, training days and equipment. Follow a personal routine with clear sets, reps and exercise demonstrations.',
-    'Example workout: training preferences become a three-exercise routine.',
+    'TODAY · YOUR TRAINING',
+    'Your plan, ready\nwhen you are.',
+    'See today’s session, exercise instructions and demonstration videos together. Your routine uses your goals, schedule and available equipment.',
+    'Example Today dashboard with a weekly date strip, workout card and quick actions.',
   ),
   _Feature(
-    'MAKE SENSE OF YOUR MEALS',
-    'Your plate.\nA clearer picture.',
-    'Share a food photo or describe your meal. Review estimated calories and nutrients, adjust the portions, then save your food log.',
-    'Example meal: rice and dal with an estimate of 420 calories. Portions and estimates must be reviewed.',
+    'SNAP FOOD · PHOTO OR TEXT',
+    'Snap it. Review.\nLog it.',
+    'Share a food photo or type a dish and portion. Review estimated calories and nutrients, correct the serving, then choose whether to save it.',
+    'Example meal estimate with a scan preview, calorie ring and editable portion review.',
   ),
   _Feature(
-    'SEE THE SMALL WINS',
-    'Build habits.\nWatch your progress.',
-    'Check off daily habits, record your measurements and compare progress photos. See your journey over weeks, not just one day.',
-    'Example habit checklist and weight trend across six weeks. This is illustrative progress, not a promised result.',
+    'HABITS · BODY PROGRESS',
+    'Small check-ins.\nA clearer picture.',
+    'Use a monthly habit grid, record measurements and compare progress photos by date. Review your own history over time.',
+    'Example monthly habit grid and check-in history. Illustrative records, not promised results.',
   ),
   _Feature(
-    'KEEP YOUR SUPPORT CLOSE',
-    'Guidance, when\nyou need direction.',
-    'Ask fitness questions, read your trainer’s feedback and manage your membership in one place. Live coaching sessions depend on your plan.',
-    'Example coaching conversation, trainer feedback and membership tools.',
+    'AI COACH · TRAINER SUPPORT',
+    'Good guidance,\nall in one place.',
+    'Ask general fitness questions, read trainer feedback and manage your membership in the app. Live sessions depend on your plan and provider setup.',
+    'Example AI chat, trainer feedback and plan-dependent coaching access.',
   ),
 ];
 
@@ -58,7 +58,7 @@ class _FitnessIntroState extends State<FitnessIntro>
     super.initState();
     _motion = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 4),
+      duration: const Duration(milliseconds: 2800),
     );
   }
 
@@ -422,15 +422,48 @@ class _FeatureScene extends StatelessWidget {
         0,
         card(
           Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    label('TODAY · MON, NOV 12', color: brandRed, size: 8),
+                    const SizedBox(height: 4),
+                    title('Ready to train?', size: 17),
+                  ],
+                ),
+              ),
+              Container(
+                width: 32,
+                height: 32,
+                decoration: const BoxDecoration(
+                  color: stitchBlue,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.bolt_rounded,
+                  color: brandRed,
+                  size: 19,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      const SizedBox(height: 8),
+      reveal(
+        .12,
+        card(
+          Row(
             children: List.generate(
               7,
               (i) => Expanded(
                 child: Container(
                   margin: EdgeInsets.only(right: i == 6 ? 0 : 4),
-                  padding: const EdgeInsets.symmetric(vertical: 7),
+                  padding: const EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
                     color: i == 0 ? brandRed : neutralSurface,
-                    borderRadius: BorderRadius.circular(9),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
                     children: [
@@ -442,8 +475,16 @@ class _FeatureScene extends StatelessWidget {
                       const SizedBox(height: 3),
                       title(
                         '${12 + i}',
-                        size: 12,
+                        size: 11,
                         color: i == 0 ? Colors.white : ink,
+                      ),
+                      const SizedBox(height: 2),
+                      Icon(
+                        i == 0 || i == 2 || i == 5
+                            ? Icons.circle
+                            : Icons.circle_outlined,
+                        size: 4,
+                        color: i == 0 ? Colors.white : brandRed,
                       ),
                     ],
                   ),
@@ -453,10 +494,10 @@ class _FeatureScene extends StatelessWidget {
           ),
         ),
       ),
-      const SizedBox(height: 10),
+      const SizedBox(height: 8),
       Expanded(
         child: reveal(
-          .12,
+          .26,
           card(
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -469,48 +510,84 @@ class _FeatureScene extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          title('Your full-body routine'),
-                          label('3 days / week · 30 min'),
+                          label('TODAY’S WORKOUT', color: brandRed, size: 8),
+                          const SizedBox(height: 3),
+                          title('Full-body session', size: 15),
                         ],
                       ),
                     ),
+                    label('30 min', color: muted, size: 8),
                   ],
                 ),
-                const SizedBox(height: 9),
+                const SizedBox(height: 7),
                 for (final row in [
                   ('Bodyweight squat', '3 × 12'),
                   ('Incline push-up', '3 × 8'),
-                  ('March in place', '3 × 30 sec'),
-                ].indexed)
-                  Expanded(
-                    child: reveal(
-                      .25 + row.$1 * .15,
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.check_circle_rounded,
-                            size: 14,
-                            color: stage(.25 + row.$1 * .15) > .8
-                                ? brandRed
-                                : border,
+                ])
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 22,
+                          height: 22,
+                          decoration: BoxDecoration(
+                            color: stitchBlue,
+                            borderRadius: BorderRadius.circular(6),
                           ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: label(row.$2.$1, color: ink, size: 10),
+                          child: Icon(
+                            Icons.play_arrow_rounded,
+                            size: 15,
+                            color: stage(.45) > .5 ? brandRed : ink,
                           ),
-                          label(row.$2.$2),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(child: label(row.$1, color: ink, size: 9)),
+                        label(row.$2, size: 8),
+                      ],
                     ),
                   ),
-                const SizedBox(height: 7),
+                const SizedBox(height: 5),
+                Row(
+                  children: [
+                    label('Progress', size: 8),
+                    const Spacer(),
+                    label(
+                      '${(stage(.4, .35) * 100).round()}% started',
+                      color: ink,
+                      size: 8,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: LinearProgressIndicator(
-                    value: stage(.5, .4),
+                    value: stage(.42, .35),
                     color: brandRed,
                     backgroundColor: stitchBlue,
                     minHeight: 4,
+                  ),
+                ),
+                const Spacer(),
+                Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                    color: brandRed,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.play_arrow_rounded,
+                        size: 15,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 4),
+                      label('START WORKOUT', color: Colors.white, size: 8),
+                    ],
                   ),
                 ),
               ],
@@ -518,7 +595,39 @@ class _FeatureScene extends StatelessWidget {
           ),
         ),
       ),
+      const SizedBox(height: 8),
+      reveal(
+        .72,
+        Row(
+          children: [
+            Expanded(
+              child: _quickTile(Icons.camera_alt_outlined, 'Snap food', true),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: _quickTile(Icons.checklist_rounded, 'Daily habits', false),
+            ),
+          ],
+        ),
+      ),
     ],
+  );
+
+  Widget _quickTile(IconData data, String text, bool red) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(color: border),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(data, size: 14, color: red ? brandRed : ink),
+        const SizedBox(width: 5),
+        Flexible(child: label(text, color: ink, size: 8)),
+      ],
+    ),
   );
 
   Widget _nutrition() => Column(
@@ -536,25 +645,47 @@ class _FeatureScene extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Container(
-                      width: 70,
-                      height: 70,
-                      decoration: const BoxDecoration(
+                      width: 72,
+                      height: 72,
+                      decoration: BoxDecoration(
                         color: stitchBlue,
-                        shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(15),
                       ),
                       child: const Icon(
                         Icons.rice_bowl_outlined,
                         color: ink,
-                        size: 35,
+                        size: 36,
                       ),
                     ),
-                    if (progress < .45)
-                      Positioned(
-                        top: 8 + stage(0, .45) * 60,
-                        left: 0,
-                        right: 0,
-                        child: Container(height: 2, color: brandRed),
+                    Positioned(
+                      top: 8 + stage(0, .45) * 54,
+                      left: 8,
+                      right: 8,
+                      child: Container(
+                        height: 2,
+                        decoration: BoxDecoration(
+                          color: brandRed,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
                       ),
+                    ),
+                    Positioned(
+                      right: 3,
+                      bottom: 3,
+                      child: Container(
+                        width: 23,
+                        height: 23,
+                        decoration: const BoxDecoration(
+                          color: brandRed,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.camera_alt_outlined,
+                          size: 12,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -567,7 +698,7 @@ class _FeatureScene extends StatelessWidget {
                     const SizedBox(height: 8),
                     title('Rice & dal', size: 18),
                     const SizedBox(height: 4),
-                    label('250 g · example portion'),
+                    label('250 g · sample portion'),
                   ],
                 ),
               ),
@@ -580,70 +711,94 @@ class _FeatureScene extends StatelessWidget {
         child: reveal(
           .3,
           card(
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(
-                  width: 83,
-                  height: 83,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox.expand(
-                        child: CircularProgressIndicator(
-                          value: stage(.3, .45) * .7,
-                          color: brandRed,
-                          backgroundColor: stitchBlue,
-                          strokeWidth: 6,
-                        ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: label(
+                        'ESTIMATED NUTRIENTS',
+                        color: brandRed,
+                        size: 8,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: FittedBox(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              title(
-                                '≈ ${(stage(.3, .4) * 420 / 10).round() * 10}',
-                                size: 23,
-                              ),
-                              label('KCAL · ESTIMATE', size: 7),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    const Icon(Icons.edit_outlined, color: muted, size: 13),
+                    const SizedBox(width: 3),
+                    label('Review', size: 8),
+                  ],
                 ),
-                const SizedBox(width: 18),
+                const SizedBox(height: 12),
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Row(
                     children: [
-                      for (final macro in [
-                        ('Protein', '14 g'),
-                        ('Carbs', '68 g'),
-                        ('Fats', '10 g'),
-                      ])
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(child: label(macro.$1, color: ink)),
-                                  label(macro.$2),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                              LinearProgressIndicator(
-                                value: stage(.4, .4) * .55,
+                      SizedBox(
+                        width: 83,
+                        height: 83,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            SizedBox.expand(
+                              child: CircularProgressIndicator(
+                                value: stage(.3, .45) * .7,
                                 color: brandRed,
                                 backgroundColor: stitchBlue,
-                                minHeight: 3,
+                                strokeWidth: 6,
                               ),
-                            ],
-                          ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: FittedBox(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    title(
+                                      '≈ ${(stage(.3, .4) * 420 / 10).round() * 10}',
+                                      size: 23,
+                                    ),
+                                    label('KCAL · ESTIMATE', size: 7),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
+                      ),
+                      const SizedBox(width: 18),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            for (final macro in [
+                              ('Protein', '14 g'),
+                              ('Carbs', '68 g'),
+                              ('Fats', '10 g'),
+                            ])
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: label(macro.$1, color: ink),
+                                        ),
+                                        label(macro.$2),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 4),
+                                    LinearProgressIndicator(
+                                      value: stage(.4, .4) * .55,
+                                      color: brandRed,
+                                      backgroundColor: stitchBlue,
+                                      minHeight: 3,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -669,76 +824,121 @@ class _FeatureScene extends StatelessWidget {
   Widget _habits() => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      reveal(
-        0,
-        card(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Expanded(child: title('Small wins, every day')),
-                  label(
-                    '${(stage(.15, .55) * 5).round()} / 7',
-                    color: brandRed,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: List.generate(7, (i) {
-                  final checked = i < 5 && stage(.12 + i * .08, .15) > .5;
-                  return Expanded(
-                    child: Column(
-                      children: [
-                        label(['M', 'T', 'W', 'T', 'F', 'S', 'S'][i], size: 8),
-                        const SizedBox(height: 5),
-                        AnimatedContainer(
-                          duration: Duration.zero,
-                          width: 27,
-                          height: 27,
-                          decoration: BoxDecoration(
-                            color: checked ? brandRed : stitchBlue,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: checked
-                              ? const Icon(
-                                  Icons.check_rounded,
-                                  color: Colors.white,
-                                  size: 17,
-                                )
-                              : null,
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ),
-            ],
-          ),
-        ),
-      ),
-      const SizedBox(height: 10),
       Expanded(
+        flex: 6,
         child: reveal(
-          .28,
+          0,
           card(
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
                   children: [
-                    Expanded(child: label('WEIGHT TREND · EXAMPLE', size: 8)),
-                    title('74.8 kg', size: 18),
+                    Expanded(
+                      child: title('Your habits, at a glance', size: 15),
+                    ),
+                    label('4 / 7 DAYS', color: brandRed, size: 8),
                   ],
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 4),
+                label('NOVEMBER · WEEK 1', size: 8),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    SizedBox(width: 68, child: label('DAILY HABITS', size: 7)),
+                    ...List.generate(
+                      7,
+                      (i) => Expanded(
+                        child: Center(child: label('${i + 1}', size: 8)),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                for (final row in [
+                  ('Workout', [true, true, false, true, false, false, false]),
+                  ('Walk', [true, false, true, true, false, false, false]),
+                  ('Read', [false, true, true, false, true, false, false]),
+                ]) ...[
+                  Container(height: 1, color: border),
+                  SizedBox(
+                    height: 31,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 68,
+                          child: label(row.$1, color: ink, size: 8),
+                        ),
+                        ...List.generate(7, (i) {
+                          final checked =
+                              row.$2[i] && stage(.12 + i * .045, .22) > .5;
+                          return Expanded(
+                            child: Center(
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 160),
+                                width: 17,
+                                height: 17,
+                                decoration: BoxDecoration(
+                                  color: checked ? brandRed : stitchBlue,
+                                  border: Border.all(
+                                    color: checked ? brandRed : border,
+                                  ),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: checked
+                                    ? const Icon(
+                                        Icons.check_rounded,
+                                        size: 12,
+                                        color: Colors.white,
+                                      )
+                                    : null,
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(height: 9),
+      Expanded(
+        flex: 4,
+        child: reveal(
+          .3,
+          card(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: label(
+                        'BODY PROGRESS · EXAMPLE',
+                        color: brandRed,
+                        size: 8,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.photo_library_outlined,
+                      color: ink,
+                      size: 14,
+                    ),
+                    const SizedBox(width: 4),
+                    label('Compare dates', size: 8),
+                  ],
+                ),
+                const SizedBox(height: 9),
                 Expanded(
                   child: CustomPaint(
-                    painter: _TrendPainter(progress: stage(.35, .6)),
+                    painter: _CheckInPainter(progress: stage(.35, .5)),
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 7),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -864,57 +1064,34 @@ class _FeatureScene extends StatelessWidget {
   );
 }
 
-class _TrendPainter extends CustomPainter {
+class _CheckInPainter extends CustomPainter {
   final double progress;
-  const _TrendPainter({required this.progress});
+  const _CheckInPainter({required this.progress});
   @override
   void paint(Canvas canvas, Size size) {
-    for (var i = 1; i < 4; i++) {
-      canvas.drawLine(
-        Offset(0, size.height * i / 4),
-        Offset(size.width, size.height * i / 4),
-        Paint()
-          ..color = border
-          ..strokeWidth = 1,
+    const values = [.42, .7, .54, .83, .62, .9];
+    final gap = size.width * .035;
+    final barWidth = (size.width - gap * (values.length - 1)) / values.length;
+    for (var i = 0; i < values.length; i++) {
+      final reveal = (progress * values.length - i).clamp(0.0, 1.0);
+      final height = size.height * values[i] * reveal;
+      final rect = RRect.fromRectAndRadius(
+        Rect.fromLTWH(
+          i * (barWidth + gap),
+          size.height - height,
+          barWidth,
+          height,
+        ),
+        const Radius.circular(5),
       );
-    }
-    final points = [
-      Offset(0, size.height * .15),
-      Offset(size.width * .2, size.height * .3),
-      Offset(size.width * .4, size.height * .23),
-      Offset(size.width * .6, size.height * .55),
-      Offset(size.width * .8, size.height * .62),
-      Offset(size.width, size.height * .85),
-    ];
-    final path = Path()..moveTo(points.first.dx, points.first.dy);
-    for (final point in points.skip(1)) {
-      path.lineTo(point.dx, point.dy);
-    }
-    final metric = path.computeMetrics().first;
-    final visible = metric.extractPath(0, metric.length * progress);
-    if (progress > 0) {
-      final last = metric
-          .getTangentForOffset(metric.length * progress)!
-          .position;
-      final area = Path.from(visible)
-        ..lineTo(last.dx, size.height)
-        ..lineTo(0, size.height)
-        ..close();
-      canvas.drawPath(area, Paint()..color = softRed);
-      canvas.drawPath(
-        visible,
-        Paint()
-          ..color = brandRed
-          ..strokeWidth = 3
-          ..strokeCap = StrokeCap.round
-          ..strokeJoin = StrokeJoin.round
-          ..style = PaintingStyle.stroke,
+      canvas.drawRRect(
+        rect,
+        Paint()..color = i == values.length - 1 ? brandRed : stitchBlue,
       );
-      canvas.drawCircle(last, 4, Paint()..color = brandRed);
     }
   }
 
   @override
-  bool shouldRepaint(covariant _TrendPainter oldDelegate) =>
+  bool shouldRepaint(covariant _CheckInPainter oldDelegate) =>
       progress != oldDelegate.progress;
 }

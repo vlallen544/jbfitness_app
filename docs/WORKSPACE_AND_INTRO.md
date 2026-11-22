@@ -2,16 +2,16 @@
 
 The staff dashboard uses a dark navigation rail, white workspace, red active controls, a coaching overview and four record-based metrics. The workload ring reflects reviews currently loaded; empty records do not create invented results. Customer assignment, trainer-only reviews, sharing consent and explicit workout publication retain their existing behavior. Dashboard entry transitions honor reduced-motion settings.
 
-## Current mobile walkthrough — 0.1.3
+## Current mobile walkthrough — 0.1.4
 
 The original timed athlete splash was replaced with four feature explanations:
 
-1. **Your training:** preferences become a routine; exercise cards appear with sets, reps and durations.
-2. **Your meals:** a meal preview transitions into estimated calories/macros, with a reminder to review portions before saving.
-3. **Habits and progress:** weekday checks fill and a sample weight chart draws over time.
-4. **Coaching support:** an example conversation introduces fitness questions, trainer feedback and membership-dependent sessions.
+1. **Today:** a miniature Stitch-style dashboard shows the weekly strip, workout, exercise examples and quick actions.
+2. **Snap Food:** a photo/text meal example transitions into estimated calories and nutrients, followed by portion review before saving.
+3. **Habits and body progress:** a monthly check-in grid and sample progress-history chart introduce habit tracking and date comparisons.
+4. **AI coach and trainer support:** an example conversation introduces fitness questions, trainer feedback and membership-dependent sessions.
 
-Every scene is labelled **Feature preview · example data**. The food numbers and weight trend are examples, not estimates made from a real upload or promised health results. No backend request or AI call is made by the walkthrough.
+Every scene is labelled **Feature preview · example data**. Food values and check-ins are static examples, not estimates from a real upload or promised health results. No backend request or AI call is made by the walkthrough.
 
 Pages advance only when the customer taps **Next** or swipes. **Back** revisits the previous explanation. **Skip intro** and **Already have an account? Log in** open the account flow immediately; the last page has **Continue to login**. There is no auto-dismiss timer, forced viewing period or automatic page advance. Each scene animates once and then stays visible for reading.
 
@@ -30,6 +30,6 @@ Reduced-motion mode shows the complete scene without movement. Explanatory text 
 - [Customer assignments](previews/staff-assignments.png)
 - [Staff phone layout](previews/staff-mobile-inbox.png)
 
-The scenes use native Flutter widgets and a drawn progress chart, with no video download, new package or paid animation service. Review frames were rendered from the actual widgets with SDK fonts. The previous 0.1.2 splash remains in its historical GitHub release.
+The scenes use native Flutter widgets and a drawn check-in chart, with no video download, new package or paid animation service. Each page animates its sample UI over about 2.8 seconds, then remains available until the customer advances. Reduced-motion settings show the final scene immediately. Review images in this folder may show earlier walkthrough designs.
 
 The current Android demo uses the **connected** entry point and hosted backend. It does not open a sample customer automatically. See [connected demo instructions](CONNECTED_DEMO.md). AI, billing, video and membership activation remain separate features to configure; the walkthrough does not activate them.
